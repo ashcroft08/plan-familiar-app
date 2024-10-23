@@ -40,3 +40,7 @@ $router->get('/identificacion_de_amenazas', function () {
 $router->get('/recursos_familiares_disponibles', function () {
     return view('recursos_familiares_disponibles'); 
 });
+
+$router->get('/matriz_de_estructura_general_vivienda', function () {
+    return view('matriz_de_estructura_general_vivienda'); 
+});

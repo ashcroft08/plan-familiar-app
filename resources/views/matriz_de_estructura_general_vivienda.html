@@ -99,7 +99,7 @@
                                         class="breadcrumb-item active"
                                         aria-current="page"
                                     >
-                                        Recursos familiares disponibles
+                                        Matriz de estructura general de la vivienda
                                     </li>
                                 </ol>
                             </nav>
@@ -112,50 +112,30 @@
 
             <!-- Hoverable rows start -->
             <section class="container">
-                <header>5. Recursos Familiares Disponibles</header>
-                <div class="d-flex justify-content-end mb-6">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1">
-                            <i class="fa-solid fa-plus"></i>
-                        </span>
-                        <button
-                            class="btn btn-success"
-                            data-bs-toggle="modal"
-                            data-bs-target="#crearProyectoModal"
-                        >
-                            Crear nuevo recurso
-                        </button>
-                    </div>
-                </div>
+                <header>7.a Matriz de estructura general de la vivienda</header>
                 <form action="#" class="form">
                     <div class="table-responsive">
                         <table class="table table-bordered" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Descripción</th>
-                                    <th scope="col">Cantidad</th>
-                                    <th scope="col">Ubicación</th>
+                                    <th scope="col">Detalle</th>
+                                    <th scope="col">SI</th>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">Acciones para reducir la vulnerabilidad</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>Jacob</td>
+                                    <td>Construcción sin normas sismo resistentes</th>
+                                    <td><input type="radio" name="si" value="si"></td>
+                                    <td><input type="radio" name="no" value="no"></td>
+                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>Jacob</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry the Bird</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
+                                    <td>Estructura de madera</th>
+                                    <td><input type="radio" name="si" value="si"></td>
+                                    <td><input type="radio" name="no" value="no"></td>
+                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -220,72 +200,6 @@
                             class="btn btn-primary"
                             >Aceptar <i class="fa-solid fa-check"></i
                         ></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Formulario "Crear nueva identificación" -->
-        <div
-            class="modal fade"
-            id="crearProyectoModal"
-            data-bs-backdrop="static"
-            tabindex="-1"
-            aria-labelledby="crearProyectoLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="crearProyectoLabel">
-                            Crear Nuevo Recurso Familiar
-                        </h5>
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        ></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="nuevaIdentificacionForm">
-                            <div class="mb-3">
-                                <label for="descripcion" class="form-label"
-                                    >Descripción</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="descripcion"
-                                    required
-                                />
-                            </div>
-                            <div class="mb-3">
-                                <label for="cantidad" class="form-label"
-                                    >Cantidad</label
-                                >
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    id="cantidad"
-                                    required
-                                />
-                            </div>
-                            <div class="mb-3">
-                                <label for="ubicacion" class="form-label"
-                                    >Ubicación</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="ubicacion"
-                                    required
-                                />
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                Guardar
-                            </button>
-                        </form>
                     </div>
                 </div>
             </div>
