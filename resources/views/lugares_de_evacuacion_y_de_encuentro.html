@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Crear proyecto</title>
+        <!-- Enlazar CSS de Font Awesome localmente -->
+        <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
+        <!-- Enlazar Bootstrap CSS -->
+        <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
+        <!-- Enlazar DataTables CSS -->
+        <link rel="stylesheet" href="/assets/DataTables/datatables.min.css" />
+        <!-- Enlazar CSS -->
+        <link rel="stylesheet" href="/assets/css/forms.css" />
+    </head>
+    <body>
+        <div class="container-fluid">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6"></div>
+                        <!-- /.col -->
+                        <div class="col-md-6">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb float-md-end">
+                                    <li class="breadcrumb-item">
+                                        <a
+                                            href="javascript:void(0)"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop"
+                                            >Inicio</a
+                                        >
+                                        <!-- Modal -->
+                                        <div
+                                            class="modal fade"
+                                            id="staticBackdrop"
+                                            data-bs-backdrop="static"
+                                            data-bs-keyboard="false"
+                                            tabindex="-1"
+                                            aria-labelledby="staticBackdropLabel"
+                                            aria-hidden="true"
+                                        >
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1
+                                                            class="modal-title fs-5"
+                                                            id="staticBackdropLabel"
+                                                        >
+                                                            ¿Seguro que deseas
+                                                            ir al Inicio?
+                                                        </h1>
+                                                        <button
+                                                            type="button"
+                                                            class="btn-close"
+                                                            data-bs-dismiss="modal"
+                                                            aria-label="Close"
+                                                        ></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Si regresas al inicio,
+                                                        se perderán los datos
+                                                        que has ingresado hasta
+                                                        ahora.
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button
+                                                            type="button"
+                                                            class="btn btn-secondary"
+                                                            data-bs-dismiss="modal"
+                                                        >
+                                                            Cancelar
+                                                            <i
+                                                                class="fa-solid fa-ban"
+                                                            ></i>
+                                                        </button>
+                                                        <a
+                                                            href="/"
+                                                            class="btn btn-primary"
+                                                            role="button"
+                                                            >Aceptar
+                                                            <i
+                                                                class="fa-solid fa-check"
+                                                            ></i
+                                                        ></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li
+                                        class="breadcrumb-item active"
+                                        aria-current="page"
+                                    >
+                                        Creación de Plan
+                                    </li>
+                                    <li
+                                        class="breadcrumb-item active"
+                                        aria-current="page"
+                                    >
+                                        Lugares de Evacuación y Encuentro
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+
+            <!-- Hoverable rows start -->
+            <section class="container">
+                <header>2. Lugares de Evacuación y Encuentro</header>
+                <form action="#" class="form">
+                    <div class="row">
+                        <h5>Punto de reunión en caso de:</h5>
+                        <div class="col-md-6 col-12 mb-3">
+                            <div class="form-group">
+                                <label
+                                    for="inundacion"
+                                    style="font-weight: bold"
+                                    >Inundación</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="inundacion"
+                                    id="inundacion"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div class="form-group">
+                                <label for="sismo" style="font-weight: bold"
+                                    >Sismo</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="sismo"
+                                    id="sismo"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12 mb-3">
+                            <div class="form-group">
+                                <label for="incendio" style="font-weight: bold"
+                                    >Incendio</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="incendio"
+                                    id="incendio"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <div class="form-group">
+                                <label for="rutaEvac" style="font-weight: bold"
+                                    >Ruta de evacuación</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="rutaEvac"
+                                    id="rutaEvac"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12 mb-5">
+                            <div class="form-group">
+                                <label for="telfsFam" style="font-weight: bold"
+                                    >Números telefónicos de Familiares</label
+                                >
+                                <textarea
+                                    class="form-control"
+                                    id="telfsFam"
+                                    name="telfsFam"
+                                    rows="5"
+                                    required
+                                ></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row botonsform">
+                        <div class="col">
+                            <!-- Botón para abrir el modal de "Regresar" -->
+                            <a
+                                href="javascript:void(0)"
+                                data-bs-toggle="modal"
+                                data-bs-target="#regresarModal"
+                                class="btn btn-secondary"
+                                >Regresar <i class="fa-solid fa-rotate-left"></i
+                            ></a>
+                            <a
+                                href="/integrantes_de_la_familia"
+                                class="btn btn-success"
+                                >Siguiente
+                                <i class="fa-solid fa-arrow-right"></i
+                            ></a>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <!-- Modal para el botón "Regresar" -->
+        <div
+            class="modal fade"
+            id="regresarModal"
+            tabindex="-1"
+            aria-labelledby="regresarModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="regresarModalLabel">
+                            ¿Seguro que deseas regresar?
+                        </h1>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        Si regresas, se perderán los datos que has ingresado
+                        hasta ahora.
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+                            Cancelar <i class="fa-solid fa-ban"></i>
+                        </button>
+                        <a
+                            href="/informacion_general"
+                            class="btn btn-primary"
+                            >Aceptar <i class="fa-solid fa-check"></i
+                        ></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enlazar jQuery localmente -->
+        <script src="/js/jquery-3.7.1.min.js"></script>
+        <!-- Enlazar Bootstrap JS -->
+        <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
