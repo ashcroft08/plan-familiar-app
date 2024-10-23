@@ -44,3 +44,23 @@ $router->get('/recursos_familiares_disponibles', function () {
 $router->get('/matriz_de_estructura_general_vivienda', function () {
     return view('matriz_de_estructura_general_vivienda'); 
 });
+
+$router->get('/comedor', function () {
+    return view('comedor'); 
+});
+
+$router->get('/sala', function () {
+    return view('sala'); 
+});
+
+$router->get('/dormitorio', function () {
+    return view('dormitorio'); 
+});
+
+$router->get('/bano', function () {
+    return view('bano'); 
+});
+
+$router->get('/cocina', function () {
+    return view('cocina'); 
+});
