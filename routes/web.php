@@ -41,6 +41,18 @@ $router->get('/recursos_familiares_disponibles', function () {
     return view('recursos_familiares_disponibles'); 
 });
 
+$router->get('/plan_accion_reduccion', function () {
+    return view('plan_accion_reduccion'); 
+});
+
+$router->get('/plan_accion_respuesta', function () {
+    return view('plan_accion_respuesta'); 
+});
+
+$router->get('//plan_accion_recuperacion', function () {
+    return view('/plan_accion_recuperacion'); 
+});
+
 $router->get('/matriz_de_estructura_general_vivienda', function () {
     return view('matriz_de_estructura_general_vivienda'); 
 });
@@ -63,4 +75,12 @@ $router->get('/bano', function () {
 
 $router->get('/cocina', function () {
     return view('cocina'); 
+});
+
+$router->get('/resumen_vulnerabilidad_vivienda', function () {
+    return view('resumen_vulnerabilidad_vivienda'); 
+});
+
+$router->get('/grafico_vivienda', function () {
+    return view('grafico_vivienda'); 
 });

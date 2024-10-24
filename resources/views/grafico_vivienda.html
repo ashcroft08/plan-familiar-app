@@ -99,7 +99,7 @@
                                         class="breadcrumb-item active"
                                         aria-current="page"
                                     >
-                                        Cocina
+                                        Gráfico de la vivienda
                                     </li>
                                 </ol>
                             </nav>
@@ -112,95 +112,12 @@
 
             <!-- Hoverable rows start -->
             <section class="container">
-                <header>7.f Cocina</header>
+                <header>9. Gráfico de la vivienda</header>
                 <form action="#" class="form">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" style="width: 100%">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Detalle</th>
-                                    <th scope="col">SI</th>
-                                    <th scope="col">NO</th>
-                                    <th scope="col">Acciones para reducir la vulnerabilidad</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Humedad en muros</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Cables eléctricos expuestos</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Estanterías o muebles sin sujetar</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Objetos colgantes que puedan caerse: lamparas, ventiladores</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Vidrios y cristales que pueden romperse</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Filtraciones de agua</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Combustibles líquidos</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Electrodomésticos defectuosos</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-
-                                <tr>
-                                    <td>Obstáculos en las vías de evacuación</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Piso resbaloso</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Tanques de gas con válvula defectuosa</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Anaqueles de la cocina mal asegurados</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="inputGroupFile02">
+                        <label class="input-group-text" for="inputGroupFile02">Cargar</label>
+                      </div>
                     <div class="row botonsform">
                         <div class="col">
                             <!-- Botón para abrir el modal de "Regresar" -->
@@ -211,12 +128,9 @@
                                 class="btn btn-secondary"
                                 >Regresar <i class="fa-solid fa-rotate-left"></i
                             ></a>
-                            <a
-                                href="/resumen_vulnerabilidad_vivienda"
-                                class="btn btn-success"
-                                >Siguiente
-                                <i class="fa-solid fa-arrow-right"></i
-                            ></a>
+                            <a href="/" class="btn btn-danger"
+                                >Finalizar
+                                <i class="fas fa-sign-out-alt"></i></a>
                         </div>
                     </div>
                 </form>
@@ -256,9 +170,7 @@
                         >
                             Cancelar <i class="fa-solid fa-ban"></i>
                         </button>
-                        <a
-                            href="/bano"
-                            class="btn btn-primary"
+                        <a href="/comedor" class="btn btn-primary"
                             >Aceptar <i class="fa-solid fa-check"></i
                         ></a>
                     </div>
