@@ -253,16 +253,55 @@
                     </div>
                     <div class="modal-body">
                         <form id="nuevaIdentificacionForm">
+                            <!-- Primer select para el tipo de amenaza -->
                             <div class="mb-3">
-                                <label for="amenaza" class="form-label"
-                                    >Amenaza</label
+                                <label for="tipoAmenaza" class="form-label"
+                                    >Tipo de Amenaza</label
                                 >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="amenaza"
-                                    required
-                                />
+                                <select id="tipoAmenaza" class="form-select">
+                                    <option value="" selected>
+                                        Selecciona el tipo de amenaza
+                                    </option>
+                                    <option value="naturales">Naturales</option>
+                                    <option value="antropicas">
+                                        Antrópicas
+                                    </option>
+                                    <option value="sociales">Sociales</option>
+                                </select>
+                            </div>
+
+                            <!-- Segundo select que se desbloquea según la opción seleccionada -->
+                            <div class="mb-3">
+                                <label for="subAmenaza" class="form-label"
+                                    >Subcategoría de Amenaza</label
+                                >
+                                <select
+                                    id="subAmenaza"
+                                    class="form-select"
+                                    disabled
+                                >
+                                    <option value="" selected>
+                                        Selecciona una subcategoría
+                                    </option>
+                                </select>
+                            </div>
+
+                            <!-- Tercer select para elegir la amenaza específica -->
+                            <div class="mb-3">
+                                <label
+                                    for="amenazaEspecifica"
+                                    class="form-label"
+                                    >Amenaza Específica</label
+                                >
+                                <select
+                                    id="amenazaEspecifica"
+                                    class="form-select"
+                                    disabled
+                                >
+                                    <option value="" selected>
+                                        Selecciona una amenaza específica
+                                    </option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="efecto" class="form-label"
@@ -318,5 +357,7 @@
                 $("#crearProyectoModal").modal("hide");
             });
         </script>
+
+        <script src="/assets/js/amenazas.js"></script>
     </body>
 </html>
