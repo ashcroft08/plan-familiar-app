@@ -112,7 +112,7 @@
 
             <!-- Hoverable rows start -->
             <section class="container">
-                <header>5. Recursos Familiares Disponibles</header>
+                <header>5. Recursos personales disponibles para la persona con discapacidad (PCD)</header>
                 <div class="d-flex justify-content-end mb-6">
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1">
@@ -136,6 +136,7 @@
                                     <th scope="col">Descripción</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Ubicación</th>
+                                    <th scope="col">Para hacer uso del recurso</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -144,18 +145,21 @@
                                     <td>Mark</td>
                                     <td>Otto</td>
                                     <td>Jacob</td>
+                                    <td>Requiere de apoyo</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
                                     <td>Jacob</td>
                                     <td>Thornton</td>
                                     <td>Jacob</td>
+                                    <td>Requiere de apoyo</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
                                     <td>Larry the Bird</td>
                                     <td>Jacob</td>
                                     <td>Thornton</td>
+                                    <td>Requiere de apoyo</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -281,6 +285,22 @@
                                     id="ubicacion"
                                     required
                                 />
+                            </div>
+                            <div class="mb-3">
+                                <label for="pcd" class="form-label"
+                                    >Para hacer uso del recurso</label
+                                >
+                                <select class="form-select" id="pcd" required>
+                                    <option value="" disabled selected>
+                                        Seleccione una discapacidad
+                                    </option>
+                                    <option value="requiereApoyo">
+                                        Requiere de apoyo
+                                    </option>
+                                    <option value="noRequiereApoyo">
+                                        No requiere de apoyo
+                                    </option>
+                                </select>
                             </div>
                             <button type="submit" class="btn btn-primary">
                                 Guardar

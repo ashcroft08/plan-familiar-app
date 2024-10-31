@@ -49,8 +49,16 @@ $router->get('/plan_accion_respuesta', function () {
     return view('plan_accion_respuesta'); 
 });
 
-$router->get('//plan_accion_recuperacion', function () {
+$router->get('/plan_accion_recuperacion', function () {
     return view('/plan_accion_recuperacion'); 
+});
+
+$router->get('/numeros_emergencia', function () {
+    return view('/numeros_emergencia'); 
+});
+
+$router->get('/mi_mascota', function () {
+    return view('/mi_mascota'); 
 });
 
 $router->get('/matriz_de_estructura_general_vivienda', function () {

@@ -142,6 +142,12 @@
                                     <th scope="col">
                                         Frecuencia de necesidades especiales
                                     </th>
+                                    <th scope="col">
+                                        Cuenta con carnet de discapacidad 
+                                    </th>
+                                    <th scope="col">
+                                        Pertenece a algún proyecto (MIES o Fundación)
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -154,6 +160,8 @@
                                     <td>Thornton</td>
                                     <td>Jacob</td>
                                     <td>Thornton</td>
+                                    <td>Sí</td>
+                                    <td>No</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
@@ -164,6 +172,8 @@
                                     <td>Thornton</td>
                                     <td>Jacob</td>
                                     <td>Thornton</td>
+                                    <td>Sí</td>
+                                    <td>No</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
@@ -173,6 +183,9 @@
                                     <td>Thornton</td>
                                     <td>Jacob</td>
                                     <td>Thornton</td>
+                                    <td>Thornton</td>
+                                    <td>Sí</td>
+                                    <td>No</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -324,14 +337,18 @@
                                 <label for="sexo" class="form-label"
                                     >Sexo</label
                                 >
-                                <select class="form-select" id="sexo" required>
-                                    <option value="" disabled selected>
-                                        Seleccione una opción
-                                    </option>
-                                    <option value="Masculino">Masculino</option>
-                                    <option value="Femenino">Femenino</option>
-                                    <option value="Otro">Otro</option>
-                                </select>
+                                <div>
+                                    <input type="radio" id="Masculino" name="carnet" value="Masculino" required />
+                                    <label for="Masculino" class="form-check-label">Sí</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="Femenino" name="carnet" value="Femenino" required />
+                                    <label for="Femenino" class="form-check-label">Femenino</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="Otro" name="carnet" value="Otro" required />
+                                    <label for="Otro" class="form-check-label">Otro</label>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="parentesco" class="form-label"
@@ -359,7 +376,8 @@
                                 <label
                                     for="frecuenciaNecesidades"
                                     class="form-label"
-                                    >Frecuencia de Necesidades Especiales (Especifique)</label
+                                    >Frecuencia de Necesidades Especiales
+                                    (Especifique)</label
                                 >
                                 <input
                                     type="text"
@@ -367,6 +385,72 @@
                                     id="frecuenciaNecesidades"
                                     required
                                 />
+                            </div>
+                            <div class="mb-3">
+                                <label for="carnet" class="form-label"
+                                    >Cuenta con carnet de discapacidad</label
+                                >
+                                <div>
+                                    <input
+                                        type="radio"
+                                        id="carnetSi"
+                                        name="carnet"
+                                        value="Si"
+                                        required
+                                    />
+                                    <label
+                                        for="carnetSi"
+                                        class="form-check-label"
+                                        >Sí</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="radio"
+                                        id="carnetNo"
+                                        name="carnet"
+                                        value="No"
+                                        required
+                                    />
+                                    <label
+                                        for="carnetNo"
+                                        class="form-check-label"
+                                        >No</label
+                                    >
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="carnet" class="form-label"
+                                    >Pertenece a algún proyecto (MIES o Fundación)</label
+                                >
+                                <div>
+                                    <input
+                                        type="radio"
+                                        id="carnetSi"
+                                        name="carnet"
+                                        value="Si"
+                                        required
+                                    />
+                                    <label
+                                        for="carnetSi"
+                                        class="form-check-label"
+                                        >Sí</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="radio"
+                                        id="carnetNo"
+                                        name="carnet"
+                                        value="No"
+                                        required
+                                    />
+                                    <label
+                                        for="carnetNo"
+                                        class="form-check-label"
+                                        >No</label
+                                    >
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary">
                                 Guardar

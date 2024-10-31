@@ -118,7 +118,7 @@
                         <div class="col-md-6 col-12 mb-3">
                             <div class="form-group">
                                 <label for="nombreFam" style="font-weight: bold"
-                                    >Nombre de la familia</label
+                                    >Nombre de la familia acogiente</label
                                 >
                                 <input
                                     type="text"
@@ -131,7 +131,9 @@
                         </div>
                         <div class="col-md-6 col-12">
                             <div class="form-group">
-                                <label for="direccionFam" style="font-weight: bold"
+                                <label
+                                    for="direccionFam"
+                                    style="font-weight: bold"
                                     >Dirección del domicilio</label
                                 >
                                 <input
@@ -146,7 +148,7 @@
                         <div class="col-md-6 col-12 mb-3">
                             <div class="form-group">
                                 <label for="telFam" style="font-weight: bold"
-                                    >Teléfono</label
+                                    >Número de teléfono familia acogiente</label
                                 >
                                 <input
                                     type="text"
@@ -188,36 +190,30 @@
                         <div class="col-md-6 col-12">
                             <div class="form-group">
                                 <label for="barrio" style="font-weight: bold"
-                                    >Barrio</label
+                                    >Seleccione una opción:</label
                                 >
+                                <select
+                                    class="form-control mb-2"
+                                    id="selectOption"
+                                    style="font-weight: bold"
+                                    onchange="updatePlaceholder()"
+                                >
+                                    <option value="comunidad">Comunidad</option>
+                                    <option value="barrio">Barrio</option>
+                                    <option value="recinto">Recinto</option>
+                                </select>
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control mb-3"
                                     name="barrio"
                                     id="barrio"
                                     required
                                 />
                             </div>
                         </div>
-                        <div class="col-md-6 col-12 mb-3">
-                            <div class="form-group">
-                                <label for="recinto" style="font-weight: bold"
-                                    >Recinto</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    name="recinto"
-                                    id="recinto"
-                                    required
-                                />
-                            </div>
-                        </div>
                         <div class="col-md-6 col-12 mb-5">
                             <div class="form-group">
-                                <label
-                                    for="numCasa"
-                                    style="font-weight: bold"
+                                <label for="numCasa" style="font-weight: bold"
                                     >Número de casa</label
                                 >
                                 <input
@@ -255,5 +251,18 @@
         <script src="/js/jquery-3.7.1.min.js"></script>
         <!-- Enlazar Bootstrap JS -->
         <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- JavaScript to update the placeholder -->
+        <script>
+            function updatePlaceholder() {
+                var selectOption = document.getElementById("selectOption");
+                var inputField = document.getElementById("barrio");
+                inputField.placeholder =
+                    "Escriba " +
+                    selectOption.options[
+                        selectOption.selectedIndex
+                    ].text.toLowerCase();
+            }
+        </script>
     </body>
 </html>

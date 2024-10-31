@@ -77,3 +77,23 @@ document.getElementById('subAmenaza').addEventListener('change', function () {
         amenazaEspecifica.disabled = false;
     }
 });
+
+document.getElementById("guardarAmenazaBtn").addEventListener("click", function() {
+    const amenazaEspecificaSelect = document.getElementById("amenazaEspecifica");
+    const amenazaSeleccionada = amenazaEspecificaSelect.options[amenazaEspecificaSelect.selectedIndex].text;
+
+    if (amenazaCount < maxAmenazas && amenazaSeleccionada) {
+        const amenazaList = document.getElementById("amenazaList");
+        const newAmenaza = document.createElement("li");
+        newAmenaza.classList.add("list-group-item");
+        newAmenaza.textContent = amenazaSeleccionada;
+        amenazaList.appendChild(newAmenaza);
+
+        amenazaCount++;
+        $('#amenazaModal').modal('hide');
+
+        if (amenazaCount >= maxAmenazas) {
+            document.getElementById("agregarAmenazaBtn").disabled = true;
+        }
+    }
+});

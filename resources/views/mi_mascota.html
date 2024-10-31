@@ -99,7 +99,7 @@
                                         class="breadcrumb-item active"
                                         aria-current="page"
                                     >
-                                        Comedor
+                                        Plan de acción
                                     </li>
                                 </ol>
                             </nav>
@@ -112,195 +112,55 @@
 
             <!-- Hoverable rows start -->
             <section class="container">
-                <header>9.b Comedor</header>
+                <header>8. Mi mascota</header>
+                <div class="d-flex justify-content-end mb-6">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fa-solid fa-plus"></i>
+                        </span>
+                        <button
+                            class="btn btn-success"
+                            data-bs-toggle="modal"
+                            data-bs-target="#crearProyectoModal"
+                        >
+                            Agregar una mascota
+                        </button>
+                    </div>
+                </div>
                 <form action="#" class="form">
                     <div class="table-responsive">
                         <table class="table table-bordered" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th scope="col">Detalle</th>
-                                    <th scope="col">SI</th>
-                                    <th scope="col">NO</th>
-                                    <th scope="col">
-                                        Acciones para reducir la vulnerabilidad
+                                    <th rowspan="2">Nombre del animal</th>
+                                    <th rowspan="2">Especie</th>
+                                    <th rowspan="2">Raza</th>
+                                    <th colspan="1" class="text-center">
+                                        Carnet de Vacunación
                                     </th>
+                                </tr>
+                                <tr>
+                                    <th>Esterilizado</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Humedad en muros</td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>Jacob</td>
+                                    <td>Si</td>
                                 </tr>
                                 <tr>
-                                    <td>Cables eléctricos expuestos</td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>Jacob</td>
+                                    <td>No</td>
                                 </tr>
                                 <tr>
-                                    <td>Estanterías o muebles sin sujetar</td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Objetos colgantes que puedan caerse:
-                                        lamparas, ventiladores
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Vidrios y cristales que pueden romperse
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Obstáculos en las vías de evacuación
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Piso resbaloso</td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
+                                    <td>Larry the Bird</td>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>Si</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -315,7 +175,9 @@
                                 class="btn btn-secondary"
                                 >Regresar <i class="fa-solid fa-rotate-left"></i
                             ></a>
-                            <a href="/sala" class="btn btn-success"
+                            <a
+                                href="/matriz_de_estructura_general_vivienda"
+                                class="btn btn-success"
                                 >Siguiente
                                 <i class="fa-solid fa-arrow-right"></i
                             ></a>
@@ -359,10 +221,109 @@
                             Cancelar <i class="fa-solid fa-ban"></i>
                         </button>
                         <a
-                            href="/matriz_de_estructura_general_vivienda"
+                            href="/numeros_emergencia"
                             class="btn btn-primary"
                             >Aceptar <i class="fa-solid fa-check"></i
                         ></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Formulario "Crear nueva mascota" -->
+        <div
+            class="modal fade"
+            id="crearProyectoModal"
+            data-bs-backdrop="static"
+            tabindex="-1"
+            aria-labelledby="crearProyectoLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="crearProyectoLabel">
+                            Agregar Nueva Mascota
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="nuevoRegistroForm">
+                            <div class="mb-3">
+                                <label for="nombreAnimal" class="form-label"
+                                    >Nombre del Animal</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="nombreAnimal"
+                                    required
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="especie" class="form-label"
+                                    >Especie</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="especie"
+                                    required
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="raza" class="form-label"
+                                    >Raza</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="raza"
+                                    required
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="esterilizado" class="form-label"
+                                    >Esterilizado</label
+                                >
+                                <div>
+                                    <input
+                                        type="radio"
+                                        id="carnetSi"
+                                        name="carnet"
+                                        value="Si"
+                                        required
+                                    />
+                                    <label
+                                        for="carnetSi"
+                                        class="form-check-label"
+                                        >Sí</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="radio"
+                                        id="carnetNo"
+                                        name="carnet"
+                                        value="No"
+                                        required
+                                    />
+                                    <label
+                                        for="carnetNo"
+                                        class="form-check-label"
+                                        >No</label
+                                    >
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                Guardar
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
