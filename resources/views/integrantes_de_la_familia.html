@@ -12,6 +12,12 @@
         <link rel="stylesheet" href="/assets/DataTables/datatables.min.css" />
         <!-- Enlazar CSS -->
         <link rel="stylesheet" href="/assets/css/forms.css" />
+        <style>
+            .container {
+                max-width: 1600px;
+                width: 100%;
+            }
+        </style>
     </head>
     <body>
         <div class="container-fluid">
@@ -143,11 +149,20 @@
                                         Frecuencia de necesidades especiales
                                     </th>
                                     <th scope="col">
-                                        Cuenta con carnet de discapacidad 
+                                        Cuenta con carnet de discapacidad
                                     </th>
                                     <th scope="col">
-                                        Pertenece a algún proyecto (MIES o Fundación)
+                                        Pertenece a algún proyecto (MIES o
+                                        Fundación)
                                     </th>
+                                    <th scope="col">
+                                        Acciones y Responsabilidades
+                                    </th>
+                                    <th scope="col">
+                                        Medicamentos prescritos por el médico
+                                    </th>
+                                    <th scope="col">Dosis:</th>
+                                    <th scope="col">Observaciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -162,6 +177,30 @@
                                     <td>Thornton</td>
                                     <td>Sí</td>
                                     <td>No</td>
+                                    <td>
+                                        Cras sagittis. Sed aliquam ultrices
+                                        mauris. Donec mollis hendrerit risus.
+                                        Duis arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis.
+                                    </td>
+                                    <td>
+                                        Cras sagittis. Sed aliquam ultrices
+                                        mauris. Donec mollis hendrerit risus.
+                                        Duis arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis.
+                                    </td>
+                                    <td>
+                                        Cras sagittis. Sed aliquam ultrices
+                                        mauris. Donec mollis hendrerit risus.
+                                        Duis arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis.
+                                    </td>
+                                    <td>
+                                        Cras sagittis. Sed aliquam ultrices
+                                        mauris. Donec mollis hendrerit risus.
+                                        Duis arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis.
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
@@ -174,6 +213,30 @@
                                     <td>Thornton</td>
                                     <td>Sí</td>
                                     <td>No</td>
+                                    <td>
+                                        Cras sagittis. Sed aliquam ultrices
+                                        mauris. Donec mollis hendrerit risus.
+                                        Duis arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis.
+                                    </td>
+                                    <td>
+                                        Cras sagittis. Sed aliquam ultrices
+                                        mauris. Donec mollis hendrerit risus.
+                                        Duis arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis.
+                                    </td>
+                                    <td>
+                                        Cras sagittis. Sed aliquam ultrices
+                                        mauris. Donec mollis hendrerit risus.
+                                        Duis arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis.
+                                    </td>
+                                    <td>
+                                        Cras sagittis. Sed aliquam ultrices
+                                        mauris. Donec mollis hendrerit risus.
+                                        Duis arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis.
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
@@ -186,6 +249,30 @@
                                     <td>Thornton</td>
                                     <td>Sí</td>
                                     <td>No</td>
+                                    <td>
+                                        Cras sagittis. Sed aliquam ultrices
+                                        mauris. Donec mollis hendrerit risus.
+                                        Duis arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis.
+                                    </td>
+                                    <td>
+                                        Cras sagittis. Sed aliquam ultrices
+                                        mauris. Donec mollis hendrerit risus.
+                                        Duis arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis.
+                                    </td>
+                                    <td>
+                                        Cras sagittis. Sed aliquam ultrices
+                                        mauris. Donec mollis hendrerit risus.
+                                        Duis arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis.
+                                    </td>
+                                    <td>
+                                        Cras sagittis. Sed aliquam ultrices
+                                        mauris. Donec mollis hendrerit risus.
+                                        Duis arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis.
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -338,16 +425,44 @@
                                     >Sexo</label
                                 >
                                 <div>
-                                    <input type="radio" id="Masculino" name="carnet" value="Masculino" required />
-                                    <label for="Masculino" class="form-check-label">Sí</label>
+                                    <input
+                                        type="radio"
+                                        id="Masculino"
+                                        name="carnet"
+                                        value="Masculino"
+                                        required
+                                    />
+                                    <label
+                                        for="Masculino"
+                                        class="form-check-label"
+                                        >Sí</label
+                                    >
                                 </div>
                                 <div>
-                                    <input type="radio" id="Femenino" name="carnet" value="Femenino" required />
-                                    <label for="Femenino" class="form-check-label">Femenino</label>
+                                    <input
+                                        type="radio"
+                                        id="Femenino"
+                                        name="carnet"
+                                        value="Femenino"
+                                        required
+                                    />
+                                    <label
+                                        for="Femenino"
+                                        class="form-check-label"
+                                        >Femenino</label
+                                    >
                                 </div>
                                 <div>
-                                    <input type="radio" id="Otro" name="carnet" value="Otro" required />
-                                    <label for="Otro" class="form-check-label">Otro</label>
+                                    <input
+                                        type="radio"
+                                        id="Otro"
+                                        name="carnet"
+                                        value="Otro"
+                                        required
+                                    />
+                                    <label for="Otro" class="form-check-label"
+                                        >Otro</label
+                                    >
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -421,7 +536,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="carnet" class="form-label"
-                                    >Pertenece a algún proyecto (MIES o Fundación)</label
+                                    >Pertenece a algún proyecto (MIES o
+                                    Fundación)</label
                                 >
                                 <div>
                                     <input
@@ -451,6 +567,56 @@
                                         >No</label
                                     >
                                 </div>
+                            </div>
+                            <!-- Agregando los nuevos campos solicitados -->
+                            <div class="mb-3">
+                                <label
+                                    for="accionesResponsabilidades"
+                                    class="form-label"
+                                    >Acciones y Responsabilidades</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="accionesResponsabilidades"
+                                    required
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label
+                                    for="medicamentosPrescritos"
+                                    class="form-label"
+                                    >Medicamentos prescritos por el
+                                    médico</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="medicamentosPrescritos"
+                                    required
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="dosis" class="form-label"
+                                    >Dosis</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="dosis"
+                                    required
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="observaciones" class="form-label"
+                                    >Observaciones</label
+                                >
+                                <textarea
+                                    class="form-control"
+                                    id="observaciones"
+                                    rows="3"
+                                    required
+                                ></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">
                                 Guardar
