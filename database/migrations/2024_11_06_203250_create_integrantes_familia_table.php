@@ -30,9 +30,9 @@ return new class extends Migration
 
             // Definimos la clave foránea
             $table->foreign('cod_familia')
-                  ->references('cod_familia')
-                  ->on('informacion_general')
-                  ->onDelete('cascade'); // Elimina los registros relacionados en cascada
+                ->references('cod_familia')
+                ->on('informacion_general')
+                ->onDelete('cascade'); // Elimina los registros relacionados en cascada
         });
     }
 
