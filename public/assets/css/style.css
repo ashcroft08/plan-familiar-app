@@ -46,3 +46,30 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+
+.title-container {
+    display: flex;
+    align-items: center; /* Alinea las imágenes y el título verticalmente en el centro */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    gap: 10px; /* Espacio entre los elementos */
+}
+
+.title-text {
+    margin: 0; /* Elimina el margen del título para mejor alineación */
+    font-size: 40px; /* Tamaño de texto ajustable */
+    text-align: center;
+}
+
+.logo-sgr {
+    width: 250px; /* Ancho de la imagen SGR */
+    height: 200px;
+    object-fit: contain;
+    margin-right: 20px; 
+}
+
+.logo-espoch {
+    width: 120px; /* Ancho de la imagen ESPOCH */
+    height: 90px;
+    object-fit: contain;
+    margin-left: 20px; /* Empuja la imagen ESPOCH más a la derecha */
+}
