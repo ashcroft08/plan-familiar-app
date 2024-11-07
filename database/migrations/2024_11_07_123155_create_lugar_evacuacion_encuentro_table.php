@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('lugar_evacuacion_encuentro', function (Blueprint $table) {
             $table->id('cod_evacuacion');
             $table->unsignedBigInteger('cod_familia'); // Llave foránea
-            $table->text('puntoReunion');
-            $table->text('rutaEvacuacion');
+            $table->text('punto_reunion');
+            $table->text('ruta_evacuacion');
             $table->timestamps();
 
             // Definimos la clave foránea

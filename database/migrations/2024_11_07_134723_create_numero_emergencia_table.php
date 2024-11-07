@@ -11,10 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('amenaza', function (Blueprint $table) {
-            $table->id('cod_amenaza');
+        Schema::create('numero_emergencia', function (Blueprint $table) {
+            $table->id('cod_numero_emergencia');
             $table->unsignedBigInteger('cod_familia'); // Llave foránea
-            $table->string('amenaza');
+            $table->string('hospital');
+            $table->string('medico_barrio');
+            $table->string('familiar1');
+            $table->string('familiar2');
+            $table->string('familiar3');
+            $table->string('upc');
+            $table->string('bomberos');
             $table->timestamps();
 
             // Definimos la clave foránea
@@ -30,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('amenaza');
+        Schema::dropIfExists('numero_emergencia');
     }
 };

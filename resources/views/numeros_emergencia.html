@@ -125,31 +125,31 @@
                             <tbody>
                                 <tr>
                                     <td>Centro de Salud/Hospital Cercano:</td>
-                                    <td><textarea name="hospitalCercano" id="hospitalCercano" class="form-control"></textarea></td>
+                                    <td><input type="text" name="hospitalCercano" id="hospitalCercano" class="form-control"></td>
                                 </tr>
                                 <tr>
                                     <td>Médico del Barrio:</td>
-                                    <td><textarea name="medicoBarrio" id="medicoBarrio" class="form-control"></textarea></td>
+                                    <td><input type="text" name="medicoBarrio" id="medicoBarrio" class="form-control"></td>
                                 </tr>
                                 <tr>
                                     <td>Familiar #1:</td>
-                                    <td><textarea name="fam1" id="fam1" class="form-control"></textarea></td>
+                                    <td><input type="text" name="fam1" id="fam1" class="form-control"></td>
                                 </tr>
                                 <tr>
                                     <td>Familiar #2:</td>
-                                    <td><textarea name="fam2" id="fam2" class="form-control"></textarea></td>
+                                    <td><input type="text" name="fam2" id="fam2" class="form-control"></td>
                                 </tr>
                                 <tr>
                                     <td>Familiar #3:</td>
-                                    <td><textarea name="fam3" id="fam3" class="form-control"></textarea></td>
+                                    <td><input type="text" name="fam3" id="fam3" class="form-control"></td>
                                 </tr>
                                 <tr>
                                     <td>UPC:</td>
-                                    <td><textarea name="upc" id="upc" class="form-control"></textarea></td>
+                                    <td><input type="text" name="upc" id="upc" class="form-control"></td>
                                 </tr>
                                 <tr>
                                     <td>Bomberos:</td>
-                                    <td><textarea name="bomberos" id="bomberos" class="form-control"></textarea></td>
+                                    <td><input type="text" name="bomberos" id="bomberos" class="form-control"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -212,71 +212,6 @@
                         <a href="/plan_accion_recuperacion" class="btn btn-primary"
                             >Aceptar <i class="fa-solid fa-check"></i
                         ></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Formulario "Crear nuevo recurso" -->
-        <div
-            class="modal fade"
-            id="crearProyectoModal"
-            data-bs-backdrop="static"
-            tabindex="-1"
-            aria-labelledby="crearProyectoLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="crearProyectoLabel">
-                            Crear Nueva Actividad
-                        </h5>
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        ></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="nuevoRegistroForm">
-                            <div class="mb-3">
-                                <label for="actividad" class="form-label"
-                                    >¿Qué hacemos luego de la emergencia?</label
-                                >
-                                <textarea
-                                    name="actividad"
-                                    id="actividad"
-                                    class="form-control"
-                                    rows="3"
-                                ></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="responsable" class="form-label"
-                                    >Responsable</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="responsable"
-                                    required
-                                />
-                            </div>
-                            <div class="mb-3">
-                                <label for="comentarios" class="form-label"
-                                    >Comentarios</label
-                                >
-                                <textarea
-                                    class="form-control"
-                                    id="comentarios"
-                                    rows="3"
-                                ></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                Guardar
-                            </button>
-                        </form>
                     </div>
                 </div>
             </div>

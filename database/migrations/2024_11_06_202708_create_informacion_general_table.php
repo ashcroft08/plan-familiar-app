@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('informacion_general', function (Blueprint $table) {
             $table->id('cod_familia'); // Llave primaria
-            $table->string('familiaAcogiente');
-            $table->string('direccionDomicilio');
-            $table->string('telfamiliaAcogiente');
+            $table->string('familia_acogiente');
+            $table->string('direccion_domicilio');
+            $table->string('telf_familia_acogiente');
             $table->string('provincia');
             $table->string('canton');
-            $table->string('opcionBCR');
-            $table->string('nombreBCR');
-            $table->string('numeroCasa');
+            $table->string('opcion_bcr');
+            $table->string('nombre_bcr');
+            $table->string('numero_casa');
             $table->timestamps();
         });
     }

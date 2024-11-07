@@ -19,10 +19,10 @@ return new class extends Migration
             $table->integer('edad');
             $table->string('parentesco');
             $table->string('cuidador')->nullable();
-            $table->string('frecuenciaNecesidades')->nullable();
-            $table->string('carnet')->nullable();
-            $table->string('proyecto')->nullable();
-            $table->string('accionesResponsabilidades')->nullable();
+            $table->string('frecuencia_necesidades')->nullable();
+            $table->boolean('carnet')->nullable();
+            $table->boolean('proyecto')->nullable();
+            $table->string('acciones_responsabilidades')->nullable();
             $table->string('medicamentos')->nullable();
             $table->string('dosis')->nullable();
             $table->text('observaciones')->nullable();

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('descripcion');
             $table->integer('cantidad');
             $table->string('ubicacion');
-            $table->string('usoRecurso');
+            $table->string('uso_recurso');
             $table->timestamps();
 
             // Definimos la clave foránea
