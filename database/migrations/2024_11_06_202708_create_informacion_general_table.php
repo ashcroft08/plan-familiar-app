@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('provincia');
             $table->string('canton');
             $table->string('opcionBCR');
-            $table->string('eleccionBCR');
+            $table->string('nombreBCR');
             $table->string('numeroCasa');
             $table->timestamps();
         });

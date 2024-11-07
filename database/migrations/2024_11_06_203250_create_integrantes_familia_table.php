@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('cod_integrante');
             $table->unsignedBigInteger('cod_familia'); // Llave foránea
             $table->string('nombres');
-            $table->boolean('pcd'); // Asumo que es un campo booleano (Persona con Discapacidad)
+            $table->string('pcd');
             $table->integer('edad');
             $table->string('parentesco');
             $table->string('cuidador')->nullable();
