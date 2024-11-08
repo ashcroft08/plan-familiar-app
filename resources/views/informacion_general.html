@@ -113,7 +113,7 @@
             <!-- Hoverable rows start -->
             <section class="container">
                 <header>1. Información General</header>
-                <form action="#" class="form">
+                <form id="familiaForm" class="form" method="POST">
                     <div class="row">
                         <div class="col-md-6 col-12 mb-3">
                             <div class="form-group">
@@ -195,6 +195,7 @@
                                 <select
                                     class="form-control mb-2"
                                     id="selectOption"
+                                    name="opcionBcr"
                                     style="font-weight: bold"
                                     onchange="updatePlaceholder()"
                                 >
@@ -205,7 +206,7 @@
                                 <input
                                     type="text"
                                     class="form-control mb-3"
-                                    name="barrio"
+                                    name="nombreBcr"
                                     id="barrio"
                                     required
                                 />
@@ -235,12 +236,14 @@
                                 class="btn btn-secondary"
                                 >Regresar <i class="fa-solid fa-rotate-left"></i
                             ></a>
-                            <a
-                                href="/lugares_de_evacuacion_y_de_encuentro"
+                            <button
+                                type="submit"
+                                id="guardarYContinuar"
                                 class="btn btn-success"
-                                >Siguiente
-                                <i class="fa-solid fa-arrow-right"></i
-                            ></a>
+                            >
+                                Siguiente
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -263,6 +266,113 @@
                         selectOption.selectedIndex
                     ].text.toLowerCase();
             }
+        </script>
+
+        <script>
+            function updatePlaceholder() {
+                const selectOption = document.getElementById("selectOption");
+                const barrioInput = document.getElementById("barrio");
+                barrioInput.placeholder = `Nombre de ${
+                    selectOption.options[selectOption.selectedIndex].text
+                }`;
+            }
+        </script>
+
+        <script>
+            document
+                .getElementById("guardarYContinuar")
+                .addEventListener("click", async function (event) {
+                    event.preventDefault(); // Prevenir que el formulario se envíe y se recargue
+
+                    // Obtiene los valores de cada campo
+                    const nombreFam = document
+                        .getElementById("nombreFam")
+                        .value.trim();
+                    const direccionFam = document
+                        .getElementById("direccionFam")
+                        .value.trim();
+                    const telFam = document
+                        .getElementById("telFam")
+                        .value.trim();
+                    const provincia = document
+                        .getElementById("provincia")
+                        .value.trim();
+                    const canton = document
+                        .getElementById("canton")
+                        .value.trim();
+                    const opcionBcr =
+                        document.getElementById("selectOption").value;
+                    const nombreBcr = document
+                        .getElementById("barrio")
+                        .value.trim();
+                    const numCasa = document
+                        .getElementById("numCasa")
+                        .value.trim();
+
+                    // Validación básica de los campos
+                    if (
+                        !nombreFam ||
+                        !direccionFam ||
+                        !telFam ||
+                        !provincia ||
+                        !canton ||
+                        !nombreBcr ||
+                        !numCasa
+                    ) {
+                        alert("Por favor, complete todos los campos");
+                        return;
+                    }
+
+                    if (isNaN(telFam)) {
+                        alert("El número de teléfono debe ser numérico");
+                        return;
+                    }
+
+                    // Datos a enviar
+                    const data = {
+                        nombreFam: nombreFam,
+                        direccionFam: direccionFam,
+                        telFam: telFam,
+                        provincia: provincia,
+                        canton: canton,
+                        opcionBcr: opcionBcr,
+                        nombreBcr: nombreBcr,
+                        numCasa: numCasa,
+                    };
+
+                    // Envío de datos al servidor con fetch
+                    try {
+                        const response = await fetch("/informacion_general", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                // Token CSRF para Lumen (si se usa en el proyecto)
+                                "X-CSRF-TOKEN": document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                )
+                                    ? document.querySelector(
+                                          'meta[name="csrf-token"]'
+                                      ).content
+                                    : "",
+                            },
+                            body: JSON.stringify(data),
+                        });
+
+                        const responseData = await response.json();
+
+                        if (responseData.success) {
+                            // Redirige al siguiente formulario tras guardar correctamente
+                            window.location.href =
+                                "/lugares_de_evacuacion_y_de_encuentro";
+                        } else {
+                            // Si la respuesta es false (ya existe un duplicado), mostrar el mensaje y no redirigir
+                            alert(responseData.message);
+                        }
+                    } catch (error) {
+                        console.error("Error:", error);
+                        alert("Error en la solicitud");
+                    }
+                });
         </script>
     </body>
 </html>

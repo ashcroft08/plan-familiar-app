@@ -15,7 +15,7 @@ class InformacionGeneral extends Model
     protected $primaryKey = 'cod_vulnerabilidad_vivienda';
 
     // Si no deseas que Eloquent maneje automáticamente las columnas created_at y updated_at, puedes deshabilitarlo.
-    public $timestamps = false;
+    public $timestamps = true;
 
     // Define los campos que se pueden asignar masivamente
     protected $fillable = [

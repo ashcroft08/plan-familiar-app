@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FamiliaController;
+
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 /*
@@ -17,13 +20,17 @@
     return $router->app->version();
 });*/
 
-$router->get('/', function () use ($router) {
+/*$router->get('/', function () use ($router) {
     return file_get_contents(resource_path('views/dashboard.html'));
-});
+});*/
 
-$router->get('/informacion_general', function () {
-    return view('informacion_general'); 
-});
+$router->get('/', 'DashboardController@mostrar'); // Página principal (root) que muestra el dashboard
+
+$router->delete('/{cod_familia}', 'DashboardController@eliminar');
+
+$router->get('informacion_general', 'InformacionGeneralController@mostrar');
+
+$router->post('informacion_general', 'InformacionGeneralController@guardar');
 
 $router->get('/lugares_de_evacuacion_y_de_encuentro', function () {
     return view('lugares_de_evacuacion_y_de_encuentro'); 

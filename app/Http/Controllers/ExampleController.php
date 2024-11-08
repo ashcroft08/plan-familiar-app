@@ -14,5 +14,9 @@ class ExampleController extends Controller
         //
     }
 
+    public function mostrar()
+    {
+        return view('home');
+    }
     //
 }
