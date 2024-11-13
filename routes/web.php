@@ -1,7 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FamiliaController;
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
@@ -24,78 +24,88 @@ use App\Http\Controllers\FamiliaController;
     return file_get_contents(resource_path('views/dashboard.html'));
 });*/
 
+//Rutas Dashboard
 $router->get('/', 'DashboardController@mostrar'); // Página principal (root) que muestra el dashboard
-
 $router->delete('/{cod_familia}', 'DashboardController@eliminar');
 
+//Rutas de Información General
 $router->get('informacion_general', 'InformacionGeneralController@mostrar');
-
 $router->post('informacion_general', 'InformacionGeneralController@guardar');
+$router->get('informacion_general/{cod_familia}', 'InformacionGeneralController@editar');
+$router->put('informacion_general/{cod_familia}', 'InformacionGeneralController@actualizar');
 
-$router->get('/lugares_de_evacuacion_y_de_encuentro', function () {
-    return view('lugares_de_evacuacion_y_de_encuentro'); 
-});
+//Rutas para Amenazas
+$router->get('amenazas', 'AmenazaController@mostrar');
+$router->post('amenazas', 'AmenazaController@guardar');
+$router->delete('amenaza/{cod_amenaza}', 'AmenazaController@eliminar');
 
-$router->get('/integrantes_de_la_familia', function () {
-    return view('integrantes_de_la_familia'); 
-});
+//Rutas de Lugaress de evacuacion y de encuentro
+$router->get('lugares_de_evacuacion_y_de_encuentro', 'LugarEvacuacionEncuentroController@mostrar');
+$router->post('lugares_de_evacuacion_y_de_encuentro', 'LugarEvacuacionEncuentroController@guardar');
+$router->get('lugares_de_evacuacion_y_de_encuentro/{cod_familia}', 'LugarEvacuacionEncuentroController@editar');
+$router->put('lugares_de_evacuacion_y_de_encuentro/{cod_familia}', 'LugarEvacuacionEncuentroController@actualizar');
 
-$router->get('/identificacion_de_amenazas', function () {
-    return view('identificacion_de_amenazas'); 
-});
+//Rutas para Amenazas
+$router->get('integrantes_de_la_familia', 'IntegranteFamiliaController@mostrar');
+$router->post('integrantes_de_la_familia', 'IntegranteFamiliaController@guardar');
+//$router->delete('integrantes_de_la_familia/{cod_familia}', 'IntegranteFamiliaController@eliminar');
 
-$router->get('/recursos_familiares_disponibles', function () {
-    return view('recursos_familiares_disponibles'); 
-});
+//Rutas para Identificacion de amenazas
+$router->get('identificacion_de_amenazas', 'IdentificacionAmenazaController@mostrar');
+$router->post('identificacion_de_amenazas', 'IdentificacionAmenazaController@guardar');
 
-$router->get('/plan_accion_reduccion', function () {
-    return view('plan_accion_reduccion'); 
-});
+//Rutas para Recursos
+$router->get('recursos_familiares_disponibles', 'RecursoPcdController@mostrar');
+$router->post('recursos_familiares_disponibles', 'RecursoPcdController@guardar');
 
-$router->get('/plan_accion_respuesta', function () {
-    return view('plan_accion_respuesta'); 
-});
+//Rutas para Plan accion Reducción
+$router->get('plan_accion_reduccion', 'ReduccionController@mostrar');
+$router->post('plan_accion_reduccion', 'ReduccionController@guardar');
 
-$router->get('/plan_accion_recuperacion', function () {
-    return view('/plan_accion_recuperacion'); 
-});
+//Rutas para Plan accion Respuesta
+$router->get('plan_accion_respuesta', 'RespuestaController@mostrar');
+$router->post('plan_accion_respuesta', 'RespuestaController@guardar');
 
-$router->get('/numeros_emergencia', function () {
-    return view('/numeros_emergencia'); 
-});
+//Rutas para Plan accion Recuperación
+$router->get('plan_accion_recuperacion', 'RecuperacionController@mostrar');
+$router->post('plan_accion_recuperacion', 'RecuperacionController@guardar');
+
+//Rutas para Plan accion Reducción
+$router->get('numeros_emergencia', 'NumeroEmergenciaController@mostrar');
+$router->post('numeros_emergencia', 'NumeroEmergenciaController@guardar');
 
 $router->get('/mi_mascota', function () {
-    return view('/mi_mascota'); 
+    return view('/mi_mascota');
 });
 
 $router->get('/matriz_de_estructura_general_vivienda', function () {
-    return view('matriz_de_estructura_general_vivienda'); 
+    return view('matriz_de_estructura_general_vivienda');
 });
 
 $router->get('/comedor', function () {
-    return view('comedor'); 
+    return view('comedor');
 });
 
 $router->get('/sala', function () {
-    return view('sala'); 
+    return view('sala');
 });
 
 $router->get('/dormitorio', function () {
-    return view('dormitorio'); 
+    return view('dormitorio');
 });
 
 $router->get('/bano', function () {
-    return view('bano'); 
+    return view('bano');
 });
 
 $router->get('/cocina', function () {
-    return view('cocina'); 
+    return view('cocina');
 });
 
 $router->get('/resumen_vulnerabilidad_vivienda', function () {
-    return view('resumen_vulnerabilidad_vivienda'); 
+    return view('resumen_vulnerabilidad_vivienda');
 });
 
 $router->get('/grafico_vivienda', function () {
-    return view('grafico_vivienda'); 
+    return view('grafico_vivienda');
 });

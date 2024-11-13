@@ -99,7 +99,7 @@
                                         class="breadcrumb-item active"
                                         aria-current="page"
                                     >
-                                        Plan de acción
+                                        Números de emergencia
                                     </li>
                                 </ol>
                             </nav>
@@ -112,59 +112,99 @@
 
             <!-- Hoverable rows start -->
             <section class="container">
-                <header>6. Plan de acción</header>
-                <div class="d-flex justify-content-end mb-6">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1">
-                            <i class="fa-solid fa-plus"></i>
-                        </span>
-                        <button
-                            class="btn btn-success"
-                            data-bs-toggle="modal"
-                            data-bs-target="#crearProyectoModal"
-                        >
-                            Crear nueva actividad
-                        </button>
-                    </div>
-                </div>
-                <form action="#" class="form">
+                <header>10. Números de emergencia</header>
+                <form id="numerosForm" class="form" method="POST">
+                    <!-- Campo oculto para cod_familia -->
+                    <input
+                        type="hidden"
+                        name="cod_familia"
+                        id="codFamiliaInput"
+                    />
                     <div class="table-responsive">
                         <table class="table table-bordered" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th colspan="3" class="text-center">
-                                        Actividad Antes (Reducción)
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th
-                                        class="text-wrap"
-                                        style="max-width: 200px; padding: 10px"
-                                    >
-                                        ¿Cómo nos preparamos? La preparación
-                                        implica realizar las acciones
-                                        encaminadas a estar listos para
-                                        responder ante emergencias y desastres.
-                                    </th>
-                                    <th>Responsable</th>
-                                    <th>Comentarios</th>
+                                    <th>Contacto:</th>
+                                    <th>Número Telefónico:</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>Jacob</td>
+                                    <td>Centro de Salud/Hospital Cercano:</td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="hospitalCercano"
+                                            id="hospitalCercano"
+                                            class="form-control"
+                                        />
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>Jacob</td>
+                                    <td>Médico del Barrio:</td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="medicoBarrio"
+                                            id="medicoBarrio"
+                                            class="form-control"
+                                        />
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Larry the Bird</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
+                                    <td>Familiar #1:</td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="fam1"
+                                            id="fam1"
+                                            class="form-control"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Familiar #2:</td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="fam2"
+                                            id="fam2"
+                                            class="form-control"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Familiar #3:</td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="fam3"
+                                            id="fam3"
+                                            class="form-control"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>UPC:</td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="upc"
+                                            id="upc"
+                                            class="form-control"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bomberos:</td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="bomberos"
+                                            id="bomberos"
+                                            class="form-control"
+                                        />
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -179,12 +219,14 @@
                                 class="btn btn-secondary"
                                 >Regresar <i class="fa-solid fa-rotate-left"></i
                             ></a>
-                            <a
-                                href="/plan_accion_respuesta"
+                            <button
+                                type="submit"
+                                id="guardarYContinuar"
                                 class="btn btn-success"
-                                >Siguiente
-                                <i class="fa-solid fa-arrow-right"></i
-                            ></a>
+                            >
+                                Siguiente
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -225,7 +267,7 @@
                             Cancelar <i class="fa-solid fa-ban"></i>
                         </button>
                         <a
-                            href="/recursos_familiares_disponibles"
+                            href="/plan_accion_recuperacion"
                             class="btn btn-primary"
                             >Aceptar <i class="fa-solid fa-check"></i
                         ></a>
@@ -234,82 +276,124 @@
             </div>
         </div>
 
-        <!-- Modal Formulario "Crear nuevo recurso" -->
-        <div
-            class="modal fade"
-            id="crearProyectoModal"
-            data-bs-backdrop="static"
-            tabindex="-1"
-            aria-labelledby="crearProyectoLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="crearProyectoLabel">
-                            Crear Nueva Actividad
-                        </h5>
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        ></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="nuevoRegistroForm">
-                            <div class="mb-3">
-                                <label for="actividad" class="form-label"
-                                    >¿Cómo nos preparamos?</label
-                                >
-                                <textarea
-                                    name="actividad"
-                                    id="actividad"
-                                    class="form-control"
-                                    rows="3"
-                                ></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="responsable" class="form-label"
-                                    >Responsable</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="responsable"
-                                    required
-                                />
-                            </div>
-                            <div class="mb-3">
-                                <label for="comentarios" class="form-label"
-                                    >Comentarios</label
-                                >
-                                <textarea
-                                    class="form-control"
-                                    id="comentarios"
-                                    rows="3"
-                                ></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                Guardar
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Enlazar jQuery localmente -->
-        <script src="/js/jquery-3.7.1.min.js"></script>
+        <script src="/assets/js/jquery-3.7.1.min.js"></script>
         <!-- Enlazar Bootstrap JS -->
         <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
         <script>
-            $("#nuevoRegistroForm").on("submit", function (e) {
-                e.preventDefault();
-                alert("Registro guardado exitosamente.");
-                $("#crearProyectoModal").modal("hide");
+            // Asignar el valor de cod_familia al campo oculto al cargar la página
+            document.addEventListener("DOMContentLoaded", function () {
+                const codFamilia = localStorage.getItem("codFamilia");
+                if (codFamilia) {
+                    document.getElementById("codFamiliaInput").value =
+                        codFamilia;
+                } else {
+                    alert(
+                        "No se encontró el código de familia en localStorage."
+                    );
+                }
             });
+
+            document
+                .getElementById("guardarYContinuar")
+                .addEventListener("click", async function (event) {
+                    event.preventDefault(); // Prevenir que el formulario se envíe y se recargue
+
+                    // Obtiene los valores de cada campo
+                    const codFamilia =
+                        document.getElementById("codFamiliaInput").value;
+                    const hospitalCercano = document
+                        .getElementById("hospitalCercano")
+                        .value.trim();
+                    const medicoBarrio = document
+                        .getElementById("medicoBarrio")
+                        .value.trim();
+                    const fam1 = document.getElementById("fam1").value.trim();
+                    const fam2 = document.getElementById("fam2").value.trim();
+                    const fam3 = document.getElementById("fam3").value.trim();
+                    const upc = document.getElementById("upc").value.trim();
+                    const bomberos = document
+                        .getElementById("bomberos")
+                        .value.trim();
+
+                    // Validación básica de los campos
+                    if (
+                        !hospitalCercano ||
+                        !medicoBarrio ||
+                        !fam1 ||
+                        !fam2 ||
+                        !fam3 ||
+                        !upc ||
+                        !bomberos ||
+                        !codFamilia
+                    ) {
+                        alert("Por favor, complete todos los campos");
+                        return;
+                    }
+
+                    // Validación de que los números telefónicos sean numéricos
+                    if (
+                        isNaN(hospitalCercano) ||
+                        isNaN(medicoBarrio) ||
+                        isNaN(fam1) ||
+                        isNaN(fam2) ||
+                        isNaN(fam3) ||
+                        isNaN(upc) ||
+                        isNaN(bomberos)
+                    ) {
+                        alert(
+                            "Todos los números telefónicos deben ser numéricos"
+                        );
+                        return;
+                    }
+
+                    // Datos a enviar
+                    const data = {
+                        cod_familia: codFamilia,
+                        hospitalCercano: hospitalCercano,
+                        medicoBarrio: medicoBarrio,
+                        fam1: fam1,
+                        fam2: fam2,
+                        fam3: fam3,
+                        upc: upc,
+                        bomberos: bomberos,
+                    };
+
+                    // Envío de datos al servidor con fetch
+                    try {
+                        const response = await fetch("/numeros_emergencia", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                )
+                                    ? document.querySelector(
+                                          'meta[name="csrf-token"]'
+                                      ).content
+                                    : "",
+                            },
+                            body: JSON.stringify(data),
+                        });
+
+                        const responseData = await response.json();
+
+                        if (responseData.success) {
+                            alert("Datos guardados correctamente");
+                            // Redirigir al siguiente formulario
+                            window.location.href = "mi_mascota";
+                        } else {
+                            alert(
+                                responseData.message ||
+                                    "Hubo un error al guardar los datos"
+                            );
+                        }
+                    } catch (error) {
+                        console.error("Error:", error);
+                        alert("Error en la solicitud");
+                    }
+                });
         </script>
     </body>
 </html>

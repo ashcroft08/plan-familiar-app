@@ -17,11 +17,12 @@ return new class extends Migration
             $table->string('nombres');
             $table->string('pcd');
             $table->integer('edad');
+            $table->string('sexo');
             $table->string('parentesco');
             $table->string('cuidador')->nullable();
             $table->string('frecuencia_necesidades')->nullable();
-            $table->boolean('carnet')->nullable();
-            $table->boolean('proyecto')->nullable();
+            $table->string('carnet', 2)->nullable();
+            $table->string('proyecto', 2)->nullable();
             $table->string('acciones_responsabilidades')->nullable();
             $table->string('medicamentos')->nullable();
             $table->string('dosis')->nullable();

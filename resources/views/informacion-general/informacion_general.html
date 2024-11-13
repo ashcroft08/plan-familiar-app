@@ -251,23 +251,11 @@
         </div>
 
         <!-- Enlazar jQuery localmente -->
-        <script src="/js/jquery-3.7.1.min.js"></script>
+        <script src="/assets/js/jquery-3.7.1.min.js"></script>
         <!-- Enlazar Bootstrap JS -->
         <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
         <!-- JavaScript to update the placeholder -->
-        <script>
-            function updatePlaceholder() {
-                var selectOption = document.getElementById("selectOption");
-                var inputField = document.getElementById("barrio");
-                inputField.placeholder =
-                    "Escriba " +
-                    selectOption.options[
-                        selectOption.selectedIndex
-                    ].text.toLowerCase();
-            }
-        </script>
-
         <script>
             function updatePlaceholder() {
                 const selectOption = document.getElementById("selectOption");
@@ -361,12 +349,21 @@
                         const responseData = await response.json();
 
                         if (responseData.success) {
-                            // Redirige al siguiente formulario tras guardar correctamente
-                            window.location.href =
-                                "/lugares_de_evacuacion_y_de_encuentro";
+                            // Almacenar cod_familia en localStorage
+                            localStorage.setItem(
+                                "codFamilia",
+                                responseData.cod_familia
+                            );
+
+                            alert("Datos guardados correctamente");
+                            // Redirigir al siguiente formulario
+                            window.location.href = "amenazas";
                         } else {
-                            // Si la respuesta es false (ya existe un duplicado), mostrar el mensaje y no redirigir
-                            alert(responseData.message);
+                            // Mostrar el mensaje de error si el guardado no fue exitoso
+                            alert(
+                                responseData.message ||
+                                    "Hubo un error al guardar los datos"
+                            );
                         }
                     } catch (error) {
                         console.error("Error:", error);

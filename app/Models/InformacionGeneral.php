@@ -28,4 +28,10 @@ class InformacionGeneral extends Model
         'nombre_bcr',
         'numero_casa',
     ];
+
+    // Relación con IdentificacionAmenaza (una familia tiene muchas identificaciones de amenazas)
+    public function identificacionesAmenaza()
+    {
+        return $this->hasMany(IdentificacionAmenaza::class, 'cod_familia', 'cod_familia');
+    }
 }

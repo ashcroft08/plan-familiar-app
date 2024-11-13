@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('especie');
             $table->string('raza');
-            $table->boolean('esterilizado');
+            $table->string('esterilizado');
             $table->timestamps();
 
             // Definimos la clave foránea

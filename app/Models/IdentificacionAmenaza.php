@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InformacionGeneral extends Model
+class IdentificacionAmenaza extends Model
 {
     use HasFactory;
     // Define el nombre de la tabla
@@ -20,6 +20,7 @@ class InformacionGeneral extends Model
     // Define los campos que se pueden asignar masivamente
     protected $fillable = [
         'cod_familia', // Llave foránea
+        'cod_amenaza', //llave foranea
         'efecto',
         'consecuencia',
         'acciones',
@@ -32,5 +33,14 @@ class InformacionGeneral extends Model
     public function familia()
     {
         return $this->belongsTo(InformacionGeneral::class, 'cod_familia', 'cod_familia');
+    }
+
+    /**
+     * Relación con el modelo de amenaza
+     * Una identificación de amenaza pertenece a una amenaza.
+     */
+    public function amenaza()
+    {
+        return $this->belongsTo(Amenaza::class, 'cod_amenaza', 'cod_amenaza');
     }
 }

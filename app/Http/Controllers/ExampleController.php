@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class ExampleController extends Controller
 {
     /**
@@ -19,4 +21,11 @@ class ExampleController extends Controller
         return view('home');
     }
     //
+    public function guardar(Request $request)
+    {
+        dd($request->all());
+
+        // Retornar una respuesta exitosa
+        return response()->json(['success' => true, 'message' => 'Amenaza guardada correctamente.']);
+    }
 }

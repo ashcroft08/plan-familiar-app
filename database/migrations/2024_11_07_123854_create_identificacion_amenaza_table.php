@@ -13,16 +13,22 @@ return new class extends Migration
     {
         Schema::create('identificacion_amenaza', function (Blueprint $table) {
             $table->id('cod_identificacion');
-            $table->unsignedBigInteger('cod_familia'); // Llave foránea
+            $table->unsignedBigInteger('cod_familia'); // Primera clave foránea
+            $table->unsignedBigInteger('cod_amenaza'); // Segunda clave foránea
             $table->text('efecto');
             $table->text('consecuencia');
             $table->text('acciones');
             $table->timestamps();
 
-            // Definimos la clave foránea
+            // Definimos las claves foráneas
             $table->foreign('cod_familia')
                 ->references('cod_familia')
                 ->on('informacion_general')
+                ->onDelete('cascade'); // Elimina los registros relacionados en cascada
+
+            $table->foreign('cod_amenaza')
+                ->references('cod_amenaza')
+                ->on('amenaza')
                 ->onDelete('cascade'); // Elimina los registros relacionados en cascada
         });
     }

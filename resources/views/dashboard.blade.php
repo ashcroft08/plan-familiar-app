@@ -66,7 +66,10 @@
                                     <td>{{ $item->nombre_bcr }}</td>
                                     <td>
                                         <!-- Link trigger for danger theme modal -->
-                                        <a href="#" class="btn btn-warning btn-sm"><i class="fas fa-pen"></i></a>
+                                        <a href="informacion_general/{{ $item->cod_familia }}"
+                                            class="btn btn-warning btn-sm">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
 
                                         <!-- Button trigger for danger theme modal -->
                                         <button type="button" class="btn btn-outline-danger btn-sm"
@@ -106,7 +109,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cerrar
                     </button>
-                    <button type="button"class="btn btn-danger" id="guardarAmenazaBtn">
+                    <button type="button"class="btn btn-danger" id="eliminarPlan">
                         <i class="fa-solid fa-trash"></i> Eliminar
                     </button>
                 </div>
@@ -160,7 +163,7 @@
             });
 
             // Confirmar la eliminación
-            $('#guardarAmenazaBtn').click(function() {
+            $('#eliminarPlan').click(function() {
                 $.ajax({
                     url: '/' + codFamilia, // Usar el cod_familia en la URL
                     type: 'DELETE',

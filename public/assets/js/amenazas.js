@@ -1,3 +1,6 @@
+// Eliminar el límite de amenazas
+let amenazaCount = 0;
+
 // Mapeo de las subcategorías según el tipo de amenaza
 const subCategorias = {
     naturales: [
@@ -40,8 +43,8 @@ document.getElementById('tipoAmenaza').addEventListener('change', function () {
         // Si se selecciona "Sociales", saltar la subcategoría y cargar directamente las amenazas específicas
         amenazasEspecificas['sociales'].forEach(function (amenaza) {
             const option = document.createElement('option');
-            option.value = amenaza.toLowerCase().replace(/\s+/g, '_');
-            option.textContent = amenaza;
+            option.value = amenaza; // Usamos el texto original sin modificar
+            option.textContent = amenaza; // Mantenemos el texto original
             amenazaEspecifica.appendChild(option);
         });
         amenazaEspecifica.disabled = false;
@@ -49,8 +52,8 @@ document.getElementById('tipoAmenaza').addEventListener('change', function () {
         // Añadir las opciones de subcategorías si el tipo de amenaza no es "sociales"
         subCategorias[tipo].forEach(function (sub) {
             const option = document.createElement('option');
-            option.value = sub.value;
-            option.textContent = sub.text;
+            option.value = sub.value; // Usamos el valor tal cual
+            option.textContent = sub.text; // Mantenemos el texto original
             subAmenaza.appendChild(option);
         });
         subAmenaza.disabled = false;
@@ -70,30 +73,10 @@ document.getElementById('subAmenaza').addEventListener('change', function () {
         // Añadir las opciones de amenazas específicas
         amenazasEspecificas[sub].forEach(function (amenaza) {
             const option = document.createElement('option');
-            option.value = amenaza.toLowerCase().replace(/\s+/g, '_');
-            option.textContent = amenaza;
+            option.value = amenaza; // Usamos el texto original sin modificar
+            option.textContent = amenaza; // Mantenemos el texto original
             amenazaEspecifica.appendChild(option);
         });
         amenazaEspecifica.disabled = false;
-    }
-});
-
-document.getElementById("guardarAmenazaBtn").addEventListener("click", function() {
-    const amenazaEspecificaSelect = document.getElementById("amenazaEspecifica");
-    const amenazaSeleccionada = amenazaEspecificaSelect.options[amenazaEspecificaSelect.selectedIndex].text;
-
-    if (amenazaCount < maxAmenazas && amenazaSeleccionada) {
-        const amenazaList = document.getElementById("amenazaList");
-        const newAmenaza = document.createElement("li");
-        newAmenaza.classList.add("list-group-item");
-        newAmenaza.textContent = amenazaSeleccionada;
-        amenazaList.appendChild(newAmenaza);
-
-        amenazaCount++;
-        $('#amenazaModal').modal('hide');
-
-        if (amenazaCount >= maxAmenazas) {
-            document.getElementById("agregarAmenazaBtn").disabled = true;
-        }
     }
 });

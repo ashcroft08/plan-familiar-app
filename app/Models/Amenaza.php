@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InformacionGeneral extends Model
+class Amenaza extends Model
 {
     use HasFactory;
     // Define el nombre de la tabla
@@ -13,7 +13,7 @@ class InformacionGeneral extends Model
 
     // Define la llave primaria
     protected $primaryKey = 'cod_amenaza';
-    
+
     // Si no deseas que Eloquent maneje automáticamente las columnas created_at y updated_at, puedes deshabilitarlo.
     public $timestamps = true;
 
@@ -30,5 +30,11 @@ class InformacionGeneral extends Model
     public function familia()
     {
         return $this->belongsTo(InformacionGeneral::class, 'cod_familia', 'cod_familia');
+    }
+
+    // Relación con IdentificacionAmenaza (una amenaza puede estar asociada con múltiples identificaciones de amenazas)
+    public function identificacionesAmenaza()
+    {
+        return $this->hasMany(IdentificacionAmenaza::class, 'cod_amenaza', 'cod_amenaza');
     }
 }
