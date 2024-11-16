@@ -344,7 +344,7 @@
                         <td>${item.medicamentos}</td>
                         <td>${item.dosis}</td>
                         <td>${item.observaciones}</td>
-                        <td>
+                        <td class="d-flex gap-2">
                             <button type="button" class="btn btn-warning btn-sm"
                                     data-bs-toggle="modal" data-bs-target="#modalDelete"
                                     data-cod_integrante="${item.cod_integrante}">Editar 

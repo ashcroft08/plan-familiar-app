@@ -99,8 +99,7 @@
                                         class="breadcrumb-item active"
                                         aria-current="page"
                                     >
-                                        Matriz de estructura general de la
-                                        vivienda
+                                        Comedor
                                     </li>
                                 </ol>
                             </nav>
@@ -113,8 +112,14 @@
 
             <!-- Hoverable rows start -->
             <section class="container">
-                <header>9.a Matriz de estructura general de la vivienda</header>
-                <form action="#" class="form">
+                <header>12.b Comedor</header>
+                <form action="#" class="form" method="POST">
+                    <!-- Campo oculto para cod_familia -->
+                    <input
+                        type="hidden"
+                        name="cod_familia"
+                        id="codFamiliaInput"
+                    />
                     <div class="table-responsive">
                         <table class="table table-bordered" style="width: 100%">
                             <thead>
@@ -129,272 +134,26 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>
-                                        Construcción sin normas sismo
-                                        resistentes
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Estructura de madera</td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Muros agrietados</td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Baldosas sueltas</td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Tejas, láminas de zinc o de eternit
-                                        sueltas
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td>Humedad en muros</td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="si"
+                                            name="humedad_si"
                                             value="si"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="no"
+                                            name="humedad_no"
                                             value="no"
                                         />
                                     </td>
                                     <td>
                                         <textarea
                                             class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Canales y bajantes sin reforzar</td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Tanque elevado sin asegurar</td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Débiles soportes de la cubierta</td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Filtraciones de agua</td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Piso resbaloso</td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
+                                            name="humedad_acciones"
+                                            id="acciones_humedad"
                                         ></textarea>
                                     </td>
                                 </tr>
@@ -403,22 +162,22 @@
                                     <td>
                                         <input
                                             type="radio"
-                                            name="si"
+                                            name="cables_si"
                                             value="si"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="no"
+                                            name="cables_no"
                                             value="no"
                                         />
                                     </td>
                                     <td>
                                         <textarea
                                             class="form-control"
-                                            name="acciones"
-                                            id="acciones"
+                                            name="cables_acciones"
+                                            id="acciones_cables"
                                         ></textarea>
                                     </td>
                                 </tr>
@@ -427,22 +186,49 @@
                                     <td>
                                         <input
                                             type="radio"
-                                            name="si"
+                                            name="estanterias_si"
                                             value="si"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="no"
+                                            name="estanterias_no"
                                             value="no"
                                         />
                                     </td>
                                     <td>
                                         <textarea
                                             class="form-control"
-                                            name="acciones"
-                                            id="acciones"
+                                            name="estanterias_acciones"
+                                            id="acciones_estanterias"
+                                        ></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Objetos colgantes que puedan caerse:
+                                        lamparas, ventiladores
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="objetos_si"
+                                            value="si"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="objetos_no"
+                                            value="no"
+                                        />
+                                    </td>
+                                    <td>
+                                        <textarea
+                                            class="form-control"
+                                            name="objetos_acciones"
+                                            id="acciones_objetos"
                                         ></textarea>
                                     </td>
                                 </tr>
@@ -453,46 +239,72 @@
                                     <td>
                                         <input
                                             type="radio"
-                                            name="si"
+                                            name="vidrios_si"
                                             value="si"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="no"
+                                            name="vidrios_no"
                                             value="no"
                                         />
                                     </td>
                                     <td>
                                         <textarea
                                             class="form-control"
-                                            name="acciones"
-                                            id="acciones"
+                                            name="vidrios_acciones"
+                                            id="acciones_vidrios"
                                         ></textarea>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Combustibles líquidos</td>
+                                    <td>
+                                        Obstáculos en las vías de evacuación
+                                    </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="si"
+                                            name="obstaculos_si"
                                             value="si"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="no"
+                                            name="obstaculos_no"
                                             value="no"
                                         />
                                     </td>
                                     <td>
                                         <textarea
                                             class="form-control"
-                                            name="acciones"
-                                            id="acciones"
+                                            name="obstaculos_acciones"
+                                            id="acciones_obstaculos"
+                                        ></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Piso resbaloso</td>
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="piso_si"
+                                            value="si"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="piso_no"
+                                            value="no"
+                                        />
+                                    </td>
+                                    <td>
+                                        <textarea
+                                            class="form-control"
+                                            name="piso_acciones"
+                                            id="acciones_piso"
                                         ></textarea>
                                     </td>
                                 </tr>
@@ -509,10 +321,14 @@
                                 class="btn btn-secondary"
                                 >Regresar <i class="fa-solid fa-rotate-left"></i
                             ></a>
-                            <a href="/comedor" class="btn btn-success"
-                                >Siguiente
-                                <i class="fa-solid fa-arrow-right"></i
-                            ></a>
+                            <button
+                                type="submit"
+                                id="guardarYContinuar"
+                                class="btn btn-success"
+                            >
+                                Siguiente
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -553,7 +369,7 @@
                             Cancelar <i class="fa-solid fa-ban"></i>
                         </button>
                         <a
-                            href="/identificacion_de_amenazas"
+                            href="/matriz_de_estructura_general_vivienda"
                             class="btn btn-primary"
                             >Aceptar <i class="fa-solid fa-check"></i
                         ></a>
@@ -563,16 +379,107 @@
         </div>
 
         <!-- Enlazar jQuery localmente -->
-        <script src="/js/jquery-3.7.1.min.js"></script>
+        <script src="/assets/js/jquery-3.7.1.min.js"></script>
         <!-- Enlazar Bootstrap JS -->
         <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
         <script>
-            $("#nuevoRegistroForm").on("submit", function (e) {
-                e.preventDefault();
-                alert("Registro guardado exitosamente.");
-                $("#crearProyectoModal").modal("hide");
-            });
+            document
+                .getElementById("guardarYContinuar")
+                .addEventListener("click", async function (event) {
+                    event.preventDefault();
+
+                    const codFamilia = localStorage.getItem("codFamilia");
+
+                    if (!codFamilia) {
+                        alert(
+                            "No se encontró el código de la familia. Por favor, verifique."
+                        );
+                        return;
+                    }
+
+                    const matriz = [];
+                    const rows = document.querySelectorAll("tbody tr");
+
+                    // Verificar si se completaron todos los campos
+                    for (let i = 0; i < rows.length; i++) {
+                        const row = rows[i];
+                        const detalle = row.cells[0].textContent.trim();
+                        const siInput = row.cells[1].querySelector(
+                            "input[type='radio']"
+                        );
+                        const noInput = row.cells[2].querySelector(
+                            "input[type='radio']"
+                        );
+                        const accion = row.cells[3]
+                            .querySelector("textarea")
+                            .value.trim();
+
+                        if (!(siInput.checked || noInput.checked)) {
+                            alert(
+                                "Por favor, seleccione una opción (Sí o No) en todas las filas."
+                            );
+                            return; // Detener la ejecución si falta alguna respuesta
+                        }
+
+                        if (!accion) {
+                            alert(
+                                "Por favor, complete todas las acciones de la matriz."
+                            );
+                            return; // Detener la ejecución si falta alguna acción
+                        }
+
+                        matriz.push({
+                            cod_familia: codFamilia,
+                            detalle: detalle,
+                            respuesta: siInput.checked ? "Si" : "No",
+                            acciones: accion,
+                        });
+                    }
+
+                    const data = {
+                        cod_familia: codFamilia,
+                        matriz: matriz,
+                    };
+
+                    console.log("Datos enviados:", data);
+
+                    try {
+                        const response = await fetch(
+                            "/comedor",
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    // Token CSRF para Lumen (si se usa en el proyecto)
+                                    "X-CSRF-TOKEN": document.querySelector(
+                                        'meta[name="csrf-token"]'
+                                    )
+                                        ? document.querySelector(
+                                              'meta[name="csrf-token"]'
+                                          ).content
+                                        : "",
+                                },
+                                body: JSON.stringify(data),
+                            }
+                        );
+
+                        const responseData = await response.json();
+
+                        if (responseData.success) {
+                            alert("Datos guardados correctamente");
+                            window.location.href = "/sala";
+                        } else {
+                            alert(
+                                responseData.message ||
+                                    "Hubo un error al guardar los datos"
+                            );
+                        }
+                    } catch (error) {
+                        console.error("Error:", error);
+                        alert("Error en la solicitud");
+                    }
+                });
         </script>
     </body>
 </html>

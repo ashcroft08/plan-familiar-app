@@ -74,38 +74,38 @@ $router->post('plan_accion_recuperacion', 'RecuperacionController@guardar');
 $router->get('numeros_emergencia', 'NumeroEmergenciaController@mostrar');
 $router->post('numeros_emergencia', 'NumeroEmergenciaController@guardar');
 
-$router->get('/mi_mascota', function () {
-    return view('/mi_mascota');
-});
+//Rutas para Mi Mascota
+$router->get('mi_mascota', 'MascotaController@mostrar');
+$router->post('mi_mascota', 'MascotaController@guardar');
 
-$router->get('/matriz_de_estructura_general_vivienda', function () {
-    return view('matriz_de_estructura_general_vivienda');
-});
+//Rutas para Matriz de estructura general vivienda
+$router->get('matriz_de_estructura_general_vivienda', 'EstructuraViviendaController@mostrar');
+$router->post('matriz_de_estructura_general_vivienda', 'EstructuraViviendaController@guardar');
 
-$router->get('/comedor', function () {
-    return view('comedor');
-});
+//Rutas para Comedor
+$router->get('comedor', 'ComedorController@mostrar');
+$router->post('comedor', 'ComedorController@guardar');
 
-$router->get('/sala', function () {
-    return view('sala');
-});
+//Rutas para Sala
+$router->get('sala', 'SalaController@mostrar');
+$router->post('sala', 'SalaController@guardar');
 
-$router->get('/dormitorio', function () {
-    return view('dormitorio');
-});
+//Rutas para Dormitorio
+$router->get('dormitorio', 'DormitorioController@mostrar');
+$router->post('dormitorio', 'DormitorioController@guardar');
 
-$router->get('/bano', function () {
-    return view('bano');
-});
+//Rutas para Baño
+$router->get('cocina', 'CocinaController@mostrar');
+$router->post('cocina', 'CocinaController@guardar');
 
-$router->get('/cocina', function () {
-    return view('cocina');
-});
+//Rutas para Baño
+$router->get('bano', 'BanioController@mostrar');
+$router->post('bano', 'BanioController@guardar');
 
-$router->get('/resumen_vulnerabilidad_vivienda', function () {
-    return view('resumen_vulnerabilidad_vivienda');
-});
+//Rutas para Resumen de vulnerabilidad
+$router->get('resumen_vulnerabilidad_vivienda', 'VulnerabilidadViviendaController@mostrar');
+$router->post('resumen_vulnerabilidad_vivienda', 'VulnerabilidadViviendaController@guardar');
 
-$router->get('/grafico_vivienda', function () {
-    return view('grafico_vivienda');
-});
+//Rutas para Grafico de Vivienda
+$router->get('grafico_vivienda', 'GraficoViviendaController@mostrar');
+$router->post('grafico_vivienda', 'GraficoViviendaController@guardar');

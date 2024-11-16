@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('cocina', function (Blueprint $table) {
             $table->id('cod_cocina');
             $table->unsignedBigInteger('cod_familia'); // Llave foránea
-            $table->string('detalle');
-            $table->boolean('respuesta');
+            $table->text('detalle');
+            $table->string('respuesta', 3);
             $table->text('acciones');
             $table->timestamps();
 

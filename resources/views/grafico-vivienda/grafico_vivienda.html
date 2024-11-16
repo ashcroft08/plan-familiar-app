@@ -99,7 +99,7 @@
                                         class="breadcrumb-item active"
                                         aria-current="page"
                                     >
-                                        Cocina
+                                        Gráfico de la vivienda
                                     </li>
                                 </ol>
                             </nav>
@@ -112,94 +112,79 @@
 
             <!-- Hoverable rows start -->
             <section class="container">
-                <header>9.f Cocina</header>
-                <form action="#" class="form">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" style="width: 100%">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Detalle</th>
-                                    <th scope="col">SI</th>
-                                    <th scope="col">NO</th>
-                                    <th scope="col">Acciones para reducir la vulnerabilidad</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Humedad en muros</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Cables eléctricos expuestos</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Estanterías o muebles sin sujetar</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Objetos colgantes que puedan caerse: lamparas, ventiladores</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Vidrios y cristales que pueden romperse</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Filtraciones de agua</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Combustibles líquidos</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Electrodomésticos defectuosos</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-
-                                <tr>
-                                    <td>Obstáculos en las vías de evacuación</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Piso resbaloso</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Tanques de gas con válvula defectuosa</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Anaqueles de la cocina mal asegurados</td>
-                                    <td><input type="radio" name="si" value="si"></td>
-                                    <td><input type="radio" name="no" value="no"></td>
-                                    <td><textarea class="form-control" name="acciones" id="acciones"></textarea></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <header>11. Gráfico de la vivienda</header>
+                <form id="miFormulario" enctype="multipart/form-data">
+                    <!-- Campo oculto para cod_familia -->
+                    <input
+                        type="hidden"
+                        name="cod_familia"
+                        id="codFamiliaInput"
+                    />
+                    <label
+                        for="inputGroupFile01"
+                        class="form-label"
+                        style="font-weight: bold"
+                        >Interior de la Vivienda</label
+                    >
+                    <div class="input-group mb-3">
+                        <input
+                            type="file"
+                            class="form-control"
+                            name="inputGroupFile01"
+                            id="inputGroupFile01"
+                            required
+                        />
+                        <label class="input-group-text" for="inputGroupFile01"
+                            >Cargar</label
+                        >
+                    </div>
+                    <label
+                        for="inputGroupFile02"
+                        class="form-label"
+                        style="font-weight: bold"
+                        >Barrio/Recinto/Comunidad</label
+                    >
+                    <div class="input-group mb-3">
+                        <input
+                            type="file"
+                            class="form-control"
+                            name="inputGroupFile02"
+                            id="inputGroupFile02"
+                            required
+                        />
+                        <label class="input-group-text" for="inputGroupFile02"
+                            >Cargar</label
+                        >
+                    </div>
+                    <label
+                        for="coordenada_x"
+                        class="form-label"
+                        style="font-weight: bold"
+                        >Coordenada X</label
+                    >
+                    <div class="input-group mb-3">
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="coordenada_x"
+                            id="coordenada_x"
+                            required
+                        />
+                    </div>
+                    <label
+                        for="coordenada_y"
+                        class="form-label"
+                        style="font-weight: bold"
+                        >Coordenada Y</label
+                    >
+                    <div class="input-group mb-3">
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="coordenada_y"
+                            id="coordenada_y"
+                            required
+                        />
                     </div>
                     <div class="row botonsform">
                         <div class="col">
@@ -209,14 +194,17 @@
                                 data-bs-toggle="modal"
                                 data-bs-target="#regresarModal"
                                 class="btn btn-secondary"
-                                >Regresar <i class="fa-solid fa-rotate-left"></i
-                            ></a>
-                            <a
-                                href="/resumen_vulnerabilidad_vivienda"
-                                class="btn btn-success"
-                                >Siguiente
-                                <i class="fa-solid fa-arrow-right"></i
-                            ></a>
+                                >Regresar
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </a>
+                            <button
+                                type="submit"
+                                id="guardarYFinalizar"
+                                class="btn btn-danger"
+                            >
+                                Finalizar
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -257,7 +245,7 @@
                             Cancelar <i class="fa-solid fa-ban"></i>
                         </button>
                         <a
-                            href="/bano"
+                            href="/resumen_vulnerabilidad_vivienda"
                             class="btn btn-primary"
                             >Aceptar <i class="fa-solid fa-check"></i
                         ></a>
@@ -267,16 +255,59 @@
         </div>
 
         <!-- Enlazar jQuery localmente -->
-        <script src="/js/jquery-3.7.1.min.js"></script>
+        <script src="/assets/js/jquery-3.7.1.min.js"></script>
         <!-- Enlazar Bootstrap JS -->
         <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <script>
-            $("#nuevoRegistroForm").on("submit", function (e) {
-                e.preventDefault();
-                alert("Registro guardado exitosamente.");
-                $("#crearProyectoModal").modal("hide");
-            });
-        </script>
+        <!-- alert(JSON.stringify(data)); -->
     </body>
+
+    <script>
+        // Asignar el valor de cod_familia al campo oculto al cargar la página
+        document.addEventListener("DOMContentLoaded", function () {
+            const codFamilia = localStorage.getItem("codFamilia");
+            if (codFamilia) {
+                document.getElementById("codFamiliaInput").value = codFamilia;
+            } else {
+                alert("No se encontró el código de familia en localStorage.");
+            }
+        });
+    </script>
+
+    <script>
+        // Función para enviar el formulario
+        async function enviarFormulario() {
+            // Obtener los datos del formulario
+            const form = document.getElementById("miFormulario");
+            const formData = new FormData(form); // Crear un FormData con los datos del formulario
+
+            try {
+                // Hacer la solicitud POST con fetch
+                const response = await fetch("/grafico_vivienda", {
+                    method: "POST",
+                    body: formData, // El FormData contiene los archivos y demás datos
+                });
+
+                // Verificar si la respuesta fue exitosa
+                const result = await response.json();
+                if (result.success) {
+                    alert("Datos guardados correctamente");
+                    window.location.href = "/";
+                } else {
+                    alert("Error: " + result.message);
+                }
+            } catch (error) {
+                console.error("Error al enviar el formulario:", error);
+                alert("Hubo un error al enviar el formulario.");
+            }
+        }
+
+        // Llamar a la función cuando el formulario sea enviado
+        document
+            .getElementById("miFormulario")
+            .addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevenir el envío del formulario por defecto
+                enviarFormulario();
+            });
+    </script>
 </html>

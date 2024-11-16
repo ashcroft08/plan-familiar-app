@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('grafico_vivienda', function (Blueprint $table) {
             $table->id('cod_grafico_vivienda');
             $table->unsignedBigInteger('cod_familia'); // Llave foránea
-            $table->string('interior_vivienda');
-            $table->string('brc');
+            $table->text('interior_vivienda');
+            $table->text('brc');
             $table->string('coordenada_x');
             $table->string('coordenada_y');
             $table->timestamps();

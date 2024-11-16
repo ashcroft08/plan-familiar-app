@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('comedor', function (Blueprint $table) {
             $table->id('cod_comedor');
             $table->unsignedBigInteger('cod_familia'); // Llave foránea
-            $table->string('detalle');
-            $table->boolean('respuesta');
+            $table->text('detalle');
+            $table->string('respuesta', 3);
             $table->text('acciones');
             $table->timestamps();
 

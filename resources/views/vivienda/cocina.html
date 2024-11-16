@@ -99,7 +99,7 @@
                                         class="breadcrumb-item active"
                                         aria-current="page"
                                     >
-                                        Baño
+                                        Cocina
                                     </li>
                                 </ol>
                             </nav>
@@ -112,8 +112,14 @@
 
             <!-- Hoverable rows start -->
             <section class="container">
-                <header>9.e Baño</header>
-                <form action="#" class="form">
+                <header>12.f Cocina</header>
+                <form action="#" class="form" method="POST">
+                    <!-- Campo oculto para cod_familia -->
+                    <input
+                        type="hidden"
+                        name="cod_familia"
+                        id="codFamiliaInput"
+                    />
                     <div class="table-responsive">
                         <table class="table table-bordered" style="width: 100%">
                             <thead>
@@ -132,22 +138,21 @@
                                     <td>
                                         <input
                                             type="radio"
-                                            name="si"
+                                            name="humedad"
                                             value="si"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="no"
+                                            name="humedad"
                                             value="no"
                                         />
                                     </td>
                                     <td>
                                         <textarea
                                             class="form-control"
-                                            name="acciones"
-                                            id="acciones"
+                                            name="humedad_acciones"
                                         ></textarea>
                                     </td>
                                 </tr>
@@ -156,22 +161,21 @@
                                     <td>
                                         <input
                                             type="radio"
-                                            name="si"
+                                            name="cables"
                                             value="si"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="no"
+                                            name="cables"
                                             value="no"
                                         />
                                     </td>
                                     <td>
                                         <textarea
                                             class="form-control"
-                                            name="acciones"
-                                            id="acciones"
+                                            name="cables_acciones"
                                         ></textarea>
                                     </td>
                                 </tr>
@@ -180,22 +184,47 @@
                                     <td>
                                         <input
                                             type="radio"
-                                            name="si"
+                                            name="estanterias"
                                             value="si"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="no"
+                                            name="estanterias"
                                             value="no"
                                         />
                                     </td>
                                     <td>
                                         <textarea
                                             class="form-control"
-                                            name="acciones"
-                                            id="acciones"
+                                            name="estanterias_acciones"
+                                        ></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Objetos colgantes que puedan caerse:
+                                        lámparas, ventiladores
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="objetos_colgantes"
+                                            value="si"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="objetos_colgantes"
+                                            value="no"
+                                        />
+                                    </td>
+                                    <td>
+                                        <textarea
+                                            class="form-control"
+                                            name="objetos_colgantes_acciones"
                                         ></textarea>
                                     </td>
                                 </tr>
@@ -206,22 +235,21 @@
                                     <td>
                                         <input
                                             type="radio"
-                                            name="si"
+                                            name="vidrios"
                                             value="si"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="no"
+                                            name="vidrios"
                                             value="no"
                                         />
                                     </td>
                                     <td>
                                         <textarea
                                             class="form-control"
-                                            name="acciones"
-                                            id="acciones"
+                                            name="vidrios_acciones"
                                         ></textarea>
                                     </td>
                                 </tr>
@@ -230,46 +258,21 @@
                                     <td>
                                         <input
                                             type="radio"
-                                            name="si"
+                                            name="filtraciones"
                                             value="si"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="no"
+                                            name="filtraciones"
                                             value="no"
                                         />
                                     </td>
                                     <td>
                                         <textarea
                                             class="form-control"
-                                            name="acciones"
-                                            id="acciones"
-                                        ></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Tuberias y ductos rotos</td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="si"
-                                            value="si"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="radio"
-                                            name="no"
-                                            value="no"
-                                        />
-                                    </td>
-                                    <td>
-                                        <textarea
-                                            class="form-control"
-                                            name="acciones"
-                                            id="acciones"
+                                            name="filtraciones_acciones"
                                         ></textarea>
                                     </td>
                                 </tr>
@@ -278,22 +281,69 @@
                                     <td>
                                         <input
                                             type="radio"
-                                            name="si"
+                                            name="combustibles"
                                             value="si"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="no"
+                                            name="combustibles"
                                             value="no"
                                         />
                                     </td>
                                     <td>
                                         <textarea
                                             class="form-control"
-                                            name="acciones"
-                                            id="acciones"
+                                            name="combustibles_acciones"
+                                        ></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Electrodomésticos defectuosos</td>
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="electrodomesticos"
+                                            value="si"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="electrodomesticos"
+                                            value="no"
+                                        />
+                                    </td>
+                                    <td>
+                                        <textarea
+                                            class="form-control"
+                                            name="electrodomesticos_acciones"
+                                        ></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Obstáculos en las vías de evacuación
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="obstaculos"
+                                            value="si"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="obstaculos"
+                                            value="no"
+                                        />
+                                    </td>
+                                    <td>
+                                        <textarea
+                                            class="form-control"
+                                            name="obstaculos_acciones"
                                         ></textarea>
                                     </td>
                                 </tr>
@@ -302,49 +352,71 @@
                                     <td>
                                         <input
                                             type="radio"
-                                            name="si"
+                                            name="piso"
                                             value="si"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="no"
+                                            name="piso"
                                             value="no"
                                         />
                                     </td>
                                     <td>
                                         <textarea
                                             class="form-control"
-                                            name="acciones"
-                                            id="acciones"
+                                            name="piso_acciones"
                                         ></textarea>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Botiquín de primeros auxilios en lugar
-                                        al alcance de los niños
+                                        Tanques de gas con válvula defectuosa
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="si"
+                                            name="tanques_gas"
                                             value="si"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="radio"
-                                            name="no"
+                                            name="tanques_gas"
                                             value="no"
                                         />
                                     </td>
                                     <td>
                                         <textarea
                                             class="form-control"
-                                            name="acciones"
-                                            id="acciones"
+                                            name="tanques_gas_acciones"
+                                        ></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Anaqueles de la cocina mal asegurados
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="anaqueles"
+                                            value="si"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="anaqueles"
+                                            value="no"
+                                        />
+                                    </td>
+                                    <td>
+                                        <textarea
+                                            class="form-control"
+                                            name="anaqueles_acciones"
                                         ></textarea>
                                     </td>
                                 </tr>
@@ -361,10 +433,14 @@
                                 class="btn btn-secondary"
                                 >Regresar <i class="fa-solid fa-rotate-left"></i
                             ></a>
-                            <a href="/cocina" class="btn btn-success"
-                                >Siguiente
-                                <i class="fa-solid fa-arrow-right"></i
-                            ></a>
+                            <button
+                                type="submit"
+                                id="guardarYContinuar"
+                                class="btn btn-success"
+                            >
+                                Siguiente
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -404,7 +480,7 @@
                         >
                             Cancelar <i class="fa-solid fa-ban"></i>
                         </button>
-                        <a href="/dormitorio" class="btn btn-primary"
+                        <a href="/bano" class="btn btn-primary"
                             >Aceptar <i class="fa-solid fa-check"></i
                         ></a>
                     </div>
@@ -413,16 +489,105 @@
         </div>
 
         <!-- Enlazar jQuery localmente -->
-        <script src="/js/jquery-3.7.1.min.js"></script>
+        <script src="/assets/js/jquery-3.7.1.min.js"></script>
         <!-- Enlazar Bootstrap JS -->
         <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
         <script>
-            $("#nuevoRegistroForm").on("submit", function (e) {
-                e.preventDefault();
-                alert("Registro guardado exitosamente.");
-                $("#crearProyectoModal").modal("hide");
-            });
+            document
+                .getElementById("guardarYContinuar")
+                .addEventListener("click", async function (event) {
+                    event.preventDefault();
+
+                    const codFamilia = localStorage.getItem("codFamilia");
+
+                    if (!codFamilia) {
+                        alert(
+                            "No se encontró el código de la familia. Por favor, verifique."
+                        );
+                        return;
+                    }
+
+                    const matriz = [];
+                    const rows = document.querySelectorAll("tbody tr");
+
+                    // Verificar si se completaron todos los campos
+                    for (let i = 0; i < rows.length; i++) {
+                        const row = rows[i];
+                        const detalle = row.cells[0].textContent.trim();
+                        const siInput = row.cells[1].querySelector(
+                            "input[type='radio']"
+                        );
+                        const noInput = row.cells[2].querySelector(
+                            "input[type='radio']"
+                        );
+                        const accion = row.cells[3]
+                            .querySelector("textarea")
+                            .value.trim();
+
+                        if (!(siInput.checked || noInput.checked)) {
+                            alert(
+                                "Por favor, seleccione una opción (Sí o No) en todas las filas."
+                            );
+                            return; // Detener la ejecución si falta alguna respuesta
+                        }
+
+                        if (!accion) {
+                            alert(
+                                "Por favor, complete todas las acciones de la matriz."
+                            );
+                            return; // Detener la ejecución si falta alguna acción
+                        }
+
+                        matriz.push({
+                            cod_familia: codFamilia,
+                            detalle: detalle,
+                            respuesta: siInput.checked ? "Si" : "No",
+                            acciones: accion,
+                        });
+                    }
+
+                    const data = {
+                        cod_familia: codFamilia,
+                        matriz: matriz,
+                    };
+
+                    console.log("Datos enviados:", data);
+
+                    try {
+                        const response = await fetch("/cocina", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                // Token CSRF para Lumen (si se usa en el proyecto)
+                                "X-CSRF-TOKEN": document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                )
+                                    ? document.querySelector(
+                                          'meta[name="csrf-token"]'
+                                      ).content
+                                    : "",
+                            },
+                            body: JSON.stringify(data),
+                        });
+
+                        const responseData = await response.json();
+
+                        if (responseData.success) {
+                            alert("Datos guardados correctamente");
+                            window.location.href =
+                                "/resumen_vulnerabilidad_vivienda";
+                        } else {
+                            alert(
+                                responseData.message ||
+                                    "Hubo un error al guardar los datos"
+                            );
+                        }
+                    } catch (error) {
+                        console.error("Error:", error);
+                        alert("Error en la solicitud");
+                    }
+                });
         </script>
     </body>
 </html>
