@@ -128,32 +128,7 @@
         </section>
     </div>
 
-    <!-- Modal para el botón "Regresar" -->
-    <div class="modal fade" id="regresarModal" tabindex="-1" aria-labelledby="regresarModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="regresarModalLabel">
-                        ¿Seguro que deseas regresar?
-                    </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Si regresas, se perderán los datos que has ingresado
-                    hasta ahora.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Cancelar <i class="fa-solid fa-ban"></i>
-                    </button>
-                    <a href="/plan_accion_respuesta" class="btn btn-primary">Aceptar <i
-                            class="fa-solid fa-check"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Formulario "Crear nuevo recurso" -->
+    <!-- Modal Formulario "Crear nueva actividad" -->
     <div class="modal fade" id="crearActividadModal" data-bs-backdrop="static" tabindex="-1"
         aria-labelledby="crearProyectoLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -163,8 +138,7 @@
                         <h5 class="modal-title fw-bold fs-5" id="crearProyectoLabel">
                             Crear Nueva Actividad
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
@@ -188,6 +162,72 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal Formulario "Editar actividad" -->
+    <div class="modal fade" id="editarRecuperacionModal" data-bs-backdrop="static" tabindex="-1"
+        aria-labelledby="editarRecuperacionLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="editarRecuperacionForm" class="form" method="PUT" autocomplete="off">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold fs-5" id="crearProyectoLabel">
+                            Editar plan de acción (Recuperación)
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Campo oculto para cod_respuesta -->
+                        <input type="hidden" name="cod_respuesta" id="editCodRecuperacion" />
+                        <div class="mb-3">
+                            <label for="editActividad" class="form-label fw-bold">¿Qué hacemos luego de la
+                                emergencia?</label>
+                            <textarea name="editActividad" id="editActividad" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editResponsable" class="form-label fw-bold">Responsable</label>
+                            <input type="text" name="editResponsable" class="form-control" id="editResponsable"
+                                required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editComentario" class="form-label fw-bold">Comentario</label>
+                            <textarea class="form-control" name="editComentario" id="editComentario" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="actualizarReduccion" class="btn btn-primary">
+                            Actualizar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para eliminar actividad -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold fs-5" id="modalDeleteLabel" style="font-weight: bold;">
+                        Eliminar el plan de acción (Recuperación)
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Esta seguro que desea eliminar el plan?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar <i class="fa-solid fa-ban"></i>
+                    </button>
+                    <button type="button" class="btn btn-success" id="eliminarRespuesta"> Aceptar <i
+                            class="fa-solid fa-check"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -217,13 +257,16 @@
                             <td>${item.comentario}</td>
                             <td class="d-flex gap-2">
                                 <button type="button" class="btn btn-warning btn-sm"
-                                    data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                    data-cod_integrante="${item.cod_reduccion}">Editar 
+                                    data-bs-toggle="modal" data-bs-target="#editarRecuperacionModal"
+                                    data-cod_recuperacion="${item.cod_recuperacion}"
+                                    data-emergencia="${item.emergencia}"
+                                    data-responsable="${item.responsable}"
+                                    data-comentario="${item.comentario}">Editar 
                                 <i class="fas fa-pen"></i>
-                            </button>
+                                </button>
                                 <button type="button" class="btn btn-outline-danger btn-sm"
                                         data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                        data-cod_amenaza="${item.cod_reduccion}">Eliminar 
+                                        data-cod_recuperacion="${item.cod_recuperacion}">Eliminar 
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
@@ -305,6 +348,108 @@
                     alert("Error al guardar el recurso.");
                 }
             });
+    </script>
+
+    <!-- Script para eliminar actividad -->
+    <script>
+        $('#modalDelete').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            codRecuperacion = button.data('cod_recuperacion');
+            //console.log('Código de integrante:', codRecuperacion); // Verifica si se captura correctamente
+        });
+
+        $('#eliminarRespuesta').click(function() {
+            if (!codRecuperacion) {
+                console.log('Error: No se ha capturado el cod_recuperacion.');
+                return;
+            }
+
+            $.ajax({
+                url: '/plan_accion_recuperacion/' + codRecuperacion, // URL correcta
+                type: 'DELETE',
+                success: function(response) {
+                    console.log('Respuesta del servidor:', response);
+                    if (response.success) {
+                        alert(response.message); // Mensaje de éxito
+                        $('#modalDelete').modal('hide');
+                        location.reload(); // Refrescar la página o eliminar la fila de la tabla
+                    } else {
+                        alert(response.message); // Mensaje de error
+                    }
+                },
+                error: function(response) {
+                    console.error('Error al eliminar:', response);
+                    alert('Error al eliminar el plan de acción (Recuperacion)');
+                }
+            });
+        });
+    </script>
+
+    <!-- Script para editar actividad -->
+    <script>
+        document.getElementById('editarRecuperacionModal').addEventListener('show.bs.modal', function(event) {
+            // Botón que disparó el modal
+            var button = event.relatedTarget;
+
+            // Obtener datos del botón
+            var codRecuperacion = button.getAttribute('data-cod_recuperacion');
+            var acciones = button.getAttribute('data-emergencia');
+            var responsable = button.getAttribute('data-responsable');
+            var comentario = button.getAttribute('data-comentario');
+
+            //alert(comentario);
+
+            // Asignar valores a los campos del modal
+            document.getElementById('editCodRecuperacion').value = codRecuperacion;
+            document.getElementById('editActividad').value = acciones; // Usar el ID correcto
+            document.getElementById('editResponsable').value = responsable;
+            document.getElementById('editComentario').value = comentario;
+
+        });
+
+        document.getElementById('editarRecuperacionForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Evita que se recargue la página
+
+            // Recopilar datos del formulario
+            const formData = {
+                actividad: document.getElementById('editActividad').value,
+                responsable: document.getElementById('editResponsable').value,
+                comentario: document.getElementById('editComentario').value,
+            };
+
+            // Obtener el ID del integrante (desde el campo oculto en el formulario)
+            const codRecuperacion = document.getElementById('editCodRecuperacion').value;
+
+            //console.log(formData);
+
+            try {
+                // Realizar la solicitud PUT al servidor
+                const response = await fetch(`/plan_accion_recuperacion/${codRecuperacion}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "X-CSRF-TOKEN": document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ) ? document.querySelector('meta[name="csrf-token"]').content : "",
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                // Manejar la respuesta del servidor
+                if (response.ok) {
+                    alert(result.message); // Mostrar el mensaje de éxito
+                    // Opcional: Actualizar la tabla o cerrar el modal
+                    location.reload(); // Recargar la página para reflejar cambios
+                } else {
+                    alert(result.message || 'Error al guardar los cambios.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Hubo un error al realizar la solicitud.');
+            }
+        });
     </script>
 </body>
 

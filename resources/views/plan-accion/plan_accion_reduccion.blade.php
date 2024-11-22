@@ -129,7 +129,7 @@
         </section>
     </div>
 
-    <!-- Modal Formulario "Crear nuevo recurso" -->
+    <!-- Modal Formulario "Crear nueva actividad" -->
     <div class="modal fade" id="crearActividadModal" data-bs-backdrop="static" tabindex="-1"
         aria-labelledby="crearProyectoLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -151,7 +151,7 @@
                             <input type="text" class="form-control" id="responsable" required />
                         </div>
                         <div class="mb-3">
-                            <label for="comentario" class="form-label fw-bold">comentario</label>
+                            <label for="comentario" class="form-label fw-bold">Comentario</label>
                             <textarea class="form-control" id="comentario" rows="3"></textarea>
                         </div>
                     </div>
@@ -165,7 +165,7 @@
         </div>
     </div>
 
-    <!-- Modal Formulario "Editar recurso" -->
+    <!-- Modal Formulario "Editar actividad" -->
     <div class="modal fade" id="editarReduccionModal" data-bs-backdrop="static" tabindex="-1"
         aria-labelledby="editarReduccionLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -187,11 +187,12 @@
                         </div>
                         <div class="mb-3">
                             <label for="editResponsable" class="form-label fw-bold">Responsable</label>
-                            <input type="text" class="form-control" id="editResponsable" required />
+                            <input type="text" name="editResponsable" class="form-control" id="editResponsable"
+                                required />
                         </div>
                         <div class="mb-3">
-                            <label for="editComentario" class="form-label fw-bold">comentario</label>
-                            <textarea class="form-control" id="editComentario" rows="3"></textarea>
+                            <label for="editComentario" class="form-label fw-bold">Comentario</label>
+                            <textarea class="form-control" name="editComentario" id="editComentario" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -204,7 +205,7 @@
         </div>
     </div>
 
-    <!-- Modal para eliminar recurso -->
+    <!-- Modal para eliminar actividad -->
     <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -348,7 +349,7 @@
             });
     </script>
 
-    <!-- Script para eliminar recurso -->
+    <!-- Script para eliminar actividad -->
     <script>
         $('#modalDelete').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
@@ -383,7 +384,7 @@
         });
     </script>
 
-    <!-- Script para editar recurso -->
+    <!-- Script para editar actividad -->
     <script>
         document.getElementById('editarReduccionModal').addEventListener('show.bs.modal', function(event) {
             // Botón que disparó el modal
@@ -391,27 +392,18 @@
 
             // Obtener datos del botón
             var codReduccion = button.getAttribute('data-cod_reduccion');
-            var descripcion = button.getAttribute('data-descripcion');
-            var cantidad = button.getAttribute('data-cantidad');
-            var ubicacion = button.getAttribute('data-ubicacion');
-            var uso_recurso = button.getAttribute('data-uso_recurso');
+            var preparacion = button.getAttribute('data-preparacion');
+            var responsable = button.getAttribute('data-responsable');
+            var comentario = button.getAttribute('data-comentario');
 
-            //alert(uso_recurso);
+            //alert(codReduccion);
 
             // Asignar valores a los campos del modal
             document.getElementById('editCodReduccion').value = codReduccion;
-            document.getElementById('editDescripcion').value = descripcion;
-            document.getElementById('editCantidad').value = cantidad;
-            document.getElementById('editUbicacion').value = ubicacion;
+            document.getElementById('editActividad').value = preparacion; // Usar el ID correcto
+            document.getElementById('editResponsable').value = responsable;
+            document.getElementById('editComentario').value = comentario;
 
-            // Seleccionar el valor correcto en el dropdown de Uso de Recurso
-            var uso_recursoField = document.getElementById('editUsoRecurso');
-            for (var i = 0; i < uso_recursoField.options.length; i++) {
-                if (uso_recursoField.options[i].value === uso_recurso) {
-                    uso_recursoField.selectedIndex = i;
-                    break;
-                }
-            }
         });
 
         document.getElementById('editarReduccionForm').addEventListener('submit', async function(event) {
@@ -419,20 +411,19 @@
 
             // Recopilar datos del formulario
             const formData = {
-                descripcion: document.getElementById('editDescripcion').value,
-                cantidad: document.getElementById('editCantidad').value,
-                usoRecurso: document.getElementById('editUsoRecurso').value,
-                ubicacion: document.getElementById('editUbicacion').value,
+                actividad: document.getElementById('editActividad').value,
+                responsable: document.getElementById('editResponsable').value,
+                comentario: document.getElementById('editComentario').value,
             };
 
             // Obtener el ID del integrante (desde el campo oculto en el formulario)
-            const codUsoRecurso = document.getElementById('editCodReduccion').value;
+            const codReduccion = document.getElementById('editCodReduccion').value;
 
             //console.log(formData);
 
             try {
                 // Realizar la solicitud PUT al servidor
-                const response = await fetch(`/recursos_familiares_disponibles/${codUsoRecurso}`, {
+                const response = await fetch(`/plan_accion_reduccion/${codReduccion}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

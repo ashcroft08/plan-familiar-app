@@ -75,15 +75,23 @@ $router->put('recursos_familiares_disponibles/{cod_recurso}', 'RecursoPcdControl
 //Rutas para Plan accion Reducción
 $router->get('plan_accion_reduccion', 'ReduccionController@mostrar');
 $router->post('plan_accion_reduccion', 'ReduccionController@guardar');
+$router->get('plan_accion_reduccion/visualizar/{cod_familia}', 'ReduccionController@editar');
 $router->delete('plan_accion_reduccion/{cod_reduccion}', 'ReduccionController@eliminar');
+$router->put('plan_accion_reduccion/{cod_reduccion}', 'ReduccionController@actualizar');
 
 //Rutas para Plan accion Respuesta
 $router->get('plan_accion_respuesta', 'RespuestaController@mostrar');
 $router->post('plan_accion_respuesta', 'RespuestaController@guardar');
+$router->get('plan_accion_respuesta/visualizar/{cod_familia}', 'RespuestaController@editar');
+$router->delete('plan_accion_respuesta/{cod_respuesta}', 'RespuestaController@eliminar');
+$router->put('plan_accion_respuesta/{cod_respuesta}', 'RespuestaController@actualizar');
 
 //Rutas para Plan accion Recuperación
 $router->get('plan_accion_recuperacion', 'RecuperacionController@mostrar');
 $router->post('plan_accion_recuperacion', 'RecuperacionController@guardar');
+$router->get('plan_accion_recuperacion/visualizar/{cod_familia}', 'RecuperacionController@editar');
+$router->delete('plan_accion_recuperacion/{cod_recuperacion}', 'RecuperacionController@eliminar');
+$router->put('plan_accion_recuperacion/{cod_recuperacion}', 'RecuperacionController@actualizar');
 
 //Rutas para Plan accion Reducción
 $router->get('numeros_emergencia', 'NumeroEmergenciaController@mostrar');

@@ -75,41 +75,40 @@ class ReduccionController extends Controller
     public function editar($cod_familia)
     {
         // Buscar todas las amenazas asociadas a 'cod_familia'
-        $actividads = RecursoPcd::where('cod_familia', $cod_familia)->get();
+        $actividad = Reduccion::where('cod_familia', $cod_familia)->get();
 
         // Si no se encuentran amenazas para ese 'cod_familia', lanzar error 404
-        if ($actividads->isEmpty()) {
-            abort(404, "No se encontraron amenazas para este 'cod_familia'.");
+        if ($actividad->isEmpty()) {
+            abort(404, "No se encontraron actividades para este 'cod_familia'.");
         }
 
-        return view('recursos-pcd.editar_recursos_familiares_disponibles', ['recursos' => $actividads]);
+        return view('plan-accion.editar_plan_accion_reduccion', ['actividad' => $actividad]);
     }
 
-    public function actualizar(Request $request, $cod_recurso)
+    public function actualizar(Request $request, $cod_reduccion)
     {
-        $actividad = RecursoPcd::find($cod_recurso);
+        $actividad = Reduccion::find($cod_reduccion);
 
         // Verificar si el registro existe
         if (!$actividad) {
             return response()->json(['success' => false, 'message' => 'Registro no encontrado']);
         }
 
-        // Crear y guardar el recurso
-        $actividad->descripcion = $request->input('descripcion');
-        $actividad->cantidad = $request->input('cantidad');
-        $actividad->ubicacion = $request->input('ubicacion');
-        $actividad->uso_recurso = $request->input('usoRecurso');
+        $actividad->preparacion = $request->input('actividad');
+        $actividad->responsable = $request->input('responsable');
+        $actividad->comentario = $request->input('comentario');
+
 
         if ($actividad->save()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Datos del recurso actualizados correctamente.',
+                'message' => 'Datos del plan de acción (reducción) actualizados correctamente.',
                 'data' => $actividad
             ]);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Hubo un error al actualizar los datos del recurso.'
+                'message' => 'Hubo un error al actualizar los datos del plan de acción (reducción) '
             ], 500);
         }
     }

@@ -47,4 +47,69 @@ class RespuestaController extends Controller
             ], 500);
         }
     }
+
+    public function eliminar($cod_respuesta)
+    {
+        $actividad = Respuesta::find($cod_respuesta);
+
+        if (!$actividad) {
+            return response()->json([
+                'success' => false,
+                'message' => 'La actividad no existe.',
+            ], 404);
+        }
+
+        if ($actividad->delete()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Actividad eliminada correctamente.'
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Hubo un error al eliminar la actividad.'
+            ], 500);
+        }
+    }
+
+    public function editar($cod_familia)
+    {
+        // Buscar todas las amenazas asociadas a 'cod_familia'
+        $actividad = Respuesta::where('cod_familia', $cod_familia)->get();
+
+        // Si no se encuentran amenazas para ese 'cod_familia', lanzar error 404
+        if ($actividad->isEmpty()) {
+            abort(404, "No se encontraron actividades para este 'cod_familia'.");
+        }
+
+        return view('plan-accion.editar_plan_accion_respuesta', ['actividad' => $actividad]);
+    }
+
+    public function actualizar(Request $request, $cod_respuesta)
+    {
+        $actividad = Respuesta::find($cod_respuesta);
+
+        // Verificar si el registro existe
+        if (!$actividad) {
+            return response()->json(['success' => false, 'message' => 'Registro no encontrado']);
+        }
+
+        $actividad->acciones = $request->input('actividad');
+        $actividad->responsable = $request->input('responsable');
+        $actividad->comentario = $request->input('comentario');
+
+
+        if ($actividad->save()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Datos del plan de acción (respuesta) actualizados correctamente.',
+                'data' => $actividad
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Hubo un error al actualizar los datos del plan de acción (respuesta) '
+            ], 500);
+        }
+    }
 }
