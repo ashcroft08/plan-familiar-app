@@ -88,7 +88,8 @@
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fa-solid fa-plus"></i>
                     </span>
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearRecursoModal">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearRecursoModal"
+                        id="crearRecurso" disabled>
                         Crear nuevo recurso
                     </button>
                 </div>
@@ -117,18 +118,18 @@
                                     <td>{{ $item->ubicacion }}</td>
                                     <td>{{ $item->uso_recurso }}</td>
                                     <td class="d-flex gap-2">
-                                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#editarRecursoModal"
+                                        <button type="button" class="btn btn-warning btn-sm editarRecurso"
+                                            data-bs-toggle="modal" data-bs-target="#editarRecursoModal"
                                             data-cod_recurso="{{ $item->cod_recurso }}"
-                                            data-descripcion="{{ $item->descripcion }}" 
-                                            data-cantidad="{{$item->cantidad}}"
+                                            data-descripcion="{{ $item->descripcion }}"
+                                            data-cantidad="{{ $item->cantidad }}"
                                             data-ubicacion="{{ $item->ubicacion }}"
-                                            data-uso_recurso="{{ $item->uso_recurso }}">Editar
+                                            data-uso_recurso="{{ $item->uso_recurso }}" disabled>Editar
                                             <i class="fas fa-pen"></i>
                                         </button>
-                                        <button type="button" class="btn btn-outline-danger btn-sm"
+                                        <button type="button" class="btn btn-outline-danger btn-sm eliminarRecurso"
                                             data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                            data-cod_recurso="{{ $item->cod_recurso }}">Eliminar
+                                            data-cod_recurso="{{ $item->cod_recurso }}" disabled>Eliminar
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </td>
@@ -139,9 +140,14 @@
                 </div>
                 <div class="row botonsform">
                     <div class="col">
-                        <!-- Botón para abrir el modal de "Regresar" -->
-                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#regresarModal"
-                            class="btn btn-secondary">Regresar <i class="fa-solid fa-rotate-left"></i></a>
+                        <button type="button" id="editar" class="btn btn-warning">
+                            Editar
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
+                        <a href="{{ url('identificacion_de_amenazas/visualizar/' . $item->cod_familia) }}"
+                            class="btn btn-secondary">
+                            Regresar <i class="fa-solid fa-rotate-left"></i>
+                        </a>
                         <a href="/plan_accion_reduccion" class="btn btn-success">Siguiente
                             <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
@@ -309,6 +315,29 @@
     <script src="/assets/js/jquery-3.7.1.min.js"></script>
     <!-- Enlazar Bootstrap JS -->
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const editarButton = document.getElementById('editar');
+            const recursoButton = document.getElementById('crearRecurso');
+            const eliminarRecursoButtons = document.querySelectorAll(
+                '.eliminarRecurso');
+            const editarRecursoButtons = document.querySelectorAll(
+                '.editarRecurso');
+
+            // Funcionalidad del botón Editar
+            editarButton.addEventListener('click', () => {
+                eliminarRecursoButtons.forEach(button => {
+                    button.disabled = false; // Habilitar todos los botones 'eliminar'
+                });
+                editarRecursoButtons.forEach(button => {
+                    button.disabled = false; // Habilitar todos los botones 'editar'
+                });
+                recursoButton.disabled = false;
+                editarButton.disabled = true; // Desactiva el botón de editar
+            });
+        });
+    </script>
 
     <script>
         // Mostrar el modal y cargar el cod_familia desde localStorage

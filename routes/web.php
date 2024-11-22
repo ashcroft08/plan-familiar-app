@@ -72,6 +72,7 @@ $router->put('recursos_familiares_disponibles/{cod_recurso}', 'RecursoPcdControl
 //Rutas para Plan accion Reducción
 $router->get('plan_accion_reduccion', 'ReduccionController@mostrar');
 $router->post('plan_accion_reduccion', 'ReduccionController@guardar');
+$router->get('plan_accion_reduccion', 'ReduccionController@guardar');
 
 //Rutas para Plan accion Respuesta
 $router->get('plan_accion_respuesta', 'RespuestaController@mostrar');
