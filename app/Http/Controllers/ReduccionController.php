@@ -50,7 +50,7 @@ class ReduccionController extends Controller
 
     public function eliminar($cod_reduccion)
     {
-        $actividad = Reduccion::find($cod_recurso);
+        $actividad = Reduccion::find($cod_reduccion);
 
         if (!$actividad) {
             return response()->json([

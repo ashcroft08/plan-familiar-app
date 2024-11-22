@@ -165,6 +165,70 @@
         </div>
     </div>
 
+    <!-- Modal Formulario "Editar recurso" -->
+    <div class="modal fade" id="editarReduccionModal" data-bs-backdrop="static" tabindex="-1"
+        aria-labelledby="editarReduccionLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="editarReduccionForm" class="form" method="PUT" autocomplete="off">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold fs-5" id="crearProyectoLabel">
+                            Editar plan de acción (Reducción)
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Campo oculto para cod_reduccion -->
+                        <input type="hidden" name="cod_reduccion" id="editCodReduccion" />
+                        <div class="mb-3">
+                            <label for="editActividad" class="form-label fw-bold">¿Cómo nos preparamos?</label>
+                            <textarea name="editActividad" id="editActividad" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editResponsable" class="form-label fw-bold">Responsable</label>
+                            <input type="text" class="form-control" id="editResponsable" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editComentario" class="form-label fw-bold">comentario</label>
+                            <textarea class="form-control" id="editComentario" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="actualizarReduccion" class="btn btn-primary">
+                            Actualizar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para eliminar recurso -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold fs-5" id="modalDeleteLabel" style="font-weight: bold;">
+                        Eliminar el plan de acción (Reducción)
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Esta seguro que desea eliminar el plan?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar <i class="fa-solid fa-ban"></i>
+                    </button>
+                    <button type="button" class="btn btn-success" id="eliminarReduccion"> Aceptar <i
+                            class="fa-solid fa-check"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Enlazar jQuery localmente -->
     <script src="/assets/js/jquery-3.7.1.min.js"></script>
     <!-- Enlazar Bootstrap JS -->
@@ -191,13 +255,13 @@
                             <td>${item.comentario}</td>
                             <td class="d-flex gap-2">
                                 <button type="button" class="btn btn-warning btn-sm"
-                                    data-bs-toggle="modal" data-bs-target="#editarRecursoModal"
+                                    data-bs-toggle="modal" data-bs-target="#editarReduccionModal"
                                     data-cod_reduccion="${item.cod_reduccion}"
                                     data-preparacion="${item.preparacion}"
                                     data-responsable="${item.responsable}"
                                     data-comentario="${item.comentario}">Editar 
                                 <i class="fas fa-pen"></i>
-                            </button>
+                                </button>
                                 <button type="button" class="btn btn-outline-danger btn-sm"
                                         data-bs-toggle="modal" data-bs-target="#modalDelete"
                                         data-cod_reduccion="${item.cod_reduccion}">Eliminar 
@@ -282,6 +346,118 @@
                     alert("Error al guardar el recurso.");
                 }
             });
+    </script>
+
+    <!-- Script para eliminar recurso -->
+    <script>
+        $('#modalDelete').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            codReduccion = button.data('cod_reduccion');
+            //console.log('Código de integrante:', codReduccion); // Verifica si se captura correctamente
+        });
+
+        $('#eliminarReduccion').click(function() {
+            if (!codReduccion) {
+                console.log('Error: No se ha capturado el cod_reduccion.');
+                return;
+            }
+
+            $.ajax({
+                url: '/plan_accion_reduccion/' + codReduccion, // URL correcta
+                type: 'DELETE',
+                success: function(response) {
+                    console.log('Respuesta del servidor:', response);
+                    if (response.success) {
+                        alert(response.message); // Mensaje de éxito
+                        $('#modalDelete').modal('hide');
+                        location.reload(); // Refrescar la página o eliminar la fila de la tabla
+                    } else {
+                        alert(response.message); // Mensaje de error
+                    }
+                },
+                error: function(response) {
+                    console.error('Error al eliminar:', response);
+                    alert('Error al eliminar el plan de acción (Reducción)');
+                }
+            });
+        });
+    </script>
+
+    <!-- Script para editar recurso -->
+    <script>
+        document.getElementById('editarReduccionModal').addEventListener('show.bs.modal', function(event) {
+            // Botón que disparó el modal
+            var button = event.relatedTarget;
+
+            // Obtener datos del botón
+            var codReduccion = button.getAttribute('data-cod_reduccion');
+            var descripcion = button.getAttribute('data-descripcion');
+            var cantidad = button.getAttribute('data-cantidad');
+            var ubicacion = button.getAttribute('data-ubicacion');
+            var uso_recurso = button.getAttribute('data-uso_recurso');
+
+            //alert(uso_recurso);
+
+            // Asignar valores a los campos del modal
+            document.getElementById('editCodReduccion').value = codReduccion;
+            document.getElementById('editDescripcion').value = descripcion;
+            document.getElementById('editCantidad').value = cantidad;
+            document.getElementById('editUbicacion').value = ubicacion;
+
+            // Seleccionar el valor correcto en el dropdown de Uso de Recurso
+            var uso_recursoField = document.getElementById('editUsoRecurso');
+            for (var i = 0; i < uso_recursoField.options.length; i++) {
+                if (uso_recursoField.options[i].value === uso_recurso) {
+                    uso_recursoField.selectedIndex = i;
+                    break;
+                }
+            }
+        });
+
+        document.getElementById('editarReduccionForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Evita que se recargue la página
+
+            // Recopilar datos del formulario
+            const formData = {
+                descripcion: document.getElementById('editDescripcion').value,
+                cantidad: document.getElementById('editCantidad').value,
+                usoRecurso: document.getElementById('editUsoRecurso').value,
+                ubicacion: document.getElementById('editUbicacion').value,
+            };
+
+            // Obtener el ID del integrante (desde el campo oculto en el formulario)
+            const codUsoRecurso = document.getElementById('editCodReduccion').value;
+
+            //console.log(formData);
+
+            try {
+                // Realizar la solicitud PUT al servidor
+                const response = await fetch(`/recursos_familiares_disponibles/${codUsoRecurso}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "X-CSRF-TOKEN": document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ) ? document.querySelector('meta[name="csrf-token"]').content : "",
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                // Manejar la respuesta del servidor
+                if (response.ok) {
+                    alert(result.message); // Mostrar el mensaje de éxito
+                    // Opcional: Actualizar la tabla o cerrar el modal
+                    location.reload(); // Recargar la página para reflejar cambios
+                } else {
+                    alert(result.message || 'Error al guardar los cambios.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Hubo un error al realizar la solicitud.');
+            }
+        });
     </script>
 </body>
 
