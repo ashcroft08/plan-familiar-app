@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Amenaza;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\LugarEvacuacionEncuentro;
 
 class LugarEvacuacionEncuentroController extends Controller
@@ -48,5 +49,53 @@ class LugarEvacuacionEncuentroController extends Controller
                 'message' => 'Hubo un error al guardar los datos',
             ]);
         }
+    }
+
+    public function editar($cod_familia)
+    {
+        // Buscar todas las amenazas asociadas a 'cod_familia'
+        $amenazasNom = Amenaza::where('cod_familia', $cod_familia)->get();
+
+        $lugarEvacuacionEncuentro = LugarEvacuacionEncuentro::findOrFail($cod_familia);
+
+        // Pasar los resultados a la vista
+        return view('evacuacion-encuentro.editar_lugares_de_evacuacion_y_de_encuentro', ['amenazasNom' => $amenazasNom, 'lugarEvacuacionEncuentro' => $lugarEvacuacionEncuentro]);
+    }
+
+    public function actualizar(Request $request, $cod_familia)
+    {
+        $lugarEvacuacionEncuentro = LugarEvacuacionEncuentro::find($cod_familia);
+
+        // Verificar si el registro existe
+        if (!$lugarEvacuacionEncuentro) {
+            return response()->json(['success' => false, 'message' => 'Registro no encontrado']);
+        }
+
+        // Si no hay duplicados, proceder a ctualizar
+        $lugarEvacuacionEncuentro->punto_reunion = $request->input('puntoReunion');
+        $lugarEvacuacionEncuentro->ruta_evacuacion = $request->input('rutaEvac');
+
+        if ($lugarEvacuacionEncuentro->save()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Datos actualizados correctamente'
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Hubo un error al actualizados los datos',
+            ]);
+        }
+    }
+
+    public function regresar($cod_familia)
+    {
+        // Buscar todas las amenazas asociadas a 'cod_familia'
+        $amenazasNom = Amenaza::where('cod_familia', $cod_familia)->get();
+
+        $lugarEvacuacionEncuentro = LugarEvacuacionEncuentro::findOrFail($cod_familia);
+
+        // Pasar los resultados a la vista
+        return view('evacuacion-encuentro.regresar_lugares_de_evacuacion_y_de_encuentro', ['amenazasNom' => $amenazasNom, 'lugarEvacuacionEncuentro' => $lugarEvacuacionEncuentro]);
     }
 }

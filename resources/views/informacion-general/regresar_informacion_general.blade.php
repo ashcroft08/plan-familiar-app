@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Visualizacón plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -37,14 +37,14 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                        ¿Seguro que deseas
+                                                        ¿Seguro que desea
                                                         ir al Inicio?
                                                     </h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Si regresas al inicio,
+                                                    Si regresa al inicio,
                                                     se perderán los datos
                                                     que has ingresado hasta
                                                     ahora.
@@ -63,7 +63,7 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Edición de Plan
+                                    Creación de Plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Información General
@@ -124,7 +124,7 @@
                         <div class="form-group">
                             <label for="barrio" style="font-weight: bold">Seleccione una opción:</label>
                             <select class="form-control mb-2" id="selectOption" name="opcionBcr"
-                                style="font-weight: bold" onchange="updatePlaceholder()">
+                                style="font-weight: bold">
                                 <option value="comunidad"
                                     {{ $informacion_general->opcion_bcr == 'comunidad' ? 'selected' : '' }}>Comunidad
                                 </option>
@@ -146,39 +146,57 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" id="cod_familia" value="{{ $informacion_general->cod_familia }}">
                 <div class="row botonsform">
                     <div class="col">
-                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                            class="btn btn-secondary">Regresar <i class="fa-solid fa-rotate-left"></i></a>
-                        <button type="button" id="guardarYContinuar" class="btn btn-success">
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                            data-bs-target="#modalDelete"
+                            data-cod_familia="{{ $informacion_general->cod_familia }}">Regresar <i
+                                class="fa-solid fa-rotate-left"></i></button>
+                        <button type="submit" id="guardarYContinuar" class="btn btn-success">
                             Siguiente
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
-
                     </div>
                 </div>
             </form>
         </section>
     </div>
 
+    <!-- Modal para eliminar plan -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDeleteLabel" style="font-weight: bold;">
+                        ¿Seguro que desea
+                        ir al Inicio?
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Si regresa al inicio,
+                    se perderán los datos
+                    que has ingresado hasta
+                    ahora.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                        <i class="fa-solid fa-ban"></i>
+                    </button>
+                    <button type="button"class="btn btn-primary" id="eliminarPlan">
+                        Aceptar
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Enlazar jQuery localmente -->
     <script src="/assets/js/jquery-3.7.1.min.js"></script>
     <!-- Enlazar Bootstrap JS -->
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- JavaScript to update the placeholder -->
-    <script>
-        function updatePlaceholder() {
-            var selectOption = document.getElementById("selectOption");
-            var inputField = document.getElementById("barrio");
-            inputField.placeholder =
-                "Escriba " +
-                selectOption.options[
-                    selectOption.selectedIndex
-                ].text.toLowerCase();
-        }
-    </script>
 
     <script>
         function updatePlaceholder() {
@@ -195,8 +213,7 @@
             event.preventDefault(); // Prevenir que el formulario se envíe y se recargue
 
             // Obtener el valor de 'cod_familia' desde el formulario o algún otro lugar
-            const cod_familia = document.getElementById("cod_familia") ? document.getElementById("cod_familia")
-                .value.trim() : "{{ $informacion_general->cod_familia }}";
+            const cod_familia = "{{ $informacion_general->cod_familia }}";
 
             // Obtener los valores de cada campo
             const nombreFam = document.getElementById("nombreFam").value.trim();
@@ -260,7 +277,9 @@
 
                 if (responseData.success) {
                     // Redirige al siguiente formulario tras actualizar correctamente
-                    window.location.href = "/lugares_de_evacuacion_y_de_encuentro";
+                    // Redirigir a una nueva URL (ajusta la ruta según tu backend)
+                    const url = `/amenazas/editar/${cod_familia}`;
+                    window.location.href = url; // Cambia la página
                 } else {
                     // Si la respuesta es falsa (ya existe un duplicado), mostrar el mensaje y no redirigir
                     alert(responseData.message);
@@ -272,7 +291,33 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function() {
+            var codFamilia;
 
+            // Capturar el cod_familia cuando se hace clic en el botón de eliminar
+            $('#modalDelete').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget); // El botón que activó el modal
+                codFamilia = button.data('cod_familia'); // Obtener el cod_familia desde data-cod_familia
+            });
+
+            // Confirmar la eliminación
+            $('#eliminarPlan').click(function() {
+                $.ajax({
+                    url: '/' + codFamilia, // Usar el cod_familia en la URL
+                    type: 'DELETE',
+                    success: function(response) {
+                        // Cerrar el modal
+                        $('#modalDelete').modal('hide');
+                        window.location.href = "/";
+                    },
+                    error: function(response) {
+                        alert('Error al eliminar el plan');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

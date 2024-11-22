@@ -63,10 +63,10 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Creación de Plan
+                                    Visualización plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Lugares de Evacuación y Encuentro
+                                    Integrantes de la Familia
                                 </li>
                             </ol>
                         </nav>
@@ -79,38 +79,49 @@
 
         <!-- Hoverable rows start -->
         <section class="container">
-            <header>3. Lugares de Evacuación y Encuentro</header>
-            <form class="form" method="POST" autocomplete="off">
-                <!-- Campo oculto para cod_familia -->
-                <input type="hidden" name="cod_familia" id="codFamiliaInput" />
-                <div class="row">
-                    <div class="col-md-6 col-12">
-                        <label for="puntoReunion" style="font-weight: bold">Amenazas:</label>
-                        <!-- Lista de amenazas agregadas -->
-                        <ul class="list-group" id="amenazaList">
-                        </ul>
-                    </div>
-                    <div class="col-md-6 col-12 mb-3">
-                        <div class="form-group">
-                            <label for="puntoReunion" style="font-weight: bold">Punto de reunión en caso de:</label>
-                            <textarea type="text" class="form-control" name="puntoReunion" id="puntoReunion" rows="8" required></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-12">
-                        <div class="form-group">
-                            <label for="rutaEvac" style="font-weight: bold">Ruta de evacuación</label>
-                            <textarea class="form-control" name="rutaEvac" id="rutaEvac" rows="5" required></textarea>
-                        </div>
-                    </div>
+            <header>5. Identificación de amenazas</header>
+            <form id="identificacionForm" class="form" method="POST">
+                <input type="hidden" name="_method" value="PUT"> <!-- Campo oculto solo si es necesario -->
+                <div class="table-responsive">
+                    <table class="table table-bordered" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th scope="col">Amenaza</th>
+                                <th scope="col">Efecto</th>
+                                <th scope="col">¿Por qué puede ocurrir?</th>
+                                <th scope="col">¿Qué podemos hacer?</th>
+                            </tr>
+                        </thead>
+                        <tbody id="amenazasTableBody">
+                            @foreach ($identificacionAmenaza as $index => $item)
+                                <tr data-cod_identificacion="{{ $item->cod_identificacion }}">
+                                    <td>{{ $item->cod_identificacion }}</td>
+                                    <td>{{ $item->amenaza }}</td>
+                                    <td>
+                                        <textarea class="form-control efecto" id="efecto_{{ $index }}" rows="3" required>{{ $item->efecto }}</textarea>
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control razon" id="razon_{{ $index }}" rows="3" required>{{ $item->consecuencia }}</textarea>
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control accion" id="accion_{{ $index }}" rows="3" required>{{ $item->acciones }}</textarea>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
                 <div class="row botonsform">
                     <div class="col">
+                        <button type="button" id="editar" class="btn btn-warning">
+                            Editar
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
                         <!-- Botón para abrir el modal de "Regresar" -->
                         <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#regresarModal"
                             class="btn btn-secondary">Regresar <i class="fa-solid fa-rotate-left"></i></a>
-                        <button type="submit" id="guardarYContinuar" class="btn btn-success">
+                        <button type="button" id="guardarYContinuar" class="btn btn-success">
                             Siguiente
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
@@ -131,14 +142,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Si regresa, se perderán los datos que has ingresado
-                    en este formulario.
+                    Si regresaa, se perderán los datos que haya editado en este formularioF.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <a href="/informacion_general" class="btn btn-primary">Aceptar <i
+                    <a href="/integrantes_de_la_familia" class="btn btn-primary">Aceptar <i
                             class="fa-solid fa-check"></i></a>
                 </div>
             </div>
@@ -151,112 +161,62 @@
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            // Obtener amenazas desde la variable de Blade y convertir a un objeto JavaScript
-            const amenazasNom = @json($amenazasNom);
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('identificacionForm');
+            const editarButton = document.getElementById('editar');
+            const inputs = form.querySelectorAll('textarea');
 
-            // Filtrar las amenazas por cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-            const filteredAmenazas = amenazasNom.filter(item => item.cod_familia == codFamilia);
+            // Deshabilitar todos los campos al cargar la página
+            inputs.forEach(input => input.disabled = true);
 
-            // Limpiar la lista
-            const amenazaList = $("#amenazaList");
-            amenazaList.empty();
-
-            // Llenar la lista con las amenazas filtradas
-            filteredAmenazas.forEach((item, index) => {
-                const listItem = `<li class="list-group-item d-flex justify-content-between">
-                                        ${item.amenaza}
-                                </li>`;
-                amenazaList.append(listItem);
+            // Funcionalidad del botón Editar
+            editarButton.addEventListener('click', () => {
+                inputs.forEach(input => input.disabled = false); // Desbloquea todos los campos
+                editarButton.disabled = true; // Desactiva el botón de editar
             });
         });
     </script>
 
     <script>
-        // Asignar el valor de cod_familia al campo oculto al cargar la página
-        document.addEventListener("DOMContentLoaded", function() {
-            const codFamilia = localStorage.getItem("codFamilia");
-            if (codFamilia) {
-                document.getElementById("codFamiliaInput").value =
-                    codFamilia;
-            } else {
-                alert(
-                    "No se encontró el código de familia en localStorage."
-                );
+        document.getElementById('guardarYContinuar').addEventListener('click', async () => {
+            const cod_familia = "{{ $identificacionAmenaza->first()->cod_familia ?? '' }}";
+
+            const filas = document.querySelectorAll('#amenazasTableBody tr');
+            const amenazas = Array.from(filas).map(fila => ({
+                cod_identificacion: fila.dataset.cod_identificacion,
+                efecto: fila.querySelector('.efecto').value,
+                consecuencia: fila.querySelector('.razon').value,
+                acciones: fila.querySelector('.accion').value,
+            }));
+
+            try {
+                const response = await fetch('/identificacion_de_amenazas', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        amenazas
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert(data.message);
+                    // Redirigir a una nueva URL (ajusta la ruta según tu backend)
+                    const url = `/recursos_familiares_disponibles/visualizar/${cod_familia}`;
+                    window.location.href = url; // Cambia la página
+                } else {
+                    alert(`Error: ${data.message}`);
+                }
+            } catch (error) {
+                console.error('Error al actualizar las amenazas:', error);
+                alert('Ocurrió un error al intentar actualizar las amenazas.');
             }
         });
-
-        document
-            .getElementById("guardarYContinuar")
-            .addEventListener("click", async function(event) {
-                event.preventDefault(); // Prevenir que el formulario se envíe y se recargue
-
-                // Obtiene los valores de los campos, incluido el campo oculto
-                const codFamilia =
-                    document.getElementById("codFamiliaInput").value;
-                const puntoReunion = document
-                    .getElementById("puntoReunion")
-                    .value.trim();
-                const rutaEvac = document
-                    .getElementById("rutaEvac")
-                    .value.trim();
-
-                // Validación de campos obligatorios
-                if (!codFamilia) {
-                    alert(
-                        "No se encontró el código de la familia. Por favor, verifique."
-                    );
-                    return;
-                }
-                if (!puntoReunion || !rutaEvac) {
-                    alert("Por favor, complete todos los campos.");
-                    return;
-                }
-
-                // Datos a enviar al backend
-                const data = {
-                    cod_familia: codFamilia,
-                    puntoReunion: puntoReunion,
-                    rutaEvac: rutaEvac,
-                };
-                try {
-                    //console.log("Datos a enviar:", data);
-
-                    // Enviar datos al servidor
-                    const response = await fetch(
-                        "lugares_de_evacuacion_y_de_encuentro", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ) ?
-                                    document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ).content : "",
-                            },
-                            body: JSON.stringify(data),
-                        }
-                    );
-
-                    const responseData = await response.json();
-
-                    if (responseData.success) {
-                        alert("Datos guardados correctamente");
-                        window.location.href = "/integrantes_de_la_familia";
-                    } else {
-                        alert(
-                            responseData.message ||
-                            "Hubo un error al guardar los datos"
-                        );
-                    }
-                } catch (error) {
-                    console.error("Error:", error);
-                    alert("Error en la solicitud");
-                }
-            });
     </script>
+
 </body>
 
 </html>

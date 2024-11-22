@@ -43,17 +43,16 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                        ¿Seguro que deseas
+                                                        ¿Seguro que desea
                                                         ir al Inicio?
                                                     </h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Si regresas al inicio,
+                                                    Si regresa al inicio,
                                                     se perderán los datos
-                                                    que has ingresado hasta
-                                                    ahora.
+                                                    que has editado en este formulario.
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -69,7 +68,7 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Creación de Plan
+                                    Visualización plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Integrantes de la Familia
@@ -91,7 +90,8 @@
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fa-solid fa-plus"></i>
                     </span>
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearIntegranteModal">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearIntegranteModal"
+                        id="crearIntegrante" disabled>
                         Crear nuevo integrante
                     </button>
                 </div>
@@ -127,17 +127,67 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="integrantesTableBody">
-                        <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
+                    <tbody>
+                        @foreach ($integrantes as $item)
+                            <tr>
+
+                                <td>{{ $item->nombres }}</td>
+                                <td>{{ $item->pcd }}</td>
+                                <td>{{ $item->edad }}</td>
+                                <td>{{ $item->sexo }}</td>
+                                <td>{{ $item->parentesco }}</td>
+                                <td>{{ $item->cuidador }}</td>
+                                <td>{{ $item->frecuencia_necesidades }}</td>
+                                <td>{{ $item->carnet }}</td>
+                                <td>{{ $item->proyecto }}</td>
+                                <td>{{ $item->acciones_responsabilidades }}</td>
+                                <td>{{ $item->medicamentos }}</td>
+                                <td>{{ $item->dosis }}</td>
+                                <td>{{ $item->observaciones }}</td>
+                                <td class="d-flex gap-2">
+                                    <button type="button" class="btn btn-warning btn-sm editarIntegrante"
+                                        data-bs-toggle="modal" data-bs-target="#editarIntegranteModal"
+                                        data-cod_integrante="{{$item->cod_integrante}}" 
+                                        data-nombres="{{$item->nombres}}"
+                                        data-edad="{{$item->edad}}" 
+                                        data-sexo="{{$item->sexo}}"
+                                        data-parentesco="{{$item->parentesco}}" 
+                                        data-cuidador="{{$item->cuidador}}"
+                                        data-pcd="{{$item->pcd}}"
+                                        data-frecuencia_necesidades="{{$item->frecuencia_necesidades}}"
+                                        data-carnet="{{$item->carnet}}" 
+                                        data-proyecto="{{$item->proyecto}}"
+                                        data-acciones_responsabilidades="{{$item->acciones_responsabilidades}}"
+                                        data-medicamentos="{{$item->medicamentos}}" 
+                                        data-dosis="{{$item->dosis}}"
+                                        data-observaciones="{{$item->observaciones}}"
+                                        disabled>Editar
+                                        <i class="fas fa-pen"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm eliminarIntegrante"
+                                        data-bs-toggle="modal" data-bs-target="#modalDelete"
+                                        data-cod_integrante="${item.cod_integrante}"
+                                        disabled>Eliminar
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
             <div class="row botonsform">
                 <div class="col">
-                    <button id="regresar-btn" class="btn btn-secondary">
-                        Regresar <i class="fa-solid fa-rotate-left"></i>
+                    <button type="button" id="editar" class="btn btn-warning">
+                        Editar
+                        <i class="fa-solid fa-pencil"></i>
                     </button>
-                    <a href="/identificacion_de_amenazas" class="btn btn-success">Siguiente
+                    <a href="{{ url('lugares_de_evacuacion_y_de_encuentro/visualizar/' . $item->cod_familia) }}"
+                        class="btn btn-secondary">
+                        Regresar <i class="fa-solid fa-rotate-left"></i>
+                    </a>
+                    <a href="{{ url('identificacion_de_amenazas/visualizar/' . $item->cod_familia) }}"
+                        class="btn btn-success">Siguiente
                         <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
@@ -158,8 +208,6 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Campo oculto para cod_familia -->
-                        <input type="hidden" name="cod_familia" id="codFamiliaInput" />
                         <div class="mb-3">
                             <label for="nombresApellidos" class="form-label fw-bold">Nombres y Apellidos</label>
                             <input type="text" class="form-control" id="nombresApellidos" name="nombresApellidos"
@@ -441,106 +489,28 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const regresarBtn = document.getElementById('regresar-btn');
+            const editarButton = document.getElementById('editar');
+            const integranteButton = document.getElementById('crearIntegrante');
+            const eliminarIntegranteButtons = document.querySelectorAll(
+                '.eliminarIntegrante');
+            const editarIntegranteButtons = document.querySelectorAll(
+                '.editarIntegrante');
 
-            // Obtener el valor de cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-
-            if (codFamilia) {
-                // Agregar un listener de clic para redirigir al usuario
-                regresarBtn.addEventListener('click', () => {
-                    window.location.href = `/lugares_de_evacuacion_y_de_encuentro/editar/${codFamilia}`;
+            // Funcionalidad del botón Editar
+            editarButton.addEventListener('click', () => {
+                eliminarIntegranteButtons.forEach(button => {
+                    button.disabled = false; // Habilitar todos los botones 'eliminar'
                 });
-            } else {
-                console.error('El valor de cod_familia no está definido en localStorage.');
-
-                // Si no hay cod_familia, podrías mostrar un mensaje o redirigir a una página predeterminada
-                regresarBtn.addEventListener('click', (e) => {
-                    e
-                        .preventDefault(); // Evitar la acción por defecto si cod_familia no está en localStorage
-                    alert('No se encontró la familia, asegúrese de que la información esté disponible.');
+                editarIntegranteButtons.forEach(button => {
+                    button.disabled = false; // Habilitar todos los botones 'eliminar'
                 });
-            }
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            var codIntegrante;
-
-            // Obtener integrantes desde la variable de Blade y convertir a un objeto JavaScript
-            const integrantes = @json($integrantes);
-
-            // Filtrar las integrantes por cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-            const filteredIntegrantes = integrantes.filter(item => item.cod_familia == codFamilia);
-
-            // Limpiar la tabla
-            const tbody = $("#integrantesTableBody");
-            tbody.empty();
-
-            // Llenar la lista con las integrantess filtradas
-            filteredIntegrantes.forEach((item) => {
-                const row = `<tr>
-                        <td>${item.nombres}</td>
-                        <td>${item.pcd}</td>
-                        <td>${item.edad}</td>
-                        <td>${item.sexo}</td>
-                        <td>${item.parentesco}</td>
-                        <td>${item.cuidador}</td>
-                        <td>${item.frecuencia_necesidades}</td>
-                        <td>${item.carnet}</td>
-                        <td>${item.proyecto}</td>
-                        <td>${item.acciones_responsabilidades}</td>
-                        <td>${item.medicamentos}</td>
-                        <td>${item.dosis}</td>
-                        <td>${item.observaciones}</td>
-                        <td class="d-flex gap-2">
-                            <button type="button" class="btn btn-warning btn-sm"
-                                    data-bs-toggle="modal" data-bs-target="#editarIntegranteModal"
-                                    data-cod_integrante="${item.cod_integrante}"
-                                    data-nombres="${item.nombres }"
-                                    data-edad="${item.edad }"
-                                    data-sexo="${item.sexo }"
-                                    data-parentesco="${item.parentesco}"
-                                    data-cuidador="${item.cuidador}"
-                                    data-pcd="${item.pcd}" 
-                                    data-frecuencia_necesidades="${item.frecuencia_necesidades}"
-                                    data-carnet="${item.carnet}" 
-                                    data-proyecto="${item.proyecto}"
-                                    data-acciones_responsabilidades="${item.acciones_responsabilidades}"
-                                    data-medicamentos="${item.medicamentos}"
-                                    data-dosis="${item.dosis}"
-                                    data-observaciones="${item.observaciones}">Editar 
-                                <i class="fas fa-pen"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger btn-sm"
-                                    data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                    data-cod_integrante="${item.cod_integrante}">Eliminar 
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </td>
-                    </tr>`;
-                tbody.append(row);
+                integranteButton.disabled = false;
+                editarButton.disabled = true; // Desactiva el botón de editar
             });
         });
     </script>
 
     <script>
-        // Mostrar el modal y cargar el cod_familia desde localStorage
-        $("#crearIntegranteModal").on("show.bs.modal", function(event) {
-            const codFamilia = localStorage.getItem("codFamilia");
-
-            // Verificar si codFamilia existe
-            if (!codFamilia) {
-                alert("El código de familia no está disponible.");
-                return;
-            }
-
-            // Asignar el valor a la entrada oculta
-            document.getElementById("codFamiliaInput").value = codFamilia;
-        });
-
         // Lógica para manejar el formulario de crear integrante
         document
             .getElementById("integranteForm")
@@ -561,7 +531,7 @@
                 const medicamentosPrescritos = document.getElementById("medicamentosPrescritos").value;
                 const dosis = document.getElementById("dosis").value;
                 const observaciones = document.getElementById("observaciones").value;
-                const codFamilia = document.getElementById("codFamiliaInput").value;
+                const codFamilia = "{{ $integrantes->first()->cod_familia ?? '' }}";
 
                 // Validaciones
                 if (!nombresApellidos || !pcd || !edad || !sexo || !parentesco || !cuidador || !
@@ -624,12 +594,11 @@
             });
     </script>
 
-    <!-- Script para eliminar integrante -->
     <script>
         $('#modalDelete').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             codIntegrante = button.data('cod_integrante');
-            //console.log('Código de integrante:', codIntegrante); // Verifica si se captura correctamente
+            console.log('Código de integrante:', codIntegrante); // Verifica si se captura correctamente
         });
 
         $('#eliminarIntegrante').click(function() {
@@ -775,6 +744,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>

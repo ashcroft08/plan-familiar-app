@@ -63,7 +63,7 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Creación de Plan
+                                    Visualización plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Recursos familiares disponibles
@@ -108,8 +108,32 @@
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="recursosTableBody">
-                            <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
+                        <tbody>
+                            @foreach ($recursos as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $item->descripcion }}</td>
+                                    <td>{{ $item->cantidad }}</td>
+                                    <td>{{ $item->ubicacion }}</td>
+                                    <td>{{ $item->uso_recurso }}</td>
+                                    <td class="d-flex gap-2">
+                                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#editarRecursoModal"
+                                            data-cod_recurso="{{ $item->cod_recurso }}"
+                                            data-descripcion="{{ $item->descripcion }}" 
+                                            data-cantidad="{{$item->cantidad}}"
+                                            data-ubicacion="{{ $item->ubicacion }}"
+                                            data-uso_recurso="{{ $item->uso_recurso }}">Editar
+                                            <i class="fas fa-pen"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm"
+                                            data-bs-toggle="modal" data-bs-target="#modalDelete"
+                                            data-cod_recurso="{{ $item->cod_recurso }}">Eliminar
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -127,7 +151,8 @@
     </div>
 
     <!-- Modal para el botón "Regresar" -->
-    <div class="modal fade" id="regresarModal" tabindex="-1" aria-labelledby="regresarModalLabel" aria-hidden="true">
+    <div class="modal fade" id="regresarModal" tabindex="-1" aria-labelledby="regresarModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -284,50 +309,6 @@
     <script src="/assets/js/jquery-3.7.1.min.js"></script>
     <!-- Enlazar Bootstrap JS -->
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-
-            // Obtener amenazas desde la variable de Blade y convertir a un objeto JavaScript
-            const recursos = @json($recursos);
-
-            // Filtrar las amenazas por cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-            const filteredRecursos = recursos.filter(item => item.cod_familia == codFamilia);
-
-            // Limpiar la tabla
-            const tbody = $("#recursosTableBody");
-            tbody.empty();
-
-            // Llenar la tabla con las amenazas filtradas
-            filteredRecursos.forEach((item, index) => {
-                const row = `<tr>
-                            <td>${index + 1}</td>
-                            <td>${item.descripcion}</td>
-                            <td>${item.cantidad}</td>
-                            <td>${item.ubicacion}</td>
-                            <td>${item.uso_recurso}</td>
-                            <td class="d-flex gap-2">
-                                <button type="button" class="btn btn-warning btn-sm"
-                                    data-bs-toggle="modal" data-bs-target="#editarRecursoModal"
-                                    data-cod_recurso="${item.cod_recurso}"
-                                    data-descripcion="${item.descripcion}"
-                                    data-cantidad="${item.cantidad}"
-                                    data-ubicacion="${item.ubicacion}"
-                                    data-uso_recurso="${item.uso_recurso}">Editar 
-                                <i class="fas fa-pen"></i>
-                            </button>
-                                <button type="button" class="btn btn-outline-danger btn-sm"
-                                        data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                        data-cod_recurso="${item.cod_recurso}">Eliminar 
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </td>
-                        </tr>`;
-                tbody.append(row);
-            });
-        });
-    </script>
 
     <script>
         // Mostrar el modal y cargar el cod_familia desde localStorage

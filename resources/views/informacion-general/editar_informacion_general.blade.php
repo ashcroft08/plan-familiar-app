@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Visualizacón plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -44,10 +44,9 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Si regresas al inicio,
+                                                    Si regresa al inicio,
                                                     se perderán los datos
-                                                    que has ingresado hasta
-                                                    ahora.
+                                                    que has editado en este formulario.
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -63,7 +62,7 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Edición de Plan
+                                    Visualización plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Información General
@@ -80,8 +79,7 @@
         <!-- Hoverable rows start -->
         <section class="container">
             <header>1. Información General</header>
-            <form id="familiaForm" class="form" method="PUT"
-                action="/informacion_general/{{ $informacion_general->cod_familia }}">
+            <form id="familiaForm" class="form" method="PUT">
                 <!-- Método PUT para actualizaciones -->
                 <input type="hidden" name="_method" value="PUT">
                 <div class="row">
@@ -89,42 +87,42 @@
                         <div class="form-group">
                             <label for="nombreFam" style="font-weight: bold">Nombre de la familia acogiente</label>
                             <input type="text" class="form-control" name="nombreFam" id="nombreFam"
-                                value="{{ $informacion_general->familia_acogiente }}" required />
+                                value="{{ $informacion_general->familia_acogiente }}" required/>
                         </div>
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="form-group">
                             <label for="direccionFam" style="font-weight: bold">Dirección del domicilio</label>
                             <input type="text" class="form-control" name="direccionFam" id="direccionFam"
-                                value="{{ $informacion_general->direccion_domicilio }}" required />
+                                value="{{ $informacion_general->direccion_domicilio }}" required/>
                         </div>
                     </div>
                     <div class="col-md-6 col-12 mb-3">
                         <div class="form-group">
                             <label for="telFam" style="font-weight: bold">Número de teléfono familia acogiente</label>
                             <input type="text" class="form-control" name="telFam" id="telFam"
-                                value="{{ $informacion_general->telf_familia_acogiente }}" required />
+                                value="{{ $informacion_general->telf_familia_acogiente }}" required/>
                         </div>
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="form-group">
                             <label for="provincia" style="font-weight: bold">Provincia</label>
                             <input type="text" class="form-control" name="provincia" id="provincia"
-                                value="{{ $informacion_general->provincia }}" required />
+                                value="{{ $informacion_general->provincia }}" required/>
                         </div>
                     </div>
                     <div class="col-md-6 col-12 mb-3">
                         <div class="form-group">
                             <label for="canton" style="font-weight: bold">Cantón</label>
                             <input type="text" class="form-control" name="canton" id="canton"
-                                value="{{ $informacion_general->canton }}" required />
+                                value="{{ $informacion_general->canton }}" required/>
                         </div>
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="form-group">
                             <label for="barrio" style="font-weight: bold">Seleccione una opción:</label>
                             <select class="form-control mb-2" id="selectOption" name="opcionBcr"
-                                style="font-weight: bold" onchange="updatePlaceholder()">
+                                style="font-weight: bold">
                                 <option value="comunidad"
                                     {{ $informacion_general->opcion_bcr == 'comunidad' ? 'selected' : '' }}>Comunidad
                                 </option>
@@ -135,27 +133,29 @@
                                 </option>
                             </select>
                             <input type="text" class="form-control mb-3" name="nombreBcr" id="barrio"
-                                value="{{ $informacion_general->nombre_bcr }}" required />
+                                value="{{ $informacion_general->nombre_bcr }}" required/>
                         </div>
                     </div>
                     <div class="col-md-6 col-12 mb-5">
                         <div class="form-group">
                             <label for="numCasa" style="font-weight: bold">Número de casa</label>
                             <input type="text" class="form-control" name="numCasa" id="numCasa"
-                                value="{{ $informacion_general->numero_casa }}" required />
+                                value="{{ $informacion_general->numero_casa }}" required/>
                         </div>
                     </div>
                 </div>
-                <input type="hidden" id="cod_familia" value="{{ $informacion_general->cod_familia }}">
                 <div class="row botonsform">
                     <div class="col">
+                        <button type="button" id="editar" class="btn btn-warning">
+                            Editar
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
                         <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                             class="btn btn-secondary">Regresar <i class="fa-solid fa-rotate-left"></i></a>
-                        <button type="button" id="guardarYContinuar" class="btn btn-success">
+                        <button type="submit" id="guardarYContinuar" class="btn btn-success">
                             Siguiente
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
-
                     </div>
                 </div>
             </form>
@@ -170,24 +170,29 @@
     <!-- JavaScript to update the placeholder -->
     <script>
         function updatePlaceholder() {
-            var selectOption = document.getElementById("selectOption");
-            var inputField = document.getElementById("barrio");
-            inputField.placeholder =
-                "Escriba " +
-                selectOption.options[
-                    selectOption.selectedIndex
-                ].text.toLowerCase();
-        }
-    </script>
-
-    <script>
-        function updatePlaceholder() {
             const selectOption = document.getElementById("selectOption");
             const barrioInput = document.getElementById("barrio");
             barrioInput.placeholder = `Nombre de ${
                     selectOption.options[selectOption.selectedIndex].text
                 }`;
         }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('familiaForm');
+            const editarButton = document.getElementById('editar');
+            const inputs = form.querySelectorAll('input, select, textarea');
+
+            // Deshabilitar todos los campos al cargar la página
+            inputs.forEach(input => input.disabled = true);
+
+            // Funcionalidad del botón Editar
+            editarButton.addEventListener('click', () => {
+                inputs.forEach(input => input.disabled = false); // Desbloquea todos los campos
+                editarButton.disabled = true; // Desactiva el botón de editar
+            });
+        });
     </script>
 
     <script>
@@ -240,7 +245,7 @@
             };
 
             // Depuración: Verificar los datos que se van a enviar
-            console.log("Enviando datos:", data);
+            //console.log("Enviando datos:", data);
 
             try {
                 // Realizar la solicitud PUT
@@ -260,7 +265,9 @@
 
                 if (responseData.success) {
                     // Redirige al siguiente formulario tras actualizar correctamente
-                    window.location.href = "/lugares_de_evacuacion_y_de_encuentro";
+                    // Redirigir a una nueva URL (ajusta la ruta según tu backend)
+                    const url = `/amenazas/visualizar/${cod_familia}`;
+                    window.location.href = url; // Cambia la página
                 } else {
                     // Si la respuesta es falsa (ya existe un duplicado), mostrar el mensaje y no redirigir
                     alert(responseData.message);
@@ -271,8 +278,6 @@
             }
         });
     </script>
-
-
 </body>
 
 </html>

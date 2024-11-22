@@ -30,12 +30,8 @@ class DashboardController extends Controller
         $plan = InformacionGeneral::where('cod_familia', $cod_familia)->first();
 
         if ($plan) {
-            // Eliminar el registro en cada tabla que tenga 'cod_familia'
-            InformacionGeneral::where('cod_familia', $cod_familia)->delete();
-            Amenaza::where('cod_familia', $cod_familia)->delete();
-            LugarEvacuacionEncuentro::where('cod_familia', $cod_familia)->delete();
-            // Puedes agregar más tablas aquí si tienes otras que usen 'cod_familia'
-
+            $familia = InformacionGeneral::findOrFail($cod_familia);
+            $familia->delete();
             return response()->json(['message' => 'Registros eliminados correctamente en todas las tablas.'], 200);
         } else {
             return response()->json(['message' => 'Plan no encontrado.'], 404);

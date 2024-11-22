@@ -88,9 +88,15 @@ class InformacionGeneralController extends Controller
         $informacionGeneral->numero_casa = $request->input('numCasa');
 
         if ($informacionGeneral->save()) {
-            return response()->json(['success' => true, 'message' => 'Datos actualizados correctamente']);
+            return response()->json(['success' => true, 'message' => 'Datos actualizados actualizados']);
         } else {
             return response()->json(['success' => false, 'message' => 'Hubo un error al actualizar los datos']);
         }
+    }
+
+    public function regresar($cod_familia)
+    {
+        $informacionGeneral = InformacionGeneral::findOrFail($cod_familia);
+        return view('informacion-general.regresar_informacion_general', ["informacion_general" => $informacionGeneral]);
     }
 }

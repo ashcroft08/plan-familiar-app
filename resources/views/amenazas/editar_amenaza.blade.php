@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Visualizacón plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -63,7 +63,7 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Creación de Plan
+                                    Visualización plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Amenazas
@@ -85,7 +85,8 @@
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fa-solid fa-plus"></i>
                     </span>
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearAmenazaModal">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearAmenazaModal"
+                        id="crearAmenaza" disabled>
                         Crear nueva amenaza
                     </button>
                 </div>
@@ -99,17 +100,35 @@
                             <th scope="col">Acción</th>
                         </tr>
                     </thead>
-                    <tbody id="amenazasTableBody">
-                        <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
+                    <tbody>
+                        @foreach ($amenazasNom as $index => $item)
+                            <tr>
+                                <td>{{ $index + 1 }}</td> <!-- El índice incrementado en Blade -->
+                                <td>{{ $item->amenaza }}</td> <!-- Acceder a la propiedad 'amenaza' -->
+                                <td>
+                                    <button type="button" class="btn btn-outline-danger btn-sm eliminar"
+                                        data-bs-toggle="modal" data-bs-target="#modalDelete"
+                                        data-cod_amenaza="{{ $item->cod_amenaza }}" disabled>
+                                        Eliminar <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
             <div class="row botonsform">
                 <div class="col">
-                    <button id="regresar-btn" class="btn btn-secondary">
-                        Regresar <i class="fa-solid fa-rotate-left"></i>
+                    <button type="button" id="editar" class="btn btn-warning">
+                        Editar
+                        <i class="fa-solid fa-pencil"></i>
                     </button>
-                    <a href="lugares_de_evacuacion_y_de_encuentro" class="btn btn-success">Siguiente
+                    <a href="{{ url('informacion_general/visualizar/' . $item->cod_familia) }}"
+                        class="btn btn-secondary">
+                        Regresar <i class="fa-solid fa-rotate-left"></i>
+                    </a>
+                    <a href="{{ url('lugares_de_evacuacion_y_de_encuentro/visualizar/' . $item->cod_familia) }}"
+                        class="btn btn-success">Siguiente
                         <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
@@ -126,11 +145,10 @@
                         <h5 class="modal-title fw-bold fs-5" id="crearProyectoLabel">
                             Crear Nueva Amenaza
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Campo oculto para cod_familia -->
-                        <input type="hidden" name="cod_familia" id="codFamiliaInput" />
                         <!-- Primer select para el tipo de amenaza -->
                         <div class="mb-3">
                             <label for="tipoAmenaza" class="form-label fw-bold">Tipo de Amenaza</label>
@@ -208,64 +226,6 @@
     <script src="/assets/js/amenazas.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const regresarBtn = document.getElementById('regresar-btn');
-
-            // Obtener el valor de cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-
-            if (codFamilia) {
-                // Agregar un listener de clic para redirigir al usuario
-                regresarBtn.addEventListener('click', () => {
-                    window.location.href = `/informacion_general/editar/${codFamilia}`;
-                });
-            } else {
-                console.error('El valor de cod_familia no está definido en localStorage.');
-
-                // Si no hay cod_familia, podrías mostrar un mensaje o redirigir a una página predeterminada
-                regresarBtn.addEventListener('click', (e) => {
-                    e
-                        .preventDefault(); // Evitar la acción por defecto si cod_familia no está en localStorage
-                    alert('No se encontró la familia, asegúrese de que la información esté disponible.');
-                });
-            }
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            var codAmenaza;
-
-            // Obtener amenazas desde la variable de Blade y convertir a un objeto JavaScript
-            const amenazasNom = @json($amenazasNom);
-
-            // Filtrar las amenazas por cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-            const filteredAmenazas = amenazasNom.filter(item => item.cod_familia == codFamilia);
-
-            // Limpiar la tabla
-            const tbody = $("#amenazasTableBody");
-            tbody.empty();
-
-            // Llenar la tabla con las amenazas filtradas
-            filteredAmenazas.forEach((item, index) => {
-                const row = `<tr>
-                        <td>${index + 1}</td>
-                        <td>${item.amenaza}</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-danger btn-sm"
-                                    data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                    data-cod_amenaza="${item.cod_amenaza}">Eliminar 
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </td>
-                    </tr>`;
-                tbody.append(row);
-            });
-        });
-    </script>
-
-    <script>
         $('#modalDelete').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             codAmenaza = button.data('cod_amenaza');
@@ -300,19 +260,6 @@
     </script>
 
     <script>
-        $("#crearAmenazaModal").on("show.bs.modal", function(event) {
-            const codFamilia = localStorage.getItem("codFamilia");
-
-            // Verificar si codFamilia existe
-            if (!codFamilia) {
-                alert("El código de familia no está disponible.");
-                return;
-            }
-
-            // Asignar el valor a la entrada oculta
-            document.getElementById("codFamiliaInput").value = codFamilia;
-        });
-
         // Lógica para manejar el formulario de amenazas
         document
             .getElementById("amenazaForm")
@@ -322,8 +269,7 @@
                 // Obtener los valores del formulario
                 const amenazaEspecifica =
                     document.getElementById("amenazaEspecifica").value;
-                const codFamilia =
-                    document.getElementById("codFamiliaInput").value;
+                const codFamilia = "{{ $amenazasNom->first()->cod_familia ?? '' }}";
 
                 // Validaciones
                 if (!amenazaEspecifica ||
@@ -373,6 +319,24 @@
                     alert("Error al guardar la amenaza.");
                 }
             });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const editarButton = document.getElementById('editar');
+            const amenazaButton = document.getElementById('crearAmenaza');
+            const eliminarButtons = document.querySelectorAll(
+                '.eliminar'); // Seleccionar todos los botones con clase 'eliminar'
+
+            // Funcionalidad del botón Editar
+            editarButton.addEventListener('click', () => {
+                eliminarButtons.forEach(button => {
+                    button.disabled = false; // Habilitar todos los botones 'eliminar'
+                });
+                amenazaButton.disabled = false;
+                editarButton.disabled = true; // Desactiva el botón de editar
+            });
+        });
     </script>
 </body>
 

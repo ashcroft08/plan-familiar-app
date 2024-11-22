@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Visualizacón plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -63,7 +63,7 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Creación de Plan
+                                    Visualizacón plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Lugares de Evacuación y Encuentro
@@ -80,20 +80,25 @@
         <!-- Hoverable rows start -->
         <section class="container">
             <header>3. Lugares de Evacuación y Encuentro</header>
-            <form class="form" method="POST" autocomplete="off">
-                <!-- Campo oculto para cod_familia -->
-                <input type="hidden" name="cod_familia" id="codFamiliaInput" />
+            <form id="lugaresForm" class="form" method="PUT">
+                <!-- Método PUT para actualizaciones -->
+                <input type="hidden" name="_method" value="PUT">
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <label for="puntoReunion" style="font-weight: bold">Amenazas:</label>
                         <!-- Lista de amenazas agregadas -->
-                        <ul class="list-group" id="amenazaList">
-                        </ul>
+                        @foreach ($amenazasNom as $item)
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    {{ $item->amenaza }}
+                                </li>
+                            </ul>
+                        @endforeach
                     </div>
                     <div class="col-md-6 col-12 mb-3">
                         <div class="form-group">
                             <label for="puntoReunion" style="font-weight: bold">Punto de reunión en caso de:</label>
-                            <textarea type="text" class="form-control" name="puntoReunion" id="puntoReunion" rows="8" required></textarea>
+                            <textarea type="text" class="form-control" name="puntoReunion" id="puntoReunion" rows="8" required>{{ $lugarEvacuacionEncuentro->punto_reunion }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -101,7 +106,7 @@
                     <div class="col-md-6 col-12">
                         <div class="form-group">
                             <label for="rutaEvac" style="font-weight: bold">Ruta de evacuación</label>
-                            <textarea class="form-control" name="rutaEvac" id="rutaEvac" rows="5" required></textarea>
+                            <textarea class="form-control" name="rutaEvac" id="rutaEvac" rows="5" required>{{ $lugarEvacuacionEncuentro->ruta_evacuacion }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -121,7 +126,8 @@
     </div>
 
     <!-- Modal para el botón "Regresar" -->
-    <div class="modal fade" id="regresarModal" tabindex="-1" aria-labelledby="regresarModalLabel" aria-hidden="true">
+    <div class="modal fade" id="regresarModal" tabindex="-1" aria-labelledby="regresarModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -131,14 +137,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Si regresa, se perderán los datos que has ingresado
-                    en este formulario.
+                    Si regresa, se perderán los datos que has editado en este formulario.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <a href="/informacion_general" class="btn btn-primary">Aceptar <i
+                    <a href="{{ url('amenazas/editar/' . $lugarEvacuacionEncuentro->cod_familia) }}" class="btn btn-primary">Aceptar <i
                             class="fa-solid fa-check"></i></a>
                 </div>
             </div>
@@ -149,114 +154,80 @@
     <script src="/assets/js/jquery-3.7.1.min.js"></script>
     <!-- Enlazar Bootstrap JS -->
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
 
-    <script>
-        $(document).ready(function() {
-            // Obtener amenazas desde la variable de Blade y convertir a un objeto JavaScript
-            const amenazasNom = @json($amenazasNom);
+<script>
+    document
+        .getElementById("guardarYContinuar")
+        .addEventListener("click", async function(event) {
+            event.preventDefault(); // Prevenir que el formulario se envíe y se recargue
 
-            // Filtrar las amenazas por cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-            const filteredAmenazas = amenazasNom.filter(item => item.cod_familia == codFamilia);
+            // Obtener el valor de 'cod_familia' desde el formulario o algún otro lugar
+            const cod_familia = "{{ $lugarEvacuacionEncuentro->cod_familia }}";
 
-            // Limpiar la lista
-            const amenazaList = $("#amenazaList");
-            amenazaList.empty();
+            // Obtiene los valores de los campos, incluido el campo oculto
+            const puntoReunion = document
+                .getElementById("puntoReunion")
+                .value.trim();
+            const rutaEvac = document
+                .getElementById("rutaEvac")
+                .value.trim();
 
-            // Llenar la lista con las amenazas filtradas
-            filteredAmenazas.forEach((item, index) => {
-                const listItem = `<li class="list-group-item d-flex justify-content-between">
-                                        ${item.amenaza}
-                                </li>`;
-                amenazaList.append(listItem);
-            });
-        });
-    </script>
-
-    <script>
-        // Asignar el valor de cod_familia al campo oculto al cargar la página
-        document.addEventListener("DOMContentLoaded", function() {
-            const codFamilia = localStorage.getItem("codFamilia");
-            if (codFamilia) {
-                document.getElementById("codFamiliaInput").value =
-                    codFamilia;
-            } else {
+            // Validación de campos obligatorios
+            if (!cod_familia) {
                 alert(
-                    "No se encontró el código de familia en localStorage."
+                    "No se encontró el código de la familia. Por favor, verifique."
                 );
+                return;
+            }
+            if (!puntoReunion || !rutaEvac) {
+                alert("Por favor, complete todos los campos.");
+                return;
+            }
+
+            // Datos a enviar al backend
+            const data = {
+                cod_familia: cod_familia,
+                puntoReunion: puntoReunion,
+                rutaEvac: rutaEvac,
+            };
+            try {
+                //console.log("Datos a enviar:", data);
+
+                // Enviar datos al servidor
+                const response = await fetch(
+                    `/lugares_de_evacuacion_y_de_encuentro/${cod_familia}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                ) ?
+                                document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                ).content : "",
+                        },
+                        body: JSON.stringify(data),
+                    }
+                );
+
+                const responseData = await response.json();
+
+                if (responseData.success) {
+                    // Redirigir a una nueva URL (ajusta la ruta según tu backend)
+                    const url = `/integrantes_de_la_familia`;
+                    window.location.href = url; // Cambia la página
+                } else {
+                    alert(
+                        responseData.message ||
+                        "Hubo un error al guardar los datos"
+                    );
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Error en la solicitud");
             }
         });
-
-        document
-            .getElementById("guardarYContinuar")
-            .addEventListener("click", async function(event) {
-                event.preventDefault(); // Prevenir que el formulario se envíe y se recargue
-
-                // Obtiene los valores de los campos, incluido el campo oculto
-                const codFamilia =
-                    document.getElementById("codFamiliaInput").value;
-                const puntoReunion = document
-                    .getElementById("puntoReunion")
-                    .value.trim();
-                const rutaEvac = document
-                    .getElementById("rutaEvac")
-                    .value.trim();
-
-                // Validación de campos obligatorios
-                if (!codFamilia) {
-                    alert(
-                        "No se encontró el código de la familia. Por favor, verifique."
-                    );
-                    return;
-                }
-                if (!puntoReunion || !rutaEvac) {
-                    alert("Por favor, complete todos los campos.");
-                    return;
-                }
-
-                // Datos a enviar al backend
-                const data = {
-                    cod_familia: codFamilia,
-                    puntoReunion: puntoReunion,
-                    rutaEvac: rutaEvac,
-                };
-                try {
-                    //console.log("Datos a enviar:", data);
-
-                    // Enviar datos al servidor
-                    const response = await fetch(
-                        "lugares_de_evacuacion_y_de_encuentro", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ) ?
-                                    document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ).content : "",
-                            },
-                            body: JSON.stringify(data),
-                        }
-                    );
-
-                    const responseData = await response.json();
-
-                    if (responseData.success) {
-                        alert("Datos guardados correctamente");
-                        window.location.href = "/integrantes_de_la_familia";
-                    } else {
-                        alert(
-                            responseData.message ||
-                            "Hubo un error al guardar los datos"
-                        );
-                    }
-                } catch (error) {
-                    console.error("Error:", error);
-                    alert("Error en la solicitud");
-                }
-            });
-    </script>
-</body>
+</script>
 
 </html>

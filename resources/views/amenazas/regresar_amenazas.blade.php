@@ -109,8 +109,10 @@
                     <button id="regresar-btn" class="btn btn-secondary">
                         Regresar <i class="fa-solid fa-rotate-left"></i>
                     </button>
-                    <a href="lugares_de_evacuacion_y_de_encuentro" class="btn btn-success">Siguiente
-                        <i class="fa-solid fa-arrow-right"></i></a>
+                    <button id="siguiente-btn" class="btn btn-success">
+                        Siguiente
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
                 </div>
             </div>
         </section>
@@ -218,6 +220,29 @@
                 // Agregar un listener de clic para redirigir al usuario
                 regresarBtn.addEventListener('click', () => {
                     window.location.href = `/informacion_general/editar/${codFamilia}`;
+                });
+            } else {
+                console.error('El valor de cod_familia no está definido en localStorage.');
+
+                // Si no hay cod_familia, podrías mostrar un mensaje o redirigir a una página predeterminada
+                regresarBtn.addEventListener('click', (e) => {
+                    e
+                        .preventDefault(); // Evitar la acción por defecto si cod_familia no está en localStorage
+                    alert('No se encontró la familia, asegúrese de que la información esté disponible.');
+                });
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const regresarBtn = document.getElementById('siguiente-btn');
+
+            // Obtener el valor de cod_familia desde localStorage
+            const codFamilia = localStorage.getItem("codFamilia");
+
+            if (codFamilia) {
+                // Agregar un listener de clic para redirigir al usuario
+                regresarBtn.addEventListener('click', () => {
+                    window.location.href = `/lugares_de_evacuacion_y_de_encuentro/editar/${codFamilia}`;
                 });
             } else {
                 console.error('El valor de cod_familia no está definido en localStorage.');

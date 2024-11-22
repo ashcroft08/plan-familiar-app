@@ -31,32 +31,43 @@ $router->delete('/{cod_familia}', 'DashboardController@eliminar');
 //Rutas de Información General
 $router->get('informacion_general', 'InformacionGeneralController@mostrar');
 $router->post('informacion_general', 'InformacionGeneralController@guardar');
-$router->get('informacion_general/{cod_familia}', 'InformacionGeneralController@editar');
+$router->get('informacion_general/visualizar/{cod_familia}', 'InformacionGeneralController@editar');
 $router->put('informacion_general/{cod_familia}', 'InformacionGeneralController@actualizar');
+$router->get('informacion_general/editar/{cod_familia}', 'InformacionGeneralController@regresar');
 
 //Rutas para Amenazas
 $router->get('amenazas', 'AmenazaController@mostrar');
 $router->post('amenazas', 'AmenazaController@guardar');
-$router->delete('amenaza/{cod_amenaza}', 'AmenazaController@eliminar');
+$router->get('amenazas/visualizar/{cod_familia}', 'AmenazaController@editar');
+$router->delete('amenazas/{cod_amenaza}', 'AmenazaController@eliminar');
+$router->get('amenazas/editar/{cod_familia}', 'AmenazaController@regresar');
 
 //Rutas de Lugaress de evacuacion y de encuentro
 $router->get('lugares_de_evacuacion_y_de_encuentro', 'LugarEvacuacionEncuentroController@mostrar');
 $router->post('lugares_de_evacuacion_y_de_encuentro', 'LugarEvacuacionEncuentroController@guardar');
-$router->get('lugares_de_evacuacion_y_de_encuentro/{cod_familia}', 'LugarEvacuacionEncuentroController@editar');
+$router->get('lugares_de_evacuacion_y_de_encuentro/visualizar/{cod_familia}', 'LugarEvacuacionEncuentroController@editar');
 $router->put('lugares_de_evacuacion_y_de_encuentro/{cod_familia}', 'LugarEvacuacionEncuentroController@actualizar');
+$router->get('lugares_de_evacuacion_y_de_encuentro/editar/{cod_familia}', 'LugarEvacuacionEncuentroController@regresar');
 
-//Rutas para Amenazas
+//Rutas para Integrantes de la familia
 $router->get('integrantes_de_la_familia', 'IntegranteFamiliaController@mostrar');
 $router->post('integrantes_de_la_familia', 'IntegranteFamiliaController@guardar');
-//$router->delete('integrantes_de_la_familia/{cod_familia}', 'IntegranteFamiliaController@eliminar');
+$router->get('integrantes_de_la_familia/visualizar/{cod_familia}', 'IntegranteFamiliaController@editar');
+$router->delete('integrantes_de_la_familia/{cod_integrante}', 'IntegranteFamiliaController@eliminar');
+$router->put('integrantes_de_la_familia/{cod_integrante}', 'IntegranteFamiliaController@actualizar');
 
 //Rutas para Identificacion de amenazas
 $router->get('identificacion_de_amenazas', 'IdentificacionAmenazaController@mostrar');
 $router->post('identificacion_de_amenazas', 'IdentificacionAmenazaController@guardar');
+$router->get('identificacion_de_amenazas/visualizar/{cod_familia}', 'IdentificacionAmenazaController@editar');
+$router->put('identificacion_de_amenazas', 'IdentificacionAmenazaController@actualizar');
 
 //Rutas para Recursos
 $router->get('recursos_familiares_disponibles', 'RecursoPcdController@mostrar');
 $router->post('recursos_familiares_disponibles', 'RecursoPcdController@guardar');
+$router->get('recursos_familiares_disponibles/visualizar/{cod_familia}', 'RecursoPcdController@editar');
+$router->delete('recursos_familiares_disponibles/{cod_recurso}', 'RecursoPcdController@eliminar');
+$router->put('recursos_familiares_disponibles/{cod_recurso}', 'RecursoPcdController@actualizar');
 
 //Rutas para Plan accion Reducción
 $router->get('plan_accion_reduccion', 'ReduccionController@mostrar');

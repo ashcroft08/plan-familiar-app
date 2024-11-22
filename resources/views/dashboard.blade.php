@@ -66,9 +66,9 @@
                                     <td>{{ $item->nombre_bcr }}</td>
                                     <td>
                                         <!-- Link trigger for danger theme modal -->
-                                        <a href="informacion_general/{{ $item->cod_familia }}"
-                                            class="btn btn-warning btn-sm">
-                                            <i class="fas fa-pen"></i>
+                                        <a href="informacion_general/visualizar/{{ $item->cod_familia }}"
+                                            class="btn btn-success btn-sm">
+                                            <i class="fa-regular fa-eye"></i>
                                         </a>
 
                                         <!-- Button trigger for danger theme modal -->

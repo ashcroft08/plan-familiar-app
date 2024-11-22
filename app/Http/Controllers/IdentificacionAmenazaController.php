@@ -59,4 +59,69 @@ class IdentificacionAmenazaController extends Controller
             ], 500);
         }
     }
+
+    public function editar($cod_familia)
+    {
+        $identificacionAmenaza = Amenaza::join('identificacion_amenaza as i', 'amenaza.cod_amenaza', '=', 'i.cod_amenaza')
+            ->select('i.cod_familia', 'i.cod_identificacion', 'amenaza.amenaza', 'i.efecto', 'i.consecuencia', 'i.acciones')
+            ->where('i.cod_familia', '=', $cod_familia)
+            ->get();
+
+
+        return view('identificacion-amenaza.editar_identificacion_de_amenazas', [
+            'identificacionAmenaza' => $identificacionAmenaza
+        ]);
+    }
+
+    public function actualizar(Request $request)
+    {
+        $amenazas = $request->input('amenazas');
+
+        if (!$amenazas || !is_array($amenazas)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Datos inválidos proporcionados.'
+            ], 400);
+        }
+
+        try {
+            foreach ($amenazas as $amenazaData) {
+                // Validación básica
+                if (!isset($amenazaData['cod_identificacion'], $amenazaData['efecto'], $amenazaData['consecuencia'], $amenazaData['acciones'])) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Faltan datos obligatorios en algunas amenazas.'
+                    ], 400);
+                }
+
+                // Buscar la amenaza por su código
+                $identificacionAmenaza = IdentificacionAmenaza::find($amenazaData['cod_identificacion']);
+
+                if ($identificacionAmenaza) {
+                    // Actualizar el registro existente
+                    $identificacionAmenaza->update([
+                        'efecto' => $amenazaData['efecto'],
+                        'consecuencia' => $amenazaData['consecuencia'],
+                        'acciones' => $amenazaData['acciones'],
+                    ]);
+                } else {
+                    return response()->json([
+                        'success' => false,
+                        'message' => "La amenaza con código {$amenazaData['cod_identificacion']} no existe."
+                    ], 404);
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Identificación de amenaza actualizada correctamente.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ocurrió un error al actualizar las amenazas.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
