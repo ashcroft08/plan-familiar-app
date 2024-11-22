@@ -139,8 +139,7 @@
                         <h5 class="modal-title fw-bold fs-5" id="crearProyectoLabel">
                             Crear Nueva Actividad
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
@@ -192,13 +191,16 @@
                             <td>${item.comentario}</td>
                             <td class="d-flex gap-2">
                                 <button type="button" class="btn btn-warning btn-sm"
-                                    data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                    data-cod_integrante="${item.cod_reduccion}">Editar 
+                                    data-bs-toggle="modal" data-bs-target="#editarRecursoModal"
+                                    data-cod_reduccion="${item.cod_reduccion}"
+                                    data-preparacion="${item.preparacion}"
+                                    data-responsable="${item.responsable}"
+                                    data-comentario="${item.comentario}">Editar 
                                 <i class="fas fa-pen"></i>
                             </button>
                                 <button type="button" class="btn btn-outline-danger btn-sm"
                                         data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                        data-cod_amenaza="${item.cod_reduccion}">Eliminar 
+                                        data-cod_reduccion="${item.cod_reduccion}">Eliminar 
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
