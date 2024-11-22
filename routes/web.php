@@ -48,6 +48,7 @@ $router->post('lugares_de_evacuacion_y_de_encuentro', 'LugarEvacuacionEncuentroC
 $router->get('lugares_de_evacuacion_y_de_encuentro/visualizar/{cod_familia}', 'LugarEvacuacionEncuentroController@editar');
 $router->put('lugares_de_evacuacion_y_de_encuentro/{cod_familia}', 'LugarEvacuacionEncuentroController@actualizar');
 $router->get('lugares_de_evacuacion_y_de_encuentro/editar/{cod_familia}', 'LugarEvacuacionEncuentroController@regresar');
+$router->get('lugares_de_evacuacion_y_de_encuentro/modificar/{cod_familia}', 'LugarEvacuacionEncuentroController@regresarM');
 
 //Rutas para Integrantes de la familia
 $router->get('integrantes_de_la_familia', 'IntegranteFamiliaController@mostrar');
@@ -55,12 +56,14 @@ $router->post('integrantes_de_la_familia', 'IntegranteFamiliaController@guardar'
 $router->get('integrantes_de_la_familia/visualizar/{cod_familia}', 'IntegranteFamiliaController@editar');
 $router->delete('integrantes_de_la_familia/{cod_integrante}', 'IntegranteFamiliaController@eliminar');
 $router->put('integrantes_de_la_familia/{cod_integrante}', 'IntegranteFamiliaController@actualizar');
+$router->get('integrantes_de_la_familia/editar/{cod_familia}', 'IntegranteFamiliaController@regresar');
 
 //Rutas para Identificacion de amenazas
 $router->get('identificacion_de_amenazas', 'IdentificacionAmenazaController@mostrar');
 $router->post('identificacion_de_amenazas', 'IdentificacionAmenazaController@guardar');
 $router->get('identificacion_de_amenazas/visualizar/{cod_familia}', 'IdentificacionAmenazaController@editar');
 $router->put('identificacion_de_amenazas', 'IdentificacionAmenazaController@actualizar');
+$router->get('identificacion_de_amenazas/editar/{cod_familia}', 'IdentificacionAmenazaController@regresar');
 
 //Rutas para Recursos
 $router->get('recursos_familiares_disponibles', 'RecursoPcdController@mostrar');
@@ -72,7 +75,6 @@ $router->put('recursos_familiares_disponibles/{cod_recurso}', 'RecursoPcdControl
 //Rutas para Plan accion Reducción
 $router->get('plan_accion_reduccion', 'ReduccionController@mostrar');
 $router->post('plan_accion_reduccion', 'ReduccionController@guardar');
-$router->get('plan_accion_reduccion', 'ReduccionController@guardar');
 
 //Rutas para Plan accion Respuesta
 $router->get('plan_accion_respuesta', 'RespuestaController@mostrar');

@@ -124,4 +124,17 @@ class IdentificacionAmenazaController extends Controller
             ], 500);
         }
     }
+
+    public function regresar($cod_familia)
+    {
+        $identificacionAmenaza = Amenaza::join('identificacion_amenaza as i', 'amenaza.cod_amenaza', '=', 'i.cod_amenaza')
+            ->select('i.cod_familia', 'i.cod_identificacion', 'amenaza.amenaza', 'i.efecto', 'i.consecuencia', 'i.acciones')
+            ->where('i.cod_familia', '=', $cod_familia)
+            ->get();
+
+
+        return view('identificacion-amenaza.regresar_identificacion_de_amenazas', [
+            'identificacionAmenaza' => $identificacionAmenaza
+        ]);
+    }
 }

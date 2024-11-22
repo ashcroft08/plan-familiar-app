@@ -145,4 +145,17 @@ class IntegranteFamiliaController extends Controller
             ], 500);
         }
     }
+
+    public function regresar($cod_familia)
+    {
+        // Buscar todas las amenazas asociadas a 'cod_familia'
+        $integrantes = IntegranteFamilia::where('cod_familia', $cod_familia)->get();
+
+        // Si no se encuentran amenazas para ese 'cod_familia', lanzar error 404
+        if ($integrantes->isEmpty()) {
+            abort(404, "No se encontraron integrantes de la familia para este 'cod_familia'.");
+        }
+
+        return view('integrantes-familia.regresar_integrantes_de_la_familia', ['integrantes' => $integrantes]);
+    }
 }

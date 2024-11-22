@@ -118,8 +118,8 @@
                 <div class="row botonsform">
                     <div class="col">
                         <!-- Botón para abrir el modal de "Regresar" -->
-                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#regresarModal"
-                            class="btn btn-secondary">Regresar <i class="fa-solid fa-rotate-left"></i></a>
+                        <a href="/plan_accion_respuesta" class="btn btn-secondary">Regresar <i
+                                class="fa-solid fa-rotate-left"></i></a>
                         <a href="/numeros_emergencia" class="btn btn-success">Siguiente
                             <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
@@ -168,7 +168,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="actividad" class="form-label fw-bold">¿Qué hacemos luego de la emergencia?</label>
+                            <label for="actividad" class="form-label fw-bold">¿Qué hacemos luego de la
+                                emergencia?</label>
                             <textarea name="actividad" id="actividad" class="form-control" rows="3"></textarea>
                         </div>
                         <div class="mb-3">

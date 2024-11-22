@@ -114,10 +114,6 @@
                 </div>
                 <div class="row botonsform">
                     <div class="col">
-                        <button type="button" id="editar" class="btn btn-warning">
-                            Editar
-                            <i class="fa-solid fa-pencil"></i>
-                        </button>
                         <!-- Botón para abrir el modal de "Regresar" -->
                         <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#regresarModal"
                             class="btn btn-secondary">Regresar <i class="fa-solid fa-rotate-left"></i></a>
@@ -148,8 +144,9 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <a href="{{ url('integrantes_de_la_familia/visualizar/' . $item->cod_familia) }}" class="btn btn-primary">Aceptar <i
-                            class="fa-solid fa-check"></i></a>
+                    <button id="regresar-btn" class="btn btn-primary">
+                        Aceptar <i class="fa-solid fa-check"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -162,18 +159,28 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('identificacionForm');
-            const editarButton = document.getElementById('editar');
-            const inputs = form.querySelectorAll('textarea');
+            const regresarBtn = document.getElementById('regresar-btn');
 
-            // Deshabilitar todos los campos al cargar la página
-            inputs.forEach(input => input.disabled = true);
+            // Obtener el valor de cod_familia desde localStorage
+            const codFamilia = localStorage.getItem("codFamilia");
 
-            // Funcionalidad del botón Editar
-            editarButton.addEventListener('click', () => {
-                inputs.forEach(input => input.disabled = false); // Desbloquea todos los campos
-                editarButton.disabled = true; // Desactiva el botón de editar
-            });
+            console.log(`/integrantes_de_la_familia/editar/${codFamilia}`)
+
+            if (codFamilia) {
+                // Agregar un listener de clic para redirigir al usuario
+                regresarBtn.addEventListener('click', () => {
+                    window.location.href = `/integrantes_de_la_familia/editar/${codFamilia}`;
+                });
+            } else {
+                console.error('El valor de cod_familia no está definido en localStorage.');
+
+                // Si no hay cod_familia, podrías mostrar un mensaje o redirigir a una página predeterminada
+                regresarBtn.addEventListener('click', (e) => {
+                    e
+                        .preventDefault(); // Evitar la acción por defecto si cod_familia no está en localStorage
+                    alert('No se encontró la familia, asegúrese de que la información esté disponible.');
+                });
+            }
         });
     </script>
 
@@ -205,7 +212,7 @@
                 if (data.success) {
                     alert(data.message);
                     // Redirigir a una nueva URL (ajusta la ruta según tu backend)
-                    const url = `/recursos_familiares_disponibles/visualizar/${cod_familia}`;
+                    const url = `/recursos_familiares_disponibles`;
                     window.location.href = url; // Cambia la página
                 } else {
                     alert(`Error: ${data.message}`);

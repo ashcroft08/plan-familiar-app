@@ -115,40 +115,15 @@
                 </div>
                 <div class="row botonsform">
                     <div class="col">
-                        <!-- Botón para abrir el modal de "Regresar" -->
-                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#regresarModal"
-                            class="btn btn-secondary">Regresar <i class="fa-solid fa-rotate-left"></i></a>
+                        <button id="regresar-btn" class="btn btn-secondary" type="button">
+                            Regresar <i class="fa-solid fa-rotate-left"></i>
+                        </button>
                         <a href="/plan_accion_reduccion" class="btn btn-success">Siguiente
                             <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
             </form>
         </section>
-    </div>
-
-    <!-- Modal para el botón "Regresar" -->
-    <div class="modal fade" id="regresarModal" tabindex="-1" aria-labelledby="regresarModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="regresarModalLabel">
-                        ¿Seguro que deseas regresar?
-                    </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Si regresas, se perderán los datos que has ingresado
-                    hasta ahora.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Cancelar <i class="fa-solid fa-ban"></i>
-                    </button>
-                    <a href="/identificacion_de_amenazas" class="btn btn-primary">Aceptar <i
-                            class="fa-solid fa-check"></i></a>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Modal Formulario "Crear nuevo recurso" -->
@@ -161,8 +136,7 @@
                         <h5 class="modal-title fw-bold fs-5" id="crearProyectoLabel">
                             Crear Nuevo Recurso Familiar
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
@@ -284,6 +258,29 @@
     <script src="/assets/js/jquery-3.7.1.min.js"></script>
     <!-- Enlazar Bootstrap JS -->
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const regresarBtn = document.getElementById('regresar-btn');
+            const codFamilia = localStorage.getItem("codFamilia");
+
+            if (regresarBtn) {
+                regresarBtn.addEventListener('click', (e) => {
+                    e.preventDefault(); // Evita el comportamiento predeterminado
+
+                    if (codFamilia) {
+                        console.log(`Redirigiendo a: /identificacion_de_amenazas/editar/${codFamilia}`);
+                        window.location.href = `/identificacion_de_amenazas/editar/${codFamilia}`;
+                    } else {
+                        alert(
+                        'No se encontró la familia, asegúrese de que la información esté disponible.');
+                    }
+                });
+            } else {
+                console.error('No se encontró el botón con id regresar-btn.');
+            }
+        });
+    </script>
 
     <script>
         $(document).ready(function() {

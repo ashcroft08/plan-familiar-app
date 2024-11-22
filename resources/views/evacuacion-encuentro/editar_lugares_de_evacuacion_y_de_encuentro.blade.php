@@ -147,8 +147,8 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <a href="{{ url('amenazas/visualizar/' . $lugarEvacuacionEncuentro->cod_familia) }}" class="btn btn-primary">Aceptar <i
-                            class="fa-solid fa-check"></i></a>
+                    <a href="{{ url('amenazas/visualizar/' . $lugarEvacuacionEncuentro->cod_familia) }}"
+                        class="btn btn-primary">Aceptar <i class="fa-solid fa-check"></i></a>
                 </div>
             </div>
         </div>
@@ -158,97 +158,97 @@
     <script src="/assets/js/jquery-3.7.1.min.js"></script>
     <!-- Enlazar Bootstrap JS -->
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-</body>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('lugaresForm');
-        const editarButton = document.getElementById('editar');
-        const inputs = form.querySelectorAll('textarea');
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('lugaresForm');
+            const editarButton = document.getElementById('editar');
+            const inputs = form.querySelectorAll('textarea');
 
-        // Deshabilitar todos los campos al cargar la página
-        inputs.forEach(input => input.disabled = true);
+            // Deshabilitar todos los campos al cargar la página
+            inputs.forEach(input => input.disabled = true);
 
-        // Funcionalidad del botón Editar
-        editarButton.addEventListener('click', () => {
-            inputs.forEach(input => input.disabled = false); // Desbloquea todos los campos
-            editarButton.disabled = true; // Desactiva el botón de editar
+            // Funcionalidad del botón Editar
+            editarButton.addEventListener('click', () => {
+                inputs.forEach(input => input.disabled = false); // Desbloquea todos los campos
+                editarButton.disabled = true; // Desactiva el botón de editar
+            });
         });
-    });
-</script>
+    </script>
 
-<script>
-    document
-        .getElementById("guardarYContinuar")
-        .addEventListener("click", async function(event) {
-            event.preventDefault(); // Prevenir que el formulario se envíe y se recargue
+    <script>
+        document
+            .getElementById("guardarYContinuar")
+            .addEventListener("click", async function(event) {
+                event.preventDefault(); // Prevenir que el formulario se envíe y se recargue
 
-            // Obtener el valor de 'cod_familia' desde el formulario o algún otro lugar
-            const cod_familia = "{{ $lugarEvacuacionEncuentro->cod_familia }}";
+                // Obtener el valor de 'cod_familia' desde el formulario o algún otro lugar
+                const cod_familia = "{{ $lugarEvacuacionEncuentro->cod_familia }}";
 
-            // Obtiene los valores de los campos, incluido el campo oculto
-            const puntoReunion = document
-                .getElementById("puntoReunion")
-                .value.trim();
-            const rutaEvac = document
-                .getElementById("rutaEvac")
-                .value.trim();
+                // Obtiene los valores de los campos, incluido el campo oculto
+                const puntoReunion = document
+                    .getElementById("puntoReunion")
+                    .value.trim();
+                const rutaEvac = document
+                    .getElementById("rutaEvac")
+                    .value.trim();
 
-            // Validación de campos obligatorios
-            if (!cod_familia) {
-                alert(
-                    "No se encontró el código de la familia. Por favor, verifique."
-                );
-                return;
-            }
-            if (!puntoReunion || !rutaEvac) {
-                alert("Por favor, complete todos los campos.");
-                return;
-            }
-
-            // Datos a enviar al backend
-            const data = {
-                cod_familia: cod_familia,
-                puntoReunion: puntoReunion,
-                rutaEvac: rutaEvac,
-            };
-            try {
-                //console.log("Datos a enviar:", data);
-
-                // Enviar datos al servidor
-                const response = await fetch(
-                    `/lugares_de_evacuacion_y_de_encuentro/${cod_familia}`, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector(
-                                    'meta[name="csrf-token"]'
-                                ) ?
-                                document.querySelector(
-                                    'meta[name="csrf-token"]'
-                                ).content : "",
-                        },
-                        body: JSON.stringify(data),
-                    }
-                );
-
-                const responseData = await response.json();
-
-                if (responseData.success) {
-                    // Redirigir a una nueva URL (ajusta la ruta según tu backend)
-                    const url = `/integrantes_de_la_familia/visualizar/${cod_familia}`;
-                    window.location.href = url; // Cambia la página
-                } else {
+                // Validación de campos obligatorios
+                if (!cod_familia) {
                     alert(
-                        responseData.message ||
-                        "Hubo un error al guardar los datos"
+                        "No se encontró el código de la familia. Por favor, verifique."
                     );
+                    return;
                 }
-            } catch (error) {
-                console.error("Error:", error);
-                alert("Error en la solicitud");
-            }
-        });
-</script>
+                if (!puntoReunion || !rutaEvac) {
+                    alert("Por favor, complete todos los campos.");
+                    return;
+                }
+
+                // Datos a enviar al backend
+                const data = {
+                    cod_familia: cod_familia,
+                    puntoReunion: puntoReunion,
+                    rutaEvac: rutaEvac,
+                };
+                try {
+                    //console.log("Datos a enviar:", data);
+
+                    // Enviar datos al servidor
+                    const response = await fetch(
+                        `/lugares_de_evacuacion_y_de_encuentro/${cod_familia}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector(
+                                        'meta[name="csrf-token"]'
+                                    ) ?
+                                    document.querySelector(
+                                        'meta[name="csrf-token"]'
+                                    ).content : "",
+                            },
+                            body: JSON.stringify(data),
+                        }
+                    );
+
+                    const responseData = await response.json();
+
+                    if (responseData.success) {
+                        // Redirigir a una nueva URL (ajusta la ruta según tu backend)
+                        const url = `/integrantes_de_la_familia/visualizar/${cod_familia}`;
+                        window.location.href = url; // Cambia la página
+                    } else {
+                        alert(
+                            responseData.message ||
+                            "Hubo un error al guardar los datos"
+                        );
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    alert("Error en la solicitud");
+                }
+            });
+    </script>
+</body>
 
 </html>

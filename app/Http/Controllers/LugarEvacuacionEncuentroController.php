@@ -98,4 +98,15 @@ class LugarEvacuacionEncuentroController extends Controller
         // Pasar los resultados a la vista
         return view('evacuacion-encuentro.regresar_lugares_de_evacuacion_y_de_encuentro', ['amenazasNom' => $amenazasNom, 'lugarEvacuacionEncuentro' => $lugarEvacuacionEncuentro]);
     }
+
+    public function regresarM($cod_familia)
+    {
+        // Buscar todas las amenazas asociadas a 'cod_familia'
+        $amenazasNom = Amenaza::where('cod_familia', $cod_familia)->get();
+
+        $lugarEvacuacionEncuentro = LugarEvacuacionEncuentro::findOrFail($cod_familia);
+
+        // Pasar los resultados a la vista
+        return view('evacuacion-encuentro.regresarM_lugares_de_evacuacion_y_de_encuentro', ['amenazasNom' => $amenazasNom, 'lugarEvacuacionEncuentro' => $lugarEvacuacionEncuentro]);
+    }
 }
