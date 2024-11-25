@@ -203,7 +203,7 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    alert(data.message);
+                    //alert(data.message);
                     // Redirigir a una nueva URL (ajusta la ruta según tu backend)
                     const url = `/recursos_familiares_disponibles/visualizar/${cod_familia}`;
                     window.location.href = url; // Cambia la página

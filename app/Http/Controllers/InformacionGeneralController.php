@@ -87,7 +87,7 @@ class InformacionGeneralController extends Controller
         $informacionGeneral->nombre_bcr = $request->input('nombreBcr');
         $informacionGeneral->numero_casa = $request->input('numCasa');
 
-        if ($informacionGeneral->save()) {
+        if ($informacionGeneral->update()) {
             return response()->json(['success' => true, 'message' => 'Datos actualizados actualizados']);
         } else {
             return response()->json(['success' => false, 'message' => 'Hubo un error al actualizar los datos']);

@@ -96,10 +96,16 @@ $router->put('plan_accion_recuperacion/{cod_recuperacion}', 'RecuperacionControl
 //Rutas para Plan accion Reducción
 $router->get('numeros_emergencia', 'NumeroEmergenciaController@mostrar');
 $router->post('numeros_emergencia', 'NumeroEmergenciaController@guardar');
+$router->get('numeros_emergencia/visualizar/{cod_familia}', 'NumeroEmergenciaController@editar');
+$router->put('numeros_emergencia/{cod_numero_emergencia}', 'NumeroEmergenciaController@actualizar');
+$router->get('numeros_emergencia/editar/{cod_familia}', 'NumeroEmergenciaController@regresar');
 
 //Rutas para Mi Mascota
 $router->get('mi_mascota', 'MascotaController@mostrar');
 $router->post('mi_mascota', 'MascotaController@guardar');
+$router->get('mi_mascota/visualizar/{cod_familia}', 'MascotaController@editar');
+$router->put('mi_mascota/{cod_mascota}', 'MascotaController@actualizar');
+$router->delete('mi_mascota/{cod_mascota}', 'MascotaController@eliminar');
 
 //Rutas para Matriz de estructura general vivienda
 $router->get('matriz_de_estructura_general_vivienda', 'EstructuraViviendaController@mostrar');

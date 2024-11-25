@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Creación plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -63,10 +63,10 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Creación de Plan
+                                    Creación de plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Lugares de Evacuación y Encuentro
+                                    Números de emergencia
                                 </li>
                             </ol>
                         </nav>
@@ -79,31 +79,68 @@
 
         <!-- Hoverable rows start -->
         <section class="container">
-            <header>3. Lugares de Evacuación y Encuentro</header>
-            <form class="form" method="POST" autocomplete="off">
-                <!-- Campo oculto para cod_familia -->
-                <input type="hidden" name="cod_familia" id="codFamiliaInput" />
-                <div class="row">
-                    <div class="col-md-6 col-12">
-                        <label for="puntoReunion" style="font-weight: bold">Amenazas:</label>
-                        <!-- Lista de amenazas agregadas -->
-                        <ul class="list-group" id="amenazaList">
-                        </ul>
-                    </div>
-                    <div class="col-md-6 col-12 mb-3">
-                        <div class="form-group">
-                            <label for="puntoReunion" style="font-weight: bold">Punto de reunión en caso de:</label>
-                            <textarea type="text" class="form-control" name="puntoReunion" id="puntoReunion" rows="8" required></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-12">
-                        <div class="form-group">
-                            <label for="rutaEvac" style="font-weight: bold">Ruta de evacuación</label>
-                            <textarea class="form-control" name="rutaEvac" id="rutaEvac" rows="5" required></textarea>
-                        </div>
-                    </div>
+            <header>10. Números de emergencia</header>
+            <form id="numerosForm" class="form" method="PUT">
+                <div class="table-responsive">
+                    <table class="table table-bordered" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Contacto:</th>
+                                <th>Número Telefónico:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Centro de Salud/Hospital Cercano:</td>
+                                <td>
+                                    <input type="text" name="hospitalCercano" id="hospitalCercano"
+                                        class="form-control" value="{{ $numeroEmergencia->hospital }}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Médico del Barrio:</td>
+                                <td>
+                                    <input type="text" name="medicoBarrio" id="medicoBarrio" class="form-control"
+                                        value="{{ $numeroEmergencia->medico_barrio }}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Familiar #1:</td>
+                                <td>
+                                    <input type="text" name="fam1" id="fam1" class="form-control"
+                                        value="{{ $numeroEmergencia->familiar1 }}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Familiar #2:</td>
+                                <td>
+                                    <input type="text" name="fam2" id="fam2" class="form-control"
+                                        value="{{ $numeroEmergencia->familiar2 }}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Familiar #3:</td>
+                                <td>
+                                    <input type="text" name="fam3" id="fam3" class="form-control"
+                                        value="{{ $numeroEmergencia->familiar3 }}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>UPC:</td>
+                                <td>
+                                    <input type="text" name="upc" id="upc" class="form-control"
+                                        value="{{ $numeroEmergencia->upc }}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bomberos:</td>
+                                <td>
+                                    <input type="text" name="bomberos" id="bomberos" class="form-control"
+                                        value="{{ $numeroEmergencia->bomberos }}" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="row botonsform">
                     <div class="col">
@@ -121,7 +158,8 @@
     </div>
 
     <!-- Modal para el botón "Regresar" -->
-    <div class="modal fade" id="regresarModal" tabindex="-1" aria-labelledby="regresarModalLabel" aria-hidden="true">
+    <div class="modal fade" id="regresarModal" tabindex="-1" aria-labelledby="regresarModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -131,14 +169,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Si regresa, se perderán los datos que has ingresado
-                    en este formulario.
+                    Si regresa, se perderán los datos que haya editado en este formulario.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <a href="/amenazas" class="btn btn-primary">Aceptar <i
+                    <a href="/plan_accion_recuperacion" class="btn btn-primary">Aceptar <i
                             class="fa-solid fa-check"></i></a>
                 </div>
             </div>
@@ -151,100 +188,91 @@
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            // Obtener amenazas desde la variable de Blade y convertir a un objeto JavaScript
-            const amenazasNom = @json($amenazasNom);
-
-            // Filtrar las amenazas por cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-            const filteredAmenazas = amenazasNom.filter(item => item.cod_familia == codFamilia);
-
-            // Limpiar la lista
-            const amenazaList = $("#amenazaList");
-            amenazaList.empty();
-
-            // Llenar la lista con las amenazas filtradas
-            filteredAmenazas.forEach((item, index) => {
-                const listItem = `<li class="list-group-item d-flex justify-content-between">
-                                        ${item.amenaza}
-                                </li>`;
-                amenazaList.append(listItem);
-            });
-        });
-    </script>
-
-    <script>
-        // Asignar el valor de cod_familia al campo oculto al cargar la página
-        document.addEventListener("DOMContentLoaded", function() {
-            const codFamilia = localStorage.getItem("codFamilia");
-            if (codFamilia) {
-                document.getElementById("codFamiliaInput").value =
-                    codFamilia;
-            } else {
-                alert(
-                    "No se encontró el código de familia en localStorage."
-                );
-            }
-        });
-
         document
             .getElementById("guardarYContinuar")
             .addEventListener("click", async function(event) {
                 event.preventDefault(); // Prevenir que el formulario se envíe y se recargue
 
-                // Obtiene los valores de los campos, incluido el campo oculto
-                const codFamilia =
-                    document.getElementById("codFamiliaInput").value;
-                const puntoReunion = document
-                    .getElementById("puntoReunion")
+                // Obtiene los valores de cada campo
+                const cod_familia = "{{ $numeroEmergencia->cod_familia }}"
+                const cod_numero_emergencia = "{{ $numeroEmergencia->cod_numero_emergencia }}";
+                const hospitalCercano = document
+                    .getElementById("hospitalCercano")
                     .value.trim();
-                const rutaEvac = document
-                    .getElementById("rutaEvac")
+                const medicoBarrio = document
+                    .getElementById("medicoBarrio")
+                    .value.trim();
+                const fam1 = document.getElementById("fam1").value.trim();
+                const fam2 = document.getElementById("fam2").value.trim();
+                const fam3 = document.getElementById("fam3").value.trim();
+                const upc = document.getElementById("upc").value.trim();
+                const bomberos = document
+                    .getElementById("bomberos")
                     .value.trim();
 
-                // Validación de campos obligatorios
-                if (!codFamilia) {
+                // Validación básica de los campos
+                if (
+                    !hospitalCercano ||
+                    !medicoBarrio ||
+                    !fam1 ||
+                    !fam2 ||
+                    !fam3 ||
+                    !upc ||
+                    !bomberos
+                ) {
+                    alert("Por favor, complete todos los campos");
+                    return;
+                }
+
+                // Validación de que los números telefónicos sean numéricos
+                if (
+                    isNaN(hospitalCercano) ||
+                    isNaN(medicoBarrio) ||
+                    isNaN(fam1) ||
+                    isNaN(fam2) ||
+                    isNaN(fam3) ||
+                    isNaN(upc) ||
+                    isNaN(bomberos)
+                ) {
                     alert(
-                        "No se encontró el código de la familia. Por favor, verifique."
+                        "Todos los números telefónicos deben ser numéricos"
                     );
                     return;
                 }
-                if (!puntoReunion || !rutaEvac) {
-                    alert("Por favor, complete todos los campos.");
-                    return;
-                }
 
-                // Datos a enviar al backend
+                // Datos a enviar
                 const data = {
-                    cod_familia: codFamilia,
-                    puntoReunion: puntoReunion,
-                    rutaEvac: rutaEvac,
+                    hospitalCercano: hospitalCercano,
+                    medicoBarrio: medicoBarrio,
+                    fam1: fam1,
+                    fam2: fam2,
+                    fam3: fam3,
+                    upc: upc,
+                    bomberos: bomberos,
                 };
-                try {
-                    //console.log("Datos a enviar:", data);
 
-                    // Enviar datos al servidor
-                    const response = await fetch(
-                        "lugares_de_evacuacion_y_de_encuentro", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ) ?
-                                    document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ).content : "",
-                            },
-                            body: JSON.stringify(data),
-                        }
-                    );
+                // Envío de datos al servidor con fetch
+                try {
+                    const response = await fetch(`/numeros_emergencia/${cod_numero_emergencia}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                ) ?
+                                document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                ).content : "",
+                        },
+                        body: JSON.stringify(data),
+                    });
 
                     const responseData = await response.json();
 
                     if (responseData.success) {
-                        alert("Datos guardados correctamente");
-                        window.location.href = "/integrantes_de_la_familia";
+                        // Redirigir a una nueva URL (ajusta la ruta según tu backend)
+                        const url = `/mi_mascota`;
+                        window.location.href = url; // Cambia la página
                     } else {
                         alert(
                             responseData.message ||

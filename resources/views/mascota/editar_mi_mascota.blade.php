@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Visualización plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -63,7 +63,7 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Creación de Plan
+                                    Visualización plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Mi mascota
@@ -85,7 +85,8 @@
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fa-solid fa-plus"></i>
                     </span>
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearMascotaModal">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearMascotaModal"
+                        id="crearMascota" disabled>
                         Agregar una mascota
                     </button>
                 </div>
@@ -108,16 +109,44 @@
                                 <th>Esterilizado</th>
                             </tr>
                         </thead>
-                        <tbody id="mascotaTableBody">
-                            <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
+                        <tbody>
+                            @foreach ($mascota as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $item->nombre }}</td>
+                                    <td>{{ $item->especie }}</td>
+                                    <td>{{ $item->raza }}</td>
+                                    <td>{{ $item->esterilizado }}</td>
+                                    <td class="d-flex gap-2">
+                                        <button type="button" class="btn btn-warning btn-sm editarMascota"
+                                            data-bs-toggle="modal" data-bs-target="#editarMascotaModal"
+                                            data-cod_mascota="{{ $item->cod_mascota }}"
+                                            data-nombre="{{ $item->nombre }}" data-especie="{{ $item->especie }}"
+                                            data-raza="{{ $item->raza }}"
+                                            data-esterilizado="{{ $item->esterilizado }}" disabled>Editar
+                                            <i class="fas fa-pen"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm eliminarMascota"
+                                            data-bs-toggle="modal" data-bs-target="#modalDelete"
+                                            data-cod_mascota="{{ $item->cod_mascota }}" disabled>Eliminar
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="row botonsform">
                     <div class="col">
-                        <button id="regresar-btn" class="btn btn-secondary">
-                            Regresar <i class="fa-solid fa-rotate-left"></i>
+                        <button type="button" id="editar" class="btn btn-warning">
+                            Editar
+                            <i class="fa-solid fa-pencil"></i>
                         </button>
+                        <a href="{{ url('numeros_emergencia/visualizar/' . $item->cod_familia) }}"
+                            class="btn btn-secondary">
+                            Regresar <i class="fa-solid fa-rotate-left"></i>
+                        </a>
                         <a href="/matriz_de_estructura_general_vivienda" class="btn btn-success">Siguiente
                             <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
@@ -136,7 +165,8 @@
                         <h5 class="modal-title fw-bold fs-5" id="crearProyectoLabel">
                             Agregar Nueva Mascota
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
@@ -257,108 +287,21 @@
     <!-- Enlazar Bootstrap JS -->
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const regresarBtn = document.getElementById('regresar-btn');
-
-            // Obtener el valor de cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-
-            //console.log(codFamilia);
-
-            if (codFamilia) {
-                // Agregar un listener de clic para redirigir al usuario
-                regresarBtn.addEventListener('click', (event) => {
-                    event.preventDefault(); // Previene comportamientos predeterminados del botón.
-                    const url = `/numeros_emergencia/editar/${codFamilia}`;
-                    //console.log("Redirigiendo a:", url);
-                    window.location.href = url;
-                });
-            } else {
-                console.error('El valor de cod_familia no está definido en localStorage.');
-
-                // Si no hay cod_familia, podrías mostrar un mensaje o redirigir a una página predeterminada
-                regresarBtn.addEventListener('click', (e) => {
-                    e
-                        .preventDefault(); // Evitar la acción por defecto si cod_familia no está en localStorage
-                    alert('No se encontró la familia, asegúrese de que la información esté disponible.');
-                });
-            }
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-
-            // Obtener amenazas desde la variable de Blade y convertir a un objeto JavaScript
-            const mascota = @json($mascota);
-
-            // Filtrar las amenazas por cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-            const filteredMascota = mascota.filter(item => item.cod_familia == codFamilia);
-
-            // Limpiar la tabla
-            const tbody = $("#mascotaTableBody");
-            tbody.empty();
-
-            // Llenar la tabla con las amenazas filtradas
-            filteredMascota.forEach((item, index) => {
-                const row = `<tr>
-                            <td>${index + 1}</td>
-                            <td>${item.nombre}</td>
-                            <td>${item.especie}</td>
-                            <td>${item.raza}</td>
-                            <td>${item.esterilizado}</td>
-                            <td class="d-flex gap-2">
-                                <button type="button" class="btn btn-warning btn-sm"
-                                    data-bs-toggle="modal" data-bs-target="#editarMascotaModal"
-                                    data-cod_mascota="${item.cod_mascota}"
-                                    data-nombre="${item.nombre }"
-                                    data-especie="${item.especie }"
-                                    data-raza="${item.raza }"
-                                    data-esterilizado="${item.esterilizado}">Editar 
-                                <i class="fas fa-pen"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger btn-sm"
-                                    data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                    data-cod_mascota="${item.cod_mascota}">Eliminar 
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                            </td>
-                        </tr>`;
-                tbody.append(row);
-            });
-        });
-    </script>
-
     <!-- Script para crear la mascota -->
     <script>
-        // Mostrar el modal y cargar el cod_familia desde localStorage
-        $("#crearMascotaModal").on("show.bs.modal", function(event) {
-            const codFamilia = localStorage.getItem("codFamilia");
-
-            // Verificar si codFamilia existe
-            if (!codFamilia) {
-                alert("El código de familia no está disponible.");
-                return;
-            }
-
-            // Asignar el valor a una variable oculta en caso de que se requiera
-            document.getElementById("mascotaForm").dataset.codFamilia = codFamilia;
-        });
-
         // Lógica para manejar el formulario de crear recurso
         document
             .getElementById("mascotaForm")
             .addEventListener("submit", async function(event) {
                 event.preventDefault(); // Prevenir el envío por defecto
 
+                const codFamilia = "{{ $mascota->first()->cod_familia ?? '' }}";
+
                 // Obtener los valores del formulario
                 const nombreAnimal = document.getElementById("nombreAnimal").value;
                 const especie = document.getElementById("especie").value;
                 const raza = document.getElementById("raza").value;
                 const esterilizado = document.querySelector('input[name="esterilizado"]:checked')?.value;
-                const codFamilia = this.dataset.codFamilia;
 
                 // Validaciones
                 if (!nombreAnimal || !especie || !raza || !esterilizado || !codFamilia) {
@@ -525,6 +468,29 @@
                     console.error('Error al eliminar:', response);
                     alert('Error al eliminar la mascota');
                 }
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const editarButton = document.getElementById('editar');
+            const mascotaButton = document.getElementById('crearMascota');
+            const eliminarmascotaButtons = document.querySelectorAll(
+                '.eliminarMascota');
+            const editarmascotaButtons = document.querySelectorAll(
+                '.editarMascota');
+
+            // Funcionalidad del botón Editar
+            editarButton.addEventListener('click', () => {
+                eliminarmascotaButtons.forEach(button => {
+                    button.disabled = false; // Habilitar todos los botones 'eliminar'
+                });
+                editarmascotaButtons.forEach(button => {
+                    button.disabled = false; // Habilitar todos los botones 'eliminar'
+                });
+                mascotaButton.disabled = false;
+                editarButton.disabled = true; // Desactiva el botón de editar
             });
         });
     </script>
