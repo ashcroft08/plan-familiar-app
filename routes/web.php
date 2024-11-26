@@ -110,31 +110,61 @@ $router->delete('mi_mascota/{cod_mascota}', 'MascotaController@eliminar');
 //Rutas para Matriz de estructura general vivienda
 $router->get('matriz_de_estructura_general_vivienda', 'EstructuraViviendaController@mostrar');
 $router->post('matriz_de_estructura_general_vivienda', 'EstructuraViviendaController@guardar');
+$router->get('matriz_de_estructura_general_vivienda/visualizar/{cod_familia}', 'EstructuraViviendaController@editar');
+$router->put('matriz_de_estructura_general_vivienda/actualizar', 'EstructuraViviendaController@actualizar');
+$router->get('matriz_de_estructura_general_vivienda/editar/{cod_familia}', 'EstructuraViviendaController@regresar');
+$router->get('matriz_de_estructura_general_vivienda/modificar/{cod_familia}', 'EstructuraViviendaController@regresarM');
 
 //Rutas para Comedor
 $router->get('comedor', 'ComedorController@mostrar');
 $router->post('comedor', 'ComedorController@guardar');
+$router->get('comedor/visualizar/{cod_familia}', 'ComedorController@editar');
+$router->put('comedor/actualizar', 'ComedorController@actualizar');
+$router->get('comedor/editar/{cod_familia}', 'ComedorController@regresar');
+$router->get('comedor/modificar/{cod_familia}', 'ComedorController@regresarM');
 
 //Rutas para Sala
 $router->get('sala', 'SalaController@mostrar');
 $router->post('sala', 'SalaController@guardar');
+$router->get('sala/visualizar/{cod_familia}', 'SalaController@editar');
+$router->put('sala/actualizar', 'SalaController@actualizar');
+$router->get('sala/editar/{cod_familia}', 'SalaController@regresar');
+$router->get('sala/modificar/{cod_familia}', 'SalaController@regresarM');
 
 //Rutas para Dormitorio
 $router->get('dormitorio', 'DormitorioController@mostrar');
 $router->post('dormitorio', 'DormitorioController@guardar');
+$router->get('dormitorio/visualizar/{cod_familia}', 'DormitorioController@editar');
+$router->put('dormitorio/actualizar', 'DormitorioController@actualizar');
+$router->get('dormitorio/editar/{cod_familia}', 'DormitorioController@regresar');
+$router->get('dormitorio/modificar/{cod_familia}', 'DormitorioController@regresarM');
 
 //Rutas para Baño
 $router->get('cocina', 'CocinaController@mostrar');
 $router->post('cocina', 'CocinaController@guardar');
+$router->get('cocina/visualizar/{cod_familia}', 'CocinaController@editar');
+$router->put('cocina/actualizar', 'CocinaController@actualizar');
+$router->get('cocina/editar/{cod_familia}', 'CocinaController@regresar');
+$router->get('cocina/modificar/{cod_familia}', 'CocinaController@regresarM');
 
 //Rutas para Baño
 $router->get('bano', 'BanioController@mostrar');
 $router->post('bano', 'BanioController@guardar');
+$router->get('bano/visualizar/{cod_familia}', 'BanioController@editar');
+$router->put('bano/actualizar', 'BanioController@actualizar');
+$router->get('bano/editar/{cod_familia}', 'BanioController@regresar');
+$router->get('bano/modificar/{cod_familia}', 'BanioController@regresarM');
 
 //Rutas para Resumen de vulnerabilidad
 $router->get('resumen_vulnerabilidad_vivienda', 'VulnerabilidadViviendaController@mostrar');
 $router->post('resumen_vulnerabilidad_vivienda', 'VulnerabilidadViviendaController@guardar');
+$router->get('resumen_vulnerabilidad_vivienda/visualizar/{cod_familia}', 'VulnerabilidadViviendaController@editar');
+$router->put('resumen_vulnerabilidad_vivienda/actualizar', 'VulnerabilidadViviendaController@actualizar');
+$router->get('resumen_vulnerabilidad_vivienda/editar/{cod_familia}', 'VulnerabilidadViviendaController@regresar');
+$router->get('resumen_vulnerabilidad_vivienda/modificar/{cod_familia}', 'VulnerabilidadViviendaController@regresarM');
 
 //Rutas para Grafico de Vivienda
 $router->get('grafico_vivienda', 'GraficoViviendaController@mostrar');
 $router->post('grafico_vivienda', 'GraficoViviendaController@guardar');
+$router->get('grafico_vivienda/visualizar/{cod_familia}', 'GraficoViviendaController@editar');
+$router->put('grafico_vivienda/actualizar', 'GraficoViviendaController@actualizar');

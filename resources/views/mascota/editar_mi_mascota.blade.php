@@ -147,7 +147,7 @@
                             class="btn btn-secondary">
                             Regresar <i class="fa-solid fa-rotate-left"></i>
                         </a>
-                        <a href="/matriz_de_estructura_general_vivienda" class="btn btn-success">Siguiente
+                        <a href="{{ url('/matriz_de_estructura_general_vivienda/visualizar/' . $item->cod_familia) }}" class="btn btn-success">Siguiente
                             <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>

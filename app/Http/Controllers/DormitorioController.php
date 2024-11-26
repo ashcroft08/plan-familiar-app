@@ -46,4 +46,39 @@ class DormitorioController extends Controller
             ], 500);
         }
     }
+
+    public function editar($cod_familia)
+    {
+        $dormitorio = Dormitorio::where('cod_familia', $cod_familia)
+            ->orderBy('cod_dormitorio', 'asc') // Ordena por la clave primaria o un campo específico
+            ->get();
+        return view('vivienda.editar_dormitorio', ['dormitorio' => $dormitorio]);
+    }
+
+    public function actualizar(Request $request)
+    {
+        $dormitorio = $request->input('estructuraVivienda');
+
+        try {
+            foreach ($dormitorio as $cod_dormitorio => $datos) {
+                $registro = Dormitorio::find($cod_dormitorio); // Usa el cod_dormitorio como ID
+                if ($registro) {
+                    $registro->respuesta = $datos['respuesta'];
+                    $registro->acciones = $datos['acciones'] ?? null;
+                    $registro->update();
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'La información del dormitorio actualizada correctamente.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ocurrió un error al actualizar la información del dormitorio.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

@@ -46,4 +46,55 @@ class ComedorController extends Controller
             ], 500);
         }
     }
+
+    public function editar($cod_familia)
+    {
+        $comedor = Comedor::where('cod_familia', $cod_familia)
+            ->orderBy('cod_comedor', 'asc') // Ordena por la clave primaria o un campo específico
+            ->get();
+        return view('vivienda.editar_comedor', ['comedor' => $comedor]);
+    }
+
+    public function actualizar(Request $request)
+    {
+        $comedor = $request->input('estructuraVivienda');
+
+        try {
+            foreach ($comedor as $cod_comedor => $datos) {
+                $registro = Comedor::find($cod_comedor); // Usa el cod_comedor como ID
+                if ($registro) {
+                    $registro->respuesta = $datos['respuesta'];
+                    $registro->acciones = $datos['acciones'] ?? null;
+                    $registro->update();
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'La información del comedor actualizada correctamente.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ocurrió un error al actualizar la información del comedor.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function regresar($cod_familia)
+    {
+        $comedor = Comedor::where('cod_familia', $cod_familia)
+            ->orderBy('cod_comedor', 'asc') // Ordena por la clave primaria o un campo específico
+            ->get();
+        return view('vivienda.regresar_comedor', ['comedor' => $comedor]);
+    }
+
+    public function regresarM($cod_familia)
+    {
+        $comedor = Comedor::where('cod_familia', $cod_familia)
+            ->orderBy('cod_comedor', 'asc') // Ordena por la clave primaria o un campo específico
+            ->get();
+        return view('vivienda.regresarM_comedor', ['comedor' => $comedor]);
+    }
 }

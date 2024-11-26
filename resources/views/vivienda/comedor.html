@@ -368,11 +368,9 @@
                         >
                             Cancelar <i class="fa-solid fa-ban"></i>
                         </button>
-                        <a
-                            href="/matriz_de_estructura_general_vivienda"
-                            class="btn btn-primary"
-                            >Aceptar <i class="fa-solid fa-check"></i
-                        ></a>
+                        <button id="regresar-btn" class="btn btn-primary">
+                            Aceptar <i class="fa-solid fa-check"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -382,6 +380,39 @@
         <script src="/assets/js/jquery-3.7.1.min.js"></script>
         <!-- Enlazar Bootstrap JS -->
         <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const regresarBtn = document.getElementById("regresar-btn");
+
+                // Obtener el valor de cod_familia desde localStorage
+                const codFamilia = localStorage.getItem("codFamilia");
+
+                //console.log(codFamilia);
+
+                if (codFamilia) {
+                    // Agregar un listener de clic para redirigir al usuario
+                    regresarBtn.addEventListener("click", (event) => {
+                        event.preventDefault(); // Previene comportamientos predeterminados del botón.
+                        const url = `/matriz_de_estructura_general_vivienda/editar/${codFamilia}`;
+                        //console.log("Redirigiendo a:", url);
+                        window.location.href = url;
+                    });
+                } else {
+                    console.error(
+                        "El valor de cod_familia no está definido en localStorage."
+                    );
+
+                    // Si no hay cod_familia, podrías mostrar un mensaje o redirigir a una página predeterminada
+                    regresarBtn.addEventListener("click", (e) => {
+                        e.preventDefault(); // Evitar la acción por defecto si cod_familia no está en localStorage
+                        alert(
+                            "No se encontró la familia, asegúrese de que la información esté disponible."
+                        );
+                    });
+                }
+            });
+        </script>
 
         <script>
             document
@@ -445,24 +476,21 @@
                     console.log("Datos enviados:", data);
 
                     try {
-                        const response = await fetch(
-                            "/comedor",
-                            {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    // Token CSRF para Lumen (si se usa en el proyecto)
-                                    "X-CSRF-TOKEN": document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    )
-                                        ? document.querySelector(
-                                              'meta[name="csrf-token"]'
-                                          ).content
-                                        : "",
-                                },
-                                body: JSON.stringify(data),
-                            }
-                        );
+                        const response = await fetch("/comedor", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                // Token CSRF para Lumen (si se usa en el proyecto)
+                                "X-CSRF-TOKEN": document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                )
+                                    ? document.querySelector(
+                                          'meta[name="csrf-token"]'
+                                      ).content
+                                    : "",
+                            },
+                            body: JSON.stringify(data),
+                        });
 
                         const responseData = await response.json();
 
