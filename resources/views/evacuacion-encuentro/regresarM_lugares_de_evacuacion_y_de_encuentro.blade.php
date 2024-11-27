@@ -5,7 +5,7 @@ a
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Visualizacón plan</title>
+    <title>Visualización plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -64,7 +64,7 @@ a
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Visualizacón plan
+                                    Visualización plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Lugares de Evacuación y Encuentro

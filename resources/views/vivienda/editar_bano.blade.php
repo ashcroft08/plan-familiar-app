@@ -66,7 +66,7 @@
                                     Visualización plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Integrantes de la Familia
+                                    Baño
                                 </li>
                             </ol>
                         </nav>
@@ -79,33 +79,34 @@
 
         <!-- Hoverable rows start -->
         <section class="container">
-            <header>5. Identificación de amenazas</header>
-            <form id="identificacionForm" class="form" method="POST">
-                <input type="hidden" name="_method" value="PUT"> <!-- Campo oculto solo si es necesario -->
+            <header>12.e Baño</header>
+            <form id="banioForm" class="form">
                 <div class="table-responsive">
                     <table class="table table-bordered" style="width: 100%">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th scope="col">Amenaza</th>
-                                <th scope="col">Efecto</th>
-                                <th scope="col">¿Por qué puede ocurrir?</th>
-                                <th scope="col">¿Qué podemos hacer?</th>
+                                <th scope="col">Detalle</th>
+                                <th scope="col">SI</th>
+                                <th scope="col">NO</th>
+                                <th scope="col">
+                                    Acciones para reducir la vulnerabilidad
+                                </th>
                             </tr>
                         </thead>
-                        <tbody id="amenazasTableBody">
-                            @foreach ($identificacionAmenaza as $index => $item)
-                                <tr data-cod_identificacion="{{ $item->cod_identificacion }}">
-                                    <td>{{ $item->cod_identificacion }}</td>
-                                    <td>{{ $item->amenaza }}</td>
+                        <tbody>
+                            @foreach ($banio as $fila)
+                                <tr>
+                                    <td>{{ $fila->detalle }}</td>
                                     <td>
-                                        <textarea class="form-control efecto" id="efecto_{{ $index }}" rows="3" required>{{ $item->efecto }}</textarea>
+                                        <input type="radio" name="respuesta_{{ $fila->cod_banio }}" value="Si"
+                                            {{ $fila->respuesta === 'Si' ? 'checked' : '' }} disabled>
                                     </td>
                                     <td>
-                                        <textarea class="form-control razon" id="razon_{{ $index }}" rows="3" required>{{ $item->consecuencia }}</textarea>
+                                        <input type="radio" name="respuesta_{{ $fila->cod_banio }}" value="No"
+                                            {{ $fila->respuesta === 'No' ? 'checked' : '' }} disabled>
                                     </td>
                                     <td>
-                                        <textarea class="form-control accion" id="accion_{{ $index }}" rows="3" required>{{ $item->acciones }}</textarea>
+                                        <textarea class="form-control"name="acciones_{{ $fila->cod_banio }}" disabled>{{ $fila->acciones }}</textarea>
                                     </td>
                                 </tr>
                             @endforeach
@@ -114,10 +115,14 @@
                 </div>
                 <div class="row botonsform">
                     <div class="col">
+                        <button type="button" id="editar" class="btn btn-warning">
+                            Editar
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
                         <!-- Botón para abrir el modal de "Regresar" -->
                         <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#regresarModal"
                             class="btn btn-secondary">Regresar <i class="fa-solid fa-rotate-left"></i></a>
-                        <button type="button" id="guardarYContinuar" class="btn btn-success">
+                        <button type="submit" id="guardarYContinuar" class="btn btn-success">
                             Siguiente
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
@@ -133,20 +138,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="regresarModalLabel">
-                        ¿Seguro que desea regresar?
+                        ¿Seguro que deseas regresar?
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Si regresa, se perderán los datos que haya editado en este formulario.
+                    Si regresas, se perderán los datos que has ingresado
+                    hasta ahora.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <button id="regresar-btn" class="btn btn-primary">
-                        Aceptar <i class="fa-solid fa-check"></i>
-                    </button>
+                    <a href="/dormitorio" class="btn btn-primary">Aceptar <i class="fa-solid fa-check"></i></a>
                 </div>
             </div>
         </div>
@@ -158,72 +162,76 @@
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const regresarBtn = document.getElementById('regresar-btn');
+        document.getElementById('banioForm').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Evita el envío predeterminado del formulario
 
-            // Obtener el valor de cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
+            const cod_familia = "{{ $banio->first()->cod_familia ?? '' }}";
 
-            console.log(`/integrantes_de_la_familia/editar/${codFamilia}`)
+            const form = event.target;
+            const formData = new FormData(form);
 
-            if (codFamilia) {
-                // Agregar un listener de clic para redirigir al usuario
-                regresarBtn.addEventListener('click', () => {
-                    window.location.href = `/integrantes_de_la_familia/editar/${codFamilia}`;
+            // Crear el objeto JSON a partir del formulario
+            const data = {};
+            formData.forEach((value, key) => {
+                if (key.startsWith('respuesta_')) {
+                    const id = key.split('_')[1];
+                    if (!data[id]) data[id] = {};
+                    data[id].respuesta = value;
+                } else if (key.startsWith('acciones_')) {
+                    const id = key.split('_')[1];
+                    if (!data[id]) data[id] = {};
+                    data[id].acciones = value;
+                }
+            });
+
+            try {
+                const response = await fetch('/bano/actualizar', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "X-CSRF-TOKEN": document.querySelector(
+                                'meta[name="csrf-token"]'
+                            ) ?
+                            document.querySelector(
+                                'meta[name="csrf-token"]'
+                            ).content : "",
+                    },
+                    body: JSON.stringify({
+                        estructuraVivienda: data
+                    }),
                 });
-            } else {
-                console.error('El valor de cod_familia no está definido en localStorage.');
 
-                // Si no hay cod_familia, podrías mostrar un mensaje o redirigir a una página predeterminada
-                regresarBtn.addEventListener('click', (e) => {
-                    e
-                        .preventDefault(); // Evitar la acción por defecto si cod_familia no está en localStorage
-                    alert('No se encontró la familia, asegúrese de que la información esté disponible.');
-                });
+                const responseData = await response.json();
+
+                if (responseData.success) {
+                    //alert("Datos guardados correctamente");
+                    window.location.href = `/resumen_vulnerabilidad_vivienda/visualizar/${cod_familia}`;
+                } else {
+                    alert(
+                        responseData.message ||
+                        "Hubo un error al guardar los datos"
+                    );
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Error en la solicitud");
             }
         });
     </script>
 
     <script>
-        document.getElementById('guardarYContinuar').addEventListener('click', async () => {
-            const cod_familia = "{{ $identificacionAmenaza->first()->cod_familia ?? '' }}";
+        document.getElementById('editar').addEventListener('click', function() {
+            const editarButton = document.getElementById('editar');
+            // Seleccionamos todos los inputs y textarea dentro de la tabla
+            const inputs = document.querySelectorAll('input[type="radio"], textarea');
 
-            const filas = document.querySelectorAll('#amenazasTableBody tr');
-            const amenazas = Array.from(filas).map(fila => ({
-                cod_identificacion: fila.dataset.cod_identificacion,
-                efecto: fila.querySelector('.efecto').value,
-                consecuencia: fila.querySelector('.razon').value,
-                acciones: fila.querySelector('.accion').value,
-            }));
-
-            try {
-                const response = await fetch('/identificacion_de_amenazas', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        amenazas
-                    }),
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    alert(data.message);
-                    // Redirigir a una nueva URL (ajusta la ruta según tu backend)
-                    const url = `/recursos_familiares_disponibles`;
-                    window.location.href = url; // Cambia la página
-                } else {
-                    alert(`Error: ${data.message}`);
-                }
-            } catch (error) {
-                console.error('Error al actualizar las amenazas:', error);
-                alert('Ocurrió un error al intentar actualizar las amenazas.');
-            }
+            // Habilitamos todos los campos de la tabla
+            inputs.forEach(input => {
+                input.disabled = false; // Eliminar el atributo disabled
+            });
+            editarButton.disabled = true; // Desactiva el botón de editar
         });
     </script>
-
 </body>
 
 </html>

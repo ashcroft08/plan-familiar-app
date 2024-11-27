@@ -23,7 +23,7 @@ class CocinaController extends Controller
                 'message' => 'El código de familia es inválido.',
             ], 400);
         }
-        
+
         // Guardar los datos en la tabla estructura_vivienda
         try {
             foreach ($request->matriz as $item) {
@@ -43,6 +43,41 @@ class CocinaController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Hubo un error al guardar los datos: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function editar($cod_familia)
+    {
+        $cocina = Cocina::where('cod_familia', $cod_familia)
+            ->orderBy('cod_cocina', 'asc') // Ordena por la clave primaria o un campo específico
+            ->get();
+        return view('vivienda.editar_cocina', ['cocina' => $cocina]);
+    }
+
+    public function actualizar(Request $request)
+    {
+        $cocina = $request->input('estructuraVivienda');
+
+        try {
+            foreach ($cocina as $cod_cocina => $datos) {
+                $registro = Cocina::find($cod_cocina); // Usa el cod_cocina como ID
+                if ($registro) {
+                    $registro->respuesta = $datos['respuesta'];
+                    $registro->acciones = $datos['acciones'] ?? null;
+                    $registro->update();
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'La información de la cocina actualizada correctamente.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ocurrió un error al actualizar la información de la cocina.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }
