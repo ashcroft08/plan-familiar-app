@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Visualización plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -63,10 +63,10 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Creación de Plan
+                                    Visualización plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Recursos familiares disponibles
+                                    Plan de acción
                                 </li>
                             </ol>
                         </nav>
@@ -79,17 +79,14 @@
 
         <!-- Hoverable rows start -->
         <section class="container">
-            <header>
-                6. Recursos personales disponibles para la persona con
-                discapacidad (PCD)
-            </header>
-            <div class="d-flex justify-content-end mb-4">
+            <header>9. Plan de acción</header>
+            <div class="d-flex justify-content-end mb-6">
                 <div class="input-group">
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fa-solid fa-plus"></i>
                     </span>
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearRecursoModal">
-                        Crear nuevo recurso
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearActividadModal" id="crearRecuperacion">
+                        Crear nueva actividad
                     </button>
                 </div>
             </div>
@@ -98,27 +95,55 @@
                     <table class="table table-bordered" style="width: 100%">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Descripción</th>
-                                <th scope="col">Cantidad</th>
-                                <th scope="col">Ubicación</th>
-                                <th scope="col">
-                                    Para hacer uso del recurso
+                                <th colspan="4" class="text-center">
+                                    Actividad Después (Recuperación)
                                 </th>
+                            </tr>
+                            <tr>
+                                <th class="text-wrap" style="max-width: 200px; padding: 10px">
+                                    ¿Qué hacemos luego de la emergencia? Una
+                                    vez que ha pasado la emergencia se
+                                    restablecerá a la normalidad
+                                </th>
+                                <th>Responsable</th>
+                                <th>Comentarios</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="recursosTableBody">
-                            <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
+                        <tbody>
+                            @foreach ($actividad as $item)
+                                <tr>
+                                    <td>{{ $item->emergencia }}</td>
+                                    <td>{{ $item->responsable }}</td>
+                                    <td>{{ $item->comentario }}</td>
+                                    <td class="d-flex gap-2">
+                                        <button type="button" class="btn btn-warning btn-sm editarRecuperacion"
+                                            data-bs-toggle="modal" data-bs-target="#editarRecuperacionModal"
+                                            data-cod_recuperacion="{{ $item->cod_recuperacion }}"
+                                            data-emergencia="{{ $item->aemergencia }}"
+                                            data-responsable="{{ $item->responsable }}"
+                                            data-comentario="{{ $item->comentario }}">Editar
+                                            <i class="fas fa-pen"></i>
+                                        </button>
+                                        <button type="button"
+                                            class="btn btn-outline-danger btn-sm eliminarRecuperacion"
+                                            data-bs-toggle="modal" data-bs-target="#modalDelete"
+                                            data-cod_recuperacion="{{ $item->cod_recuperacion }}">Eliminar
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="row botonsform">
                     <div class="col">
-                        <button id="regresar-btn" class="btn btn-secondary" type="button">
-                            Regresar <i class="fa-solid fa-rotate-left"></i>
-                        </button>
-                        <a href="/plan_accion_reduccion" class="btn btn-success">Siguiente
+                        <!-- Botón para abrir el modal de "Regresar" -->
+                        <a href="{{ url('/plan_accion_respuesta/editar/' . $item->cod_familia) }}"
+                            class="btn btn-secondary">Regresar <i class="fa-solid fa-rotate-left"></i></a>
+                        <a href="{{ url('/numeros_emergencia/editar/' . $item->cod_familia) }}"
+                            class="btn btn-success">Siguiente
                             <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -126,101 +151,77 @@
         </section>
     </div>
 
-    <!-- Modal Formulario "Crear nuevo recurso" -->
-    <div class="modal fade" id="crearRecursoModal" data-bs-backdrop="static" tabindex="-1"
+    <!-- Modal Formulario "Crear nueva actividad" -->
+    <div class="modal fade" id="crearActividadModal" data-bs-backdrop="static" tabindex="-1"
         aria-labelledby="crearProyectoLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form id="recursoForm" class="form" method="POST" autocomplete="off">
+            <form id="actividadForm" class="form" method="POST">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title fw-bold fs-5" id="crearProyectoLabel">
-                            Crear Nuevo Recurso Familiar
+                            Crear Nueva Actividad
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="descripcion" class="form-label fw-bold">Descripción</label>
-                            <input type="text" class="form-control" id="descripcion" required />
+                            <label for="actividad" class="form-label fw-bold">¿Qué hacemos luego de la
+                                emergencia?</label>
+                            <textarea name="actividad" id="actividad" class="form-control" rows="3"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="cantidad" class="form-label fw-bold">Cantidad</label>
-                            <input type="number" class="form-control" id="cantidad" required />
+                            <label for="responsable" class="form-label fw-bold">Responsable</label>
+                            <input type="text" class="form-control" id="responsable" required />
                         </div>
                         <div class="mb-3">
-                            <label for="ubicacion" class="form-label fw-bold">Ubicación</label>
-                            <input type="text" class="form-control" id="ubicacion" required />
+                            <label for="comentario" class="form-label fw-bold">Comentarios</label>
+                            <textarea class="form-control" id="comentario" rows="3"></textarea>
                         </div>
-                        <div class="mb-3">
-                            <label for="usoRecurso" class="form-label fw-bold">Para hacer uso del recurso</label>
-                            <select class="form-select" id="usoRecurso" required>
-                                <option value="" disabled selected>
-                                    Seleccione una opción
-                                </option>
-                                <option value="Requiere apoyo">
-                                    Requiere de apoyo
-                                </option>
-                                <option value="No requiere apoyo">
-                                    No requiere de apoyo
-                                </option>
-                            </select>
+                        <div class="modal-footer">
+                            <button type="submit" id="guardarAmenaza" class="btn btn-primary">
+                                Guardar
+                            </button>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" id="guardarAmenaza" class="btn btn-primary">
-                            Guardar
-                        </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Modal Formulario "Editar recurso" -->
-    <div class="modal fade" id="editarRecursoModal" data-bs-backdrop="static" tabindex="-1"
-        aria-labelledby="editarRecursoLabel" aria-hidden="true">
+    <!-- Modal Formulario "Editar actividad" -->
+    <div class="modal fade" id="editarRecuperacionModal" data-bs-backdrop="static" tabindex="-1"
+        aria-labelledby="editarRecuperacionLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form id="editarRecursoForm" class="form" method="PUT" autocomplete="off">
+            <form id="editarRecuperacionForm" class="form" method="PUT" autocomplete="off">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title fw-bold fs-5" id="crearProyectoLabel">
-                            Editar Recurso Familiar
+                            Editar plan de acción (Recuperación)
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Campo oculto para cod_recurso -->
-                        <input type="hidden" name="cod_recurso" id="editCodRecurso" />
+                        <!-- Campo oculto para cod_recuperacion -->
+                        <input type="hidden" name="cod_recuperacion" id="editCodRecuperacion" />
                         <div class="mb-3">
-                            <label for="editDescripcion" class="form-label fw-bold">Descripción</label>
-                            <input type="text" class="form-control" id="editDescripcion" required />
+                            <label for="editActividad" class="form-label fw-bold">¿Qué hacemos luego de la
+                                emergencia?</label>
+                            <textarea name="editActividad" id="editActividad" class="form-control" rows="3"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="editCantidad" class="form-label fw-bold">Cantidad</label>
-                            <input type="number" class="form-control" id="editCantidad" required />
+                            <label for="editResponsable" class="form-label fw-bold">Responsable</label>
+                            <input type="text" name="editResponsable" class="form-control" id="editResponsable"
+                                required />
                         </div>
                         <div class="mb-3">
-                            <label for="editUbicacion" class="form-label fw-bold">Ubicación</label>
-                            <input type="text" class="form-control" id="editUbicacion" required />
-                        </div>
-                        <div class="mb-3">
-                            <label for="editUsoRecurso" class="form-label fw-bold">Para hacer uso del recurso</label>
-                            <select class="form-select" id="editUsoRecurso" required>
-                                <option value="" disabled selected>
-                                    Seleccione una opción
-                                </option>
-                                <option value="Requiere apoyo">
-                                    Requiere de apoyo
-                                </option>
-                                <option value="No requiere apoyo">
-                                    No requiere de apoyo
-                                </option>
-                            </select>
+                            <label for="editComentario" class="form-label fw-bold">Comentario</label>
+                            <textarea class="form-control" name="editComentario" id="editComentario" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" id="actualizarRecurso" class="btn btn-primary">
+                        <button type="submit" id="actualizarReduccion" class="btn btn-primary">
                             Actualizar
                         </button>
                     </div>
@@ -229,24 +230,24 @@
         </div>
     </div>
 
-    <!-- Modal para eliminar recurso -->
+    <!-- Modal para eliminar actividad -->
     <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title fw-bold fs-5" id="modalDeleteLabel" style="font-weight: bold;">
-                        Eliminar el recurso
+                        Eliminar el plan de acción (Recuperación)
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Esta seguro que desea eliminar el recurso?</p>
+                    <p>¿Esta seguro que desea eliminar el plan?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <button type="button" class="btn btn-success" id="eliminarRecurso"> Aceptar <i
+                    <button type="button" class="btn btn-success" id="eliminarRecuperacion"> Aceptar <i
                             class="fa-solid fa-check"></i>
                     </button>
                 </div>
@@ -260,75 +261,8 @@
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const regresarBtn = document.getElementById('regresar-btn');
-            const codFamilia = localStorage.getItem("codFamilia");
-
-            if (regresarBtn) {
-                regresarBtn.addEventListener('click', (e) => {
-                    e.preventDefault(); // Evita el comportamiento predeterminado
-
-                    if (codFamilia) {
-                        //console.log(`Redirigiendo a: /identificacion_de_amenazas/editar/${codFamilia}`);
-                        window.location.href = `/identificacion_de_amenazas/${codFamilia}`;
-                    } else {
-                        alert(
-                        'No se encontró la familia, asegúrese de que la información esté disponible.');
-                    }
-                });
-            } else {
-                console.error('No se encontró el botón con id regresar-btn.');
-            }
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-
-            // Obtener amenazas desde la variable de Blade y convertir a un objeto JavaScript
-            const recursos = @json($recursos);
-
-            // Filtrar las amenazas por cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-            const filteredRecursos = recursos.filter(item => item.cod_familia == codFamilia);
-
-            // Limpiar la tabla
-            const tbody = $("#recursosTableBody");
-            tbody.empty();
-
-            // Llenar la tabla con las amenazas filtradas
-            filteredRecursos.forEach((item, index) => {
-                const row = `<tr>
-                            <td>${index + 1}</td>
-                            <td>${item.descripcion}</td>
-                            <td>${item.cantidad}</td>
-                            <td>${item.ubicacion}</td>
-                            <td>${item.uso_recurso}</td>
-                            <td class="d-flex gap-2">
-                                <button type="button" class="btn btn-warning btn-sm"
-                                    data-bs-toggle="modal" data-bs-target="#editarRecursoModal"
-                                    data-cod_recurso="${item.cod_recurso}"
-                                    data-descripcion="${item.descripcion}"
-                                    data-cantidad="${item.cantidad}"
-                                    data-ubicacion="${item.ubicacion}"
-                                    data-uso_recurso="${item.uso_recurso}">Editar 
-                                <i class="fas fa-pen"></i>
-                            </button>
-                                <button type="button" class="btn btn-outline-danger btn-sm"
-                                        data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                        data-cod_recurso="${item.cod_recurso}">Eliminar 
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </td>
-                        </tr>`;
-                tbody.append(row);
-            });
-        });
-    </script>
-
-    <script>
         // Mostrar el modal y cargar el cod_familia desde localStorage
-        $("#crearRecursoModal").on("show.bs.modal", function(event) {
+        $("#crearActividadModal").on("show.bs.modal", function(event) {
             const codFamilia = localStorage.getItem("codFamilia");
 
             // Verificar si codFamilia existe
@@ -338,40 +272,38 @@
             }
 
             // Asignar el valor a una variable oculta en caso de que se requiera
-            document.getElementById("recursoForm").dataset.codFamilia = codFamilia;
+            document.getElementById("actividadForm").dataset.codFamilia = codFamilia;
         });
 
-        // Lógica para manejar el formulario de crear recurso
+        // Lógica para manejar el formulario de crear recuperacion
         document
-            .getElementById("recursoForm")
+            .getElementById("actividadForm")
             .addEventListener("submit", async function(event) {
                 event.preventDefault(); // Prevenir el envío por defecto
 
                 // Obtener los valores del formulario
-                const descripcion = document.getElementById("descripcion").value;
-                const cantidad = document.getElementById("cantidad").value;
-                const ubicacion = document.getElementById("ubicacion").value;
-                const usoRecurso = document.getElementById("usoRecurso").value;
+                const actividad = document.getElementById("actividad").value;
+                const responsable = document.getElementById("responsable").value;
+                const comentario = document.getElementById("comentario").value;
                 const codFamilia = this.dataset.codFamilia;
 
                 // Validaciones
-                if (!descripcion || !cantidad || !ubicacion || !usoRecurso || !codFamilia) {
+                if (!actividad || !responsable || !comentario || !codFamilia) {
                     alert("Por favor, complete todos los campos.");
                     return;
                 }
 
                 // Datos a enviar
-                const dataRecurso = {
+                const dataActividad = {
                     cod_familia: codFamilia,
-                    descripcion: descripcion,
-                    cantidad: cantidad,
-                    ubicacion: ubicacion,
-                    usoRecurso: usoRecurso,
+                    actividad: actividad,
+                    responsable: responsable,
+                    comentario: comentario,
                 };
 
                 // Enviar los datos al servidor
                 try {
-                    const response = await fetch("/recursos_familiares_disponibles", { // Ruta actualizada aquí
+                    const response = await fetch("/plan_accion_recuperacion", { // Ruta actualizada aquí
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -379,15 +311,15 @@
                                 'meta[name="csrf-token"]'
                             ) ? document.querySelector('meta[name="csrf-token"]').content : "",
                         },
-                        body: JSON.stringify(dataRecurso),
+                        body: JSON.stringify(dataActividad),
                     });
 
                     const responseData = await response.json();
 
                     if (responseData.success) {
                         // Mostrar mensaje de éxito
-                        alert("El recurso ha sido guardado correctamente.");
-                        $("#crearRecursoModal").modal("hide"); // Cerrar el modal
+                        alert("La actividad ha sido guardado correctamente.");
+                        $("#crearActividadModal").modal("hide"); // Cerrar el modal
 
                         // Opcionalmente redirigir o actualizar la vista
                         location.reload(); // Recargar la página para ver el nuevo recurso (ajustar si es necesario)
@@ -397,27 +329,27 @@
                     }
                 } catch (error) {
                     console.error("Error:", error);
-                    alert("Error al guardar el recurso.");
+                    alert("Error al guardar la actividad.");
                 }
             });
     </script>
 
-    <!-- Script para eliminar recurso -->
+    <!-- Script para eliminar actividad -->
     <script>
         $('#modalDelete').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
-            codRecurso = button.data('cod_recurso');
-            //console.log('Código de integrante:', codRecurso); // Verifica si se captura correctamente
+            codRecuperacion = button.data('cod_recuperacion');
+            //console.log('Código de integrante:', codRecuperacion); // Verifica si se captura correctamente
         });
 
-        $('#eliminarRecurso').click(function() {
-            if (!codRecurso) {
-                console.log('Error: No se ha capturado el cod_recurso.');
+        $('#eliminarRecuperacion').click(function() {
+            if (!codRecuperacion) {
+                console.log('Error: No se ha capturado el cod_recuperacion.');
                 return;
             }
 
             $.ajax({
-                url: '/recursos_familiares_disponibles/' + codRecurso, // URL correcta
+                url: '/plan_accion_recuperacion/' + codRecuperacion, // URL correcta
                 type: 'DELETE',
                 success: function(response) {
                     console.log('Respuesta del servidor:', response);
@@ -431,62 +363,52 @@
                 },
                 error: function(response) {
                     console.error('Error al eliminar:', response);
-                    alert('Error al eliminar el recurso');
+                    alert('Error al eliminar el plan de acción (Recuperacion)');
                 }
             });
         });
     </script>
 
-    <!-- Script para editar recurso -->
+    <!-- Script para editar actividad -->
     <script>
-        document.getElementById('editarRecursoModal').addEventListener('show.bs.modal', function(event) {
+        document.getElementById('editarRecuperacionModal').addEventListener('show.bs.modal', function(event) {
             // Botón que disparó el modal
             var button = event.relatedTarget;
 
             // Obtener datos del botón
-            var codRecurso = button.getAttribute('data-cod_recurso');
-            var descripcion = button.getAttribute('data-descripcion');
-            var cantidad = button.getAttribute('data-cantidad');
-            var ubicacion = button.getAttribute('data-ubicacion');
-            var uso_recurso = button.getAttribute('data-uso_recurso');
+            var codRecuperacion = button.getAttribute('data-cod_recuperacion');
+            var acciones = button.getAttribute('data-emergencia');
+            var responsable = button.getAttribute('data-responsable');
+            var comentario = button.getAttribute('data-comentario');
 
-            //alert(uso_recurso);
+            //alert(comentario);
 
             // Asignar valores a los campos del modal
-            document.getElementById('editCodRecurso').value = codRecurso;
-            document.getElementById('editDescripcion').value = descripcion;
-            document.getElementById('editCantidad').value = cantidad;
-            document.getElementById('editUbicacion').value = ubicacion;
+            document.getElementById('editCodRecuperacion').value = codRecuperacion;
+            document.getElementById('editActividad').value = acciones; // Usar el ID correcto
+            document.getElementById('editResponsable').value = responsable;
+            document.getElementById('editComentario').value = comentario;
 
-            // Seleccionar el valor correcto en el dropdown de Uso de Recurso
-            var uso_recursoField = document.getElementById('editUsoRecurso');
-            for (var i = 0; i < uso_recursoField.options.length; i++) {
-                if (uso_recursoField.options[i].value === uso_recurso) {
-                    uso_recursoField.selectedIndex = i;
-                    break;
-                }
-            }
         });
 
-        document.getElementById('editarRecursoForm').addEventListener('submit', async function(event) {
+        document.getElementById('editarRecuperacionForm').addEventListener('submit', async function(event) {
             event.preventDefault(); // Evita que se recargue la página
 
             // Recopilar datos del formulario
             const formData = {
-                descripcion: document.getElementById('editDescripcion').value,
-                cantidad: document.getElementById('editCantidad').value,
-                usoRecurso: document.getElementById('editUsoRecurso').value,
-                ubicacion: document.getElementById('editUbicacion').value,
+                actividad: document.getElementById('editActividad').value,
+                responsable: document.getElementById('editResponsable').value,
+                comentario: document.getElementById('editComentario').value,
             };
 
             // Obtener el ID del integrante (desde el campo oculto en el formulario)
-            const codUsoRecurso = document.getElementById('editCodRecurso').value;
+            const codRecuperacion = document.getElementById('editCodRecuperacion').value;
 
             //console.log(formData);
 
             try {
                 // Realizar la solicitud PUT al servidor
-                const response = await fetch(`/recursos_familiares_disponibles/${codUsoRecurso}`, {
+                const response = await fetch(`/plan_accion_recuperacion/${codRecuperacion}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

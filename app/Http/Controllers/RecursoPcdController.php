@@ -115,4 +115,17 @@ class RecursoPcdController extends Controller
             ], 500);
         }
     }
+
+    public function regresar($cod_familia)
+    {
+        // Buscar todas las amenazas asociadas a 'cod_familia'
+        $recursos = RecursoPcd::where('cod_familia', $cod_familia)->get();
+
+        // Si no se encuentran amenazas para ese 'cod_familia', lanzar error 404
+        if ($recursos->isEmpty()) {
+            abort(404, "No se encontraron amenazas para este 'cod_familia'.");
+        }
+
+        return view('recursos-pcd.regresar_recursos_familiares_disponibles', ['recursos' => $recursos]);
+    }
 }

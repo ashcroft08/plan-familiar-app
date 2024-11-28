@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Visualización plan</title>
+    <title>Creación plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -63,10 +63,10 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Visualización plan
+                                    Creación de Plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Integrantes de la Familia
+                                    Identificación de amenazas
                                 </li>
                             </ol>
                         </nav>
@@ -144,9 +144,8 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <button id="regresar-btn" class="btn btn-primary">
-                        Aceptar <i class="fa-solid fa-check"></i>
-                    </button>
+                    <a href="/integrantes_de_la_familia" class="btn btn-primary">Aceptar <i
+                            class="fa-solid fa-check"></i></a>
                 </div>
             </div>
         </div>
@@ -156,33 +155,6 @@
     <script src="/assets/js/jquery-3.7.1.min.js"></script>
     <!-- Enlazar Bootstrap JS -->
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const regresarBtn = document.getElementById('regresar-btn');
-
-            // Obtener el valor de cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-
-            console.log(`/integrantes_de_la_familia/editar/${codFamilia}`)
-
-            if (codFamilia) {
-                // Agregar un listener de clic para redirigir al usuario
-                regresarBtn.addEventListener('click', () => {
-                    window.location.href = `/integrantes_de_la_familia/editar/${codFamilia}`;
-                });
-            } else {
-                console.error('El valor de cod_familia no está definido en localStorage.');
-
-                // Si no hay cod_familia, podrías mostrar un mensaje o redirigir a una página predeterminada
-                regresarBtn.addEventListener('click', (e) => {
-                    e
-                        .preventDefault(); // Evitar la acción por defecto si cod_familia no está en localStorage
-                    alert('No se encontró la familia, asegúrese de que la información esté disponible.');
-                });
-            }
-        });
-    </script>
 
     <script>
         document.getElementById('guardarYContinuar').addEventListener('click', async () => {

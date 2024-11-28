@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Visualizacón plan</title>
+    <title>Visualización plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -45,8 +45,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     Si regresa al inicio,
-                                                    se perderán los datos
-                                                    que has editado en este formulario.
+                                                    los datos que haya modificado en este formulario no se guardaran.
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -87,35 +86,35 @@
                         <div class="form-group">
                             <label for="nombreFam" style="font-weight: bold">Nombre de la familia acogiente</label>
                             <input type="text" class="form-control" name="nombreFam" id="nombreFam"
-                                value="{{ $informacion_general->familia_acogiente }}" required/>
+                                value="{{ $informacion_general->familia_acogiente }}" required />
                         </div>
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="form-group">
                             <label for="direccionFam" style="font-weight: bold">Dirección del domicilio</label>
                             <input type="text" class="form-control" name="direccionFam" id="direccionFam"
-                                value="{{ $informacion_general->direccion_domicilio }}" required/>
+                                value="{{ $informacion_general->direccion_domicilio }}" required />
                         </div>
                     </div>
                     <div class="col-md-6 col-12 mb-3">
                         <div class="form-group">
                             <label for="telFam" style="font-weight: bold">Número de teléfono familia acogiente</label>
                             <input type="text" class="form-control" name="telFam" id="telFam"
-                                value="{{ $informacion_general->telf_familia_acogiente }}" required/>
+                                value="{{ $informacion_general->telf_familia_acogiente }}" required />
                         </div>
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="form-group">
                             <label for="provincia" style="font-weight: bold">Provincia</label>
                             <input type="text" class="form-control" name="provincia" id="provincia"
-                                value="{{ $informacion_general->provincia }}" required/>
+                                value="{{ $informacion_general->provincia }}" required />
                         </div>
                     </div>
                     <div class="col-md-6 col-12 mb-3">
                         <div class="form-group">
                             <label for="canton" style="font-weight: bold">Cantón</label>
                             <input type="text" class="form-control" name="canton" id="canton"
-                                value="{{ $informacion_general->canton }}" required/>
+                                value="{{ $informacion_general->canton }}" required />
                         </div>
                     </div>
                     <div class="col-md-6 col-12">
@@ -133,14 +132,14 @@
                                 </option>
                             </select>
                             <input type="text" class="form-control mb-3" name="nombreBcr" id="barrio"
-                                value="{{ $informacion_general->nombre_bcr }}" required/>
+                                value="{{ $informacion_general->nombre_bcr }}" required />
                         </div>
                     </div>
                     <div class="col-md-6 col-12 mb-5">
                         <div class="form-group">
                             <label for="numCasa" style="font-weight: bold">Número de casa</label>
                             <input type="text" class="form-control" name="numCasa" id="numCasa"
-                                value="{{ $informacion_general->numero_casa }}" required/>
+                                value="{{ $informacion_general->numero_casa }}" required />
                         </div>
                     </div>
                 </div>

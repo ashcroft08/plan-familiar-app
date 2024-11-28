@@ -138,8 +138,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <a href="/amenazas" class="btn btn-primary">Aceptar <i
-                            class="fa-solid fa-check"></i></a>
+                    <a href="/amenazas" class="btn btn-primary">Aceptar <i class="fa-solid fa-check"></i></a>
                 </div>
             </div>
         </div>
@@ -220,21 +219,21 @@
                     puntoReunion: puntoReunion,
                     rutaEvac: rutaEvac,
                 };
+
+                console.log("Datos enviados:", data);
+
                 try {
                     //console.log("Datos a enviar:", data);
 
                     // Enviar datos al servidor
                     const response = await fetch(
-                        "lugares_de_evacuacion_y_de_encuentro", {
+                        "/lugares_de_evacuacion_y_de_encuentro", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ) ?
-                                    document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ).content : "",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]') ?
+                                    document.querySelector('meta[name="csrf-token"]').content :
+                                    "",
                             },
                             body: JSON.stringify(data),
                         }

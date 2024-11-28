@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Visualización plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -63,7 +63,7 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Creación de Plan
+                                    Visualización plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Recursos familiares disponibles
@@ -88,7 +88,8 @@
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fa-solid fa-plus"></i>
                     </span>
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearRecursoModal">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearRecursoModal"
+                        id="crearRecurso" disabled>
                         Crear nuevo recurso
                     </button>
                 </div>
@@ -108,22 +109,78 @@
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="recursosTableBody">
-                            <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
+                        <tbody>
+                            @foreach ($recursos as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $item->descripcion }}</td>
+                                    <td>{{ $item->cantidad }}</td>
+                                    <td>{{ $item->ubicacion }}</td>
+                                    <td>{{ $item->uso_recurso }}</td>
+                                    <td class="d-flex gap-2">
+                                        <button type="button" class="btn btn-warning btn-sm editarRecurso"
+                                            data-bs-toggle="modal" data-bs-target="#editarRecursoModal"
+                                            data-cod_recurso="{{ $item->cod_recurso }}"
+                                            data-descripcion="{{ $item->descripcion }}"
+                                            data-cantidad="{{ $item->cantidad }}"
+                                            data-ubicacion="{{ $item->ubicacion }}"
+                                            data-uso_recurso="{{ $item->uso_recurso }}" disabled>Editar
+                                            <i class="fas fa-pen"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm eliminarRecurso"
+                                            data-bs-toggle="modal" data-bs-target="#modalDelete"
+                                            data-cod_recurso="{{ $item->cod_recurso }}" disabled>Eliminar
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="row botonsform">
                     <div class="col">
-                        <button id="regresar-btn" class="btn btn-secondary" type="button">
-                            Regresar <i class="fa-solid fa-rotate-left"></i>
+                        <button type="button" id="editar" class="btn btn-warning">
+                            Editar
+                            <i class="fa-solid fa-pencil"></i>
                         </button>
-                        <a href="/plan_accion_reduccion" class="btn btn-success">Siguiente
+                        <a href="{{ url('identificacion_de_amenazas/modificar/' . $item->cod_familia) }}"
+                            class="btn btn-secondary">
+                            Regresar <i class="fa-solid fa-rotate-left"></i>
+                        </a>
+                        <a href="{{ url('/plan_accion_reduccion/editar/' . $item->cod_familia) }}"
+                            class="btn btn-success">Siguiente
                             <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
             </form>
         </section>
+    </div>
+
+    <!-- Modal para el botón "Regresar" -->
+    <div class="modal fade" id="regresarModal" tabindex="-1" aria-labelledby="regresarModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="regresarModalLabel">
+                        ¿Seguro que deseas regresar?
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Si regresas, se perderán los datos que has ingresado
+                    hasta ahora.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar <i class="fa-solid fa-ban"></i>
+                    </button>
+                    <a href="/identificacion_de_amenazas" class="btn btn-primary">Aceptar <i
+                            class="fa-solid fa-check"></i></a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal Formulario "Crear nuevo recurso" -->
@@ -136,7 +193,8 @@
                         <h5 class="modal-title fw-bold fs-5" id="crearProyectoLabel">
                             Crear Nuevo Recurso Familiar
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
@@ -258,73 +316,6 @@
     <script src="/assets/js/jquery-3.7.1.min.js"></script>
     <!-- Enlazar Bootstrap JS -->
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const regresarBtn = document.getElementById('regresar-btn');
-            const codFamilia = localStorage.getItem("codFamilia");
-
-            if (regresarBtn) {
-                regresarBtn.addEventListener('click', (e) => {
-                    e.preventDefault(); // Evita el comportamiento predeterminado
-
-                    if (codFamilia) {
-                        //console.log(`Redirigiendo a: /identificacion_de_amenazas/editar/${codFamilia}`);
-                        window.location.href = `/identificacion_de_amenazas/${codFamilia}`;
-                    } else {
-                        alert(
-                        'No se encontró la familia, asegúrese de que la información esté disponible.');
-                    }
-                });
-            } else {
-                console.error('No se encontró el botón con id regresar-btn.');
-            }
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-
-            // Obtener amenazas desde la variable de Blade y convertir a un objeto JavaScript
-            const recursos = @json($recursos);
-
-            // Filtrar las amenazas por cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-            const filteredRecursos = recursos.filter(item => item.cod_familia == codFamilia);
-
-            // Limpiar la tabla
-            const tbody = $("#recursosTableBody");
-            tbody.empty();
-
-            // Llenar la tabla con las amenazas filtradas
-            filteredRecursos.forEach((item, index) => {
-                const row = `<tr>
-                            <td>${index + 1}</td>
-                            <td>${item.descripcion}</td>
-                            <td>${item.cantidad}</td>
-                            <td>${item.ubicacion}</td>
-                            <td>${item.uso_recurso}</td>
-                            <td class="d-flex gap-2">
-                                <button type="button" class="btn btn-warning btn-sm"
-                                    data-bs-toggle="modal" data-bs-target="#editarRecursoModal"
-                                    data-cod_recurso="${item.cod_recurso}"
-                                    data-descripcion="${item.descripcion}"
-                                    data-cantidad="${item.cantidad}"
-                                    data-ubicacion="${item.ubicacion}"
-                                    data-uso_recurso="${item.uso_recurso}">Editar 
-                                <i class="fas fa-pen"></i>
-                            </button>
-                                <button type="button" class="btn btn-outline-danger btn-sm"
-                                        data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                        data-cod_recurso="${item.cod_recurso}">Eliminar 
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </td>
-                        </tr>`;
-                tbody.append(row);
-            });
-        });
-    </script>
 
     <script>
         // Mostrar el modal y cargar el cod_familia desde localStorage

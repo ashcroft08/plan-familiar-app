@@ -141,20 +141,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="regresarModalLabel">
-                        ¿Seguro que deseas regresar?
+                        ¿Seguro que desea regresar?
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Si regresas, se perderán los datos que has ingresado
-                    hasta ahora.
+                    Si regresa, los datos que haya modificado en este formulario no se guardaran.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <a href="/identificacion_de_amenazas" class="btn btn-primary">Aceptar <i
-                            class="fa-solid fa-check"></i></a>
+                    <a href="{{ url('mi_mascota/visualizar/' . $estructuraVivienda->first()->cod_familia) }}"
+                        class="btn btn-primary">Aceptar <i class="fa-solid fa-check"></i></a>
                 </div>
             </div>
         </div>

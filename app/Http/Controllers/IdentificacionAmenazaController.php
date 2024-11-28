@@ -10,10 +10,23 @@ class IdentificacionAmenazaController extends Controller
 {
     /**@foreach ($amenazasNom as $item)
                                 @endforeach */
-    public function mostrar(Request $request)
+    public function mostrar($cod_familia)
     {
-        if ($request) {
-            $amenazasNom = Amenaza::all();
+        // Verificar si ya existe un registro con el mismo código de familia
+        $existe = IdentificacionAmenaza::where('cod_familia', $cod_familia)->exists();
+
+        // Retornar la vista correspondiente
+        if ($existe) {
+            $identificacionAmenaza = Amenaza::join('identificacion_amenaza as i', 'amenaza.cod_amenaza', '=', 'i.cod_amenaza')
+                ->select('i.cod_familia', 'i.cod_identificacion', 'amenaza.amenaza', 'i.efecto', 'i.consecuencia', 'i.acciones')
+                ->where('i.cod_familia', '=', $cod_familia)
+                ->get();
+
+            return view('identificacion-amenaza.regresar_identificacion_de_amenazas', [
+                'identificacionAmenaza' => $identificacionAmenaza
+            ]);
+        } else {
+            $amenazasNom = Amenaza::where('cod_familia', $cod_familia)->get();
             return view('identificacion-amenaza.identificacion_de_amenazas', ['amenazasNom' => $amenazasNom]);
         }
     }

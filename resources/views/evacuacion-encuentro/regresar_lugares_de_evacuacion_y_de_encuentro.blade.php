@@ -4,7 +4,7 @@ a<!DOCTYPE html>
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Visualización plan</title>
+    <title>Creación plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -63,7 +63,7 @@ a<!DOCTYPE html>
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Visualización plan
+                                    Creación plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Lugares de Evacuación y Encuentro
@@ -142,7 +142,7 @@ a<!DOCTYPE html>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <a href="{{ url('amenazas/editar/' . $lugarEvacuacionEncuentro->cod_familia) }}"
+                    <a href="/amenazas"
                         class="btn btn-primary">Aceptar <i class="fa-solid fa-check"></i></a>
                 </div>
             </div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Visualizacón plan</title>
+    <title>Creación Plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -278,7 +278,7 @@
                 if (responseData.success) {
                     // Redirige al siguiente formulario tras actualizar correctamente
                     // Redirigir a una nueva URL (ajusta la ruta según tu backend)
-                    const url = `/amenazas/editar/${cod_familia}`;
+                    const url = `/amenazas`;
                     window.location.href = url; // Cambia la página
                 } else {
                     // Si la respuesta es falsa (ya existe un duplicado), mostrar el mensaje y no redirigir

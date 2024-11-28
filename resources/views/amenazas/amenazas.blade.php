@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Creación Plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -109,8 +109,10 @@
                     <button id="regresar-btn" class="btn btn-secondary">
                         Regresar <i class="fa-solid fa-rotate-left"></i>
                     </button>
-                    <a href="lugares_de_evacuacion_y_de_encuentro" class="btn btn-success">Siguiente
-                        <i class="fa-solid fa-arrow-right"></i></a>
+                    <button id="siguiente-btn" class="btn btn-success">
+                        Siguiente
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
                 </div>
             </div>
         </section>
@@ -217,7 +219,7 @@
             if (codFamilia) {
                 // Agregar un listener de clic para redirigir al usuario
                 regresarBtn.addEventListener('click', () => {
-                    window.location.href = `/informacion_general/editar/${codFamilia}`;
+                    window.location.href = `/informacion_general/${codFamilia}`;
                 });
             } else {
                 console.error('El valor de cod_familia no está definido en localStorage.');
@@ -229,6 +231,24 @@
                     alert('No se encontró la familia, asegúrese de que la información esté disponible.');
                 });
             }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const regresarBtn = document.getElementById('siguiente-btn');
+
+            // Obtener el valor de cod_familia desde localStorage
+            const codFamilia = localStorage.getItem("codFamilia");
+
+            regresarBtn.addEventListener('click', (e) => {
+                if (codFamilia) {
+                    // Redirigir al usuario con el cod_familia
+                    window.location.href = `/lugares_de_evacuacion_y_de_encuentro/${codFamilia}`;
+                } else {
+                    e.preventDefault(); // Evitar la acción por defecto
+                    alert('No se encontró la familia, asegúrese de que la información esté disponible.');
+                    console.error('El valor de cod_familia no está definido en localStorage.');
+                }
+            });
         });
     </script>
 

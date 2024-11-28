@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Creación Plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -66,7 +66,7 @@
                                     Creación de Plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Integrantes de la Familia
+                                    Identificación de amenazas
                                 </li>
                             </ol>
                         </nav>
@@ -95,7 +95,20 @@
                             </tr>
                         </thead>
                         <tbody id="amenazasTableBody">
-                            <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
+                            @foreach ($amenazasNom as $index => $item)
+                                <tr>
+                                    <td data-cod_amenaza="{{$item->cod_amenaza}}">{{ $item->amenaza }}</td>
+                                    <td>
+                                        <textarea class="form-control efecto" id="efecto_{{ $index }}" rows="3" required></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control razon" id="razon_{{ $index }}" rows="3" required></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control accion" id="accion_{{ $index }}" rows="3" required></textarea>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -145,33 +158,6 @@
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            // Obtener amenazas desde la variable de Blade y convertir a un objeto JavaScript
-            const amenazasNom = @json($amenazasNom);
-
-            // Filtrar las amenazas por cod_familia desde localStorage
-            const codFamilia = localStorage.getItem("codFamilia");
-            const filteredAmenazas = amenazasNom.filter(item => item.cod_familia == codFamilia);
-
-            // Limpiar la tabla
-            const tbody = $("#amenazasTableBody");
-            tbody.empty();
-
-            // Llenar la tabla con las amenazas filtradas
-            filteredAmenazas.forEach((item, index) => {
-                const row = `<tr>
-                                <td data-cod_amenaza="${item.cod_amenaza}">${item.amenaza}</td>
-                                <td><textarea class="form-control efecto" id="efecto_${index}" rows="3" required></textarea></td>
-                                <td><textarea class="form-control razon" id="razon_${index}" rows="3" required></textarea></td>
-                                <td><textarea class="form-control accion" id="accion_${index}" rows="3" required></textarea></td>
-                            </tr>`;
-                tbody.append(row);
-            });
-        });
-    </script>
-
-
-    <script>
         // Asignar el valor de cod_familia al campo oculto al cargar la página
         document.addEventListener("DOMContentLoaded", function() {
             const codFamilia = localStorage.getItem("codFamilia");
@@ -206,7 +192,7 @@
                 const rows = document.querySelectorAll("#amenazasTableBody tr");
                 rows.forEach((row, index) => {
                     const codAmenaza = row.cells[0].getAttribute(
-                    "data-cod_amenaza"); // Obtener el cod_amenaza
+                        "data-cod_amenaza"); // Obtener el cod_amenaza
                     const efecto = document.getElementById(`efecto_${index}`).value.trim();
                     const razon = document.getElementById(`razon_${index}`).value.trim();
                     const accion = document.getElementById(`accion_${index}`).value.trim();
@@ -242,7 +228,7 @@
                 try {
                     // Enviar datos al servidor
                     const response = await fetch(
-                        "identificacion_de_amenazas", {
+                        "/identificacion_de_amenazas", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
