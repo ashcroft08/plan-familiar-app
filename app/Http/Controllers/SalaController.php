@@ -17,7 +17,7 @@ class SalaController extends Controller
             $sala = Sala::where('cod_familia', $cod_familia)
                 ->orderBy('cod_sala', 'asc') // Ordena por la clave primaria o un campo específico
                 ->get();
-            return view('vivienda.editar_sala', ['sala' => $sala]);
+            return view('vivienda.regresar_sala', ['sala' => $sala]);
         } else {
             return view('vivienda.sala');
         }

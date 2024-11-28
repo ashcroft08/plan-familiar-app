@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Creación plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -101,14 +101,14 @@
                                     <td>{{ $fila->detalle }}</td>
                                     <td>
                                         <input type="radio" name="respuesta_{{ $fila->cod_sala }}" value="Si"
-                                            {{ $fila->respuesta === 'Si' ? 'checked' : '' }} disabled>
+                                            {{ $fila->respuesta === 'Si' ? 'checked' : '' }} >
                                     </td>
                                     <td>
                                         <input type="radio" name="respuesta_{{ $fila->cod_sala }}" value="No"
-                                            {{ $fila->respuesta === 'No' ? 'checked' : '' }} disabled>
+                                            {{ $fila->respuesta === 'No' ? 'checked' : '' }} >
                                     </td>
                                     <td>
-                                        <textarea class="form-control"name="acciones_{{ $fila->cod_sala }}" disabled>{{ $fila->acciones }}</textarea>
+                                        <textarea class="form-control"name="acciones_{{ $fila->cod_sala }}" >{{ $fila->acciones }}</textarea>
                                     </td>
                                 </tr>
                             @endforeach
@@ -148,7 +148,8 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <a href="/comedor" class="btn btn-primary">Aceptar <i class="fa-solid fa-check"></i></a>
+                    <a href="{{ url('comedor/' . $sala->first()->cod_familia) }}"
+                        class="btn btn-primary">Aceptar <i class="fa-solid fa-check"></i></a>
                 </div>
             </div>
         </div>
@@ -203,7 +204,7 @@
 
                 if (responseData.success) {
                     //alert("Datos guardados correctamente");
-                    window.location.href = `/sala/visualizar/${cod_familia}`;
+                    window.location.href = `/dormitorio/${cod_familia}`;
                 } else {
                     alert(
                         responseData.message ||
