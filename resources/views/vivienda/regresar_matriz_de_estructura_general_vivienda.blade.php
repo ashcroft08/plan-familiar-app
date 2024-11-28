@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Creación plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -149,7 +149,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <a href="/identificacion_de_amenazas" class="btn btn-primary">Aceptar <i
+                    <a href="/mi_mascota" class="btn btn-primary">Aceptar <i
                             class="fa-solid fa-check"></i></a>
                 </div>
             </div>
@@ -205,7 +205,7 @@
 
                 if (responseData.success) {
                     //alert("Datos guardados correctamente");
-                    window.location.href = `/comedor`;
+                    window.location.href = `/comedor/${cod_familia}`;
                 } else {
                     alert(
                         responseData.message ||

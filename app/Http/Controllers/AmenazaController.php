@@ -98,30 +98,4 @@ class AmenazaController extends Controller
             ], 500);
         }
     }
-
-    public function regresar($cod_familia)
-    {
-        // Buscar todas las amenazas asociadas a 'cod_familia'
-        $amenazasNom = Amenaza::where('cod_familia', $cod_familia)->get();
-
-        // Si no se encuentran amenazas para ese 'cod_familia', lanzar error 404
-        if ($amenazasNom->isEmpty()) {
-            abort(404, "No se encontraron amenazas para este 'cod_familia'.");
-        }
-
-        return view('amenazas.regresar_amenazas', ["amenazasNom" => $amenazasNom]);
-    }
-
-    public function regresarM($cod_familia)
-    {
-        // Buscar todas las amenazas asociadas a 'cod_familia'
-        $amenazasNom = Amenaza::where('cod_familia', $cod_familia)->get();
-
-        // Si no se encuentran amenazas para ese 'cod_familia', lanzar error 404
-        if ($amenazasNom->isEmpty()) {
-            abort(404, "No se encontraron amenazas para este 'cod_familia'.");
-        }
-
-        return view('amenazas.regresarM_amenazas', ["amenazasNom" => $amenazasNom]);
-    }
 }

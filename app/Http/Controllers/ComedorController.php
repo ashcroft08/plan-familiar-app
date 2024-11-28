@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 
 class ComedorController extends Controller
 {
-    public function mostrar()
+    public function mostrar($cod_familia)
     {
-        return view('vivienda.comedor');
+        // Verificar si ya existe un registro con el mismo código de familia
+        $existe = Comedor::where('cod_familia', $cod_familia)->exists();
+
+        // Retornar la vista correspondiente
+        if ($existe) {
+            $comedor = Comedor::where('cod_familia', $cod_familia)
+                ->orderBy('cod_comedor', 'asc') // Ordena por la clave primaria o un campo específico
+                ->get();
+            return view('vivienda.regresar_comedor', ['comedor' => $comedor]);
+        } else {
+            return view('vivienda.comedor');
+        }
     }
 
     public function guardar(Request $request)
@@ -80,21 +91,5 @@ class ComedorController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
-    }
-
-    public function regresar($cod_familia)
-    {
-        $comedor = Comedor::where('cod_familia', $cod_familia)
-            ->orderBy('cod_comedor', 'asc') // Ordena por la clave primaria o un campo específico
-            ->get();
-        return view('vivienda.regresar_comedor', ['comedor' => $comedor]);
-    }
-
-    public function regresarM($cod_familia)
-    {
-        $comedor = Comedor::where('cod_familia', $cod_familia)
-            ->orderBy('cod_comedor', 'asc') // Ordena por la clave primaria o un campo específico
-            ->get();
-        return view('vivienda.regresarM_comedor', ['comedor' => $comedor]);
     }
 }

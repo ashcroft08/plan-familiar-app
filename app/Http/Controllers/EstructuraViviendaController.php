@@ -7,9 +7,20 @@ use App\Models\EstructuraVivienda;
 
 class EstructuraViviendaController extends Controller
 {
-    public function mostrar()
+    public function mostrar($cod_familia)
     {
-        return view('vivienda.matriz_de_estructura_general_vivienda');
+        // Verificar si ya existe un registro con el mismo código de familia
+        $existe = EstructuraVivienda::where('cod_familia', $cod_familia)->exists();
+
+        // Retornar la vista correspondiente
+        if ($existe) {
+            $estructuraVivienda = EstructuraVivienda::where('cod_familia', $cod_familia)
+                ->orderBy('cod_estructura_vivienda', 'asc') // Ordena por la clave primaria o un campo específico
+                ->get();
+            return view('vivienda.regresar_matriz_de_estructura_general_vivienda', ['estructuraVivienda' => $estructuraVivienda]);
+        } else {
+            return view('vivienda.matriz_de_estructura_general_vivienda');
+        }
     }
 
     public function guardar(Request $request)
@@ -80,21 +91,5 @@ class EstructuraViviendaController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
-    }
-
-    public function regresar($cod_familia)
-    {
-        $estructuraVivienda = EstructuraVivienda::where('cod_familia', $cod_familia)
-            ->orderBy('cod_estructura_vivienda', 'asc') // Ordena por la clave primaria o un campo específico
-            ->get();
-        return view('vivienda.regresar_matriz_de_estructura_general_vivienda', ['estructuraVivienda' => $estructuraVivienda]);
-    }
-
-    public function regresarM($cod_familia)
-    {
-        $estructuraVivienda = EstructuraVivienda::where('cod_familia', $cod_familia)
-            ->orderBy('cod_estructura_vivienda', 'asc') // Ordena por la clave primaria o un campo específico
-            ->get();
-        return view('vivienda.regresarM_matriz_de_estructura_general_vivienda', ['estructuraVivienda' => $estructuraVivienda]);
     }
 }

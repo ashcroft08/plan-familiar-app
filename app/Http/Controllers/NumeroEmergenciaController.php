@@ -8,9 +8,18 @@ use Illuminate\Http\Request;
 
 class NumeroEmergenciaController extends Controller
 {
-    public function mostrar()
+    public function mostrar($cod_familia)
     {
-        return view('numeros-emergencia.numeros_emergencia');
+        // Verificar si ya existe un registro con el mismo código de familia
+        $existe = NumeroEmergencia::where('cod_familia', $cod_familia)->exists();
+
+        // Retornar la vista correspondiente
+        if ($existe) {
+            $numeroEmergencia = NumeroEmergencia::findOrFail($cod_familia);
+            return view('numeros-emergencia.regresar_numeros_emergencia', ["numeroEmergencia" => $numeroEmergencia]);
+        } else {
+            return view('numeros-emergencia.numeros_emergencia');
+        }
     }
 
     public function guardar(Request $request)
@@ -82,11 +91,5 @@ class NumeroEmergenciaController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Hubo un error al actualizar los datos']);
         }
-    }
-
-    public function regresar($cod_familia)
-    {
-        $numeroEmergencia = NumeroEmergencia::findOrFail($cod_familia);
-        return view('numeros-emergencia.regresar_numeros_emergencia', ["numeroEmergencia" => $numeroEmergencia]);
     }
 }

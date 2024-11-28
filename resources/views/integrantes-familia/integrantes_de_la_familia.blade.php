@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Creación plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -466,12 +466,12 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            const regresarBtn = document.getElementById('siguiente-btn');
+            const siguienteBtn = document.getElementById('siguiente-btn');
 
             // Obtener el valor de cod_familia desde localStorage
             const codFamilia = localStorage.getItem("codFamilia");
 
-            regresarBtn.addEventListener('click', (e) => {
+            siguienteBtn.addEventListener('click', (e) => {
                 if (codFamilia) {
                     // Redirigir al usuario con el cod_familia
                     window.location.href = `/identificacion_de_amenazas/${codFamilia}`;

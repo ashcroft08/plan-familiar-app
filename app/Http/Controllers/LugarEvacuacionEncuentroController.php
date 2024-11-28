@@ -97,31 +97,4 @@ class LugarEvacuacionEncuentroController extends Controller
             ]);
         }
     }
-
-    public function siguiente($cod_familia)
-    {
-        // Verificar si ya existe un registro con el mismo código de familia
-        $existe = LugarEvacuacionEncuentro::where('cod_familia', $cod_familia)->exists();
-
-        // Obtener todas las amenazas asociadas (una sola vez)
-        $amenazasNom = Amenaza::all();
-
-        // Retornar la vista correspondiente
-        if ($existe) {
-            return view('evacuacion-encuentro.regresar_lugares_de_evacuacion_y_de_encuentro', ['amenazasNom' => $amenazasNom]);
-        } else {
-            return view('evacuacion-encuentro.lugares_de_evacuacion_y_de_encuentro', ['amenazasNom' => $amenazasNom]);
-        }
-    }
-
-    public function regresarM($cod_familia)
-    {
-        // Buscar todas las amenazas asociadas a 'cod_familia'
-        $amenazasNom = Amenaza::where('cod_familia', $cod_familia)->get();
-
-        $lugarEvacuacionEncuentro = LugarEvacuacionEncuentro::findOrFail($cod_familia);
-
-        // Pasar los resultados a la vista
-        return view('evacuacion-encuentro.regresarM_lugares_de_evacuacion_y_de_encuentro', ['amenazasNom' => $amenazasNom, 'lugarEvacuacionEncuentro' => $lugarEvacuacionEncuentro]);
-    }
 }

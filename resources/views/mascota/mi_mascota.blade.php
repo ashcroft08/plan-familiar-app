@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Creación plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -90,39 +90,39 @@
                     </button>
                 </div>
             </div>
-            <form action="#" class="form">
-                <div class="table-responsive">
-                    <table class="table table-bordered" style="width: 100%">
-                        <thead>
-                            <tr>
-                                <th rowspan="2">#</th>
-                                <th rowspan="2">Nombre del animal</th>
-                                <th rowspan="2">Especie</th>
-                                <th rowspan="2">Raza</th>
-                                <th colspan="1" class="text-center">
-                                    Carnet de Vacunación
-                                </th>
-                                <th rowspan="2">Acciones</th>
-                            </tr>
-                            <tr>
-                                <th>Esterilizado</th>
-                            </tr>
-                        </thead>
-                        <tbody id="mascotaTableBody">
-                            <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
-                        </tbody>
-                    </table>
+            <div class="table-responsive">
+                <table class="table table-bordered" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">#</th>
+                            <th rowspan="2">Nombre del animal</th>
+                            <th rowspan="2">Especie</th>
+                            <th rowspan="2">Raza</th>
+                            <th colspan="1" class="text-center">
+                                Carnet de Vacunación
+                            </th>
+                            <th rowspan="2">Acciones</th>
+                        </tr>
+                        <tr>
+                            <th>Esterilizado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mascotaTableBody">
+                        <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="row botonsform">
+                <div class="col">
+                    <button id="regresar-btn" class="btn btn-secondary">
+                        Regresar <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                    <button id="siguiente-btn" class="btn btn-success">
+                        Siguiente
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
                 </div>
-                <div class="row botonsform">
-                    <div class="col">
-                        <button id="regresar-btn" class="btn btn-secondary">
-                            Regresar <i class="fa-solid fa-rotate-left"></i>
-                        </button>
-                        <a href="/matriz_de_estructura_general_vivienda" class="btn btn-success">Siguiente
-                            <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </form>
+            </div>
         </section>
     </div>
 
@@ -259,6 +259,27 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const siguienteBtn = document.getElementById('siguiente-btn');
+
+            // Obtener el valor de cod_familia desde localStorage
+            const codFamilia = localStorage.getItem("codFamilia");
+
+            siguienteBtn.addEventListener('click', (e) => {
+                if (codFamilia) {
+                    const url = `/matriz_de_estructura_general_vivienda/${codFamilia}`;
+                    //alert(`Redirigiendo a: ${url}`);
+                    window.location.href = url;
+                } else {
+                    e.preventDefault(); // Evitar la acción por defecto
+                    alert('No se encontró la familia, asegúrese de que la información esté disponible.');
+                    console.error('El valor de cod_familia no está definido en localStorage.');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
             const regresarBtn = document.getElementById('regresar-btn');
 
             // Obtener el valor de cod_familia desde localStorage
@@ -270,7 +291,7 @@
                 // Agregar un listener de clic para redirigir al usuario
                 regresarBtn.addEventListener('click', (event) => {
                     event.preventDefault(); // Previene comportamientos predeterminados del botón.
-                    const url = `/numeros_emergencia/editar/${codFamilia}`;
+                    const url = `/numeros_emergencia/${codFamilia}`;
                     //console.log("Redirigiendo a:", url);
                     window.location.href = url;
                 });

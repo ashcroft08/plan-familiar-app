@@ -234,12 +234,12 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            const regresarBtn = document.getElementById('siguiente-btn');
+            const siguienteBtn = document.getElementById('siguiente-btn');
 
             // Obtener el valor de cod_familia desde localStorage
             const codFamilia = localStorage.getItem("codFamilia");
 
-            regresarBtn.addEventListener('click', (e) => {
+            siguienteBtn.addEventListener('click', (e) => {
                 if (codFamilia) {
                     // Redirigir al usuario con el cod_familia
                     window.location.href = `/lugares_de_evacuacion_y_de_encuentro/${codFamilia}`;

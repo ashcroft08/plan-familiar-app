@@ -93,22 +93,4 @@ class InformacionGeneralController extends Controller
             return response()->json(['success' => false, 'message' => 'Hubo un error al actualizar los datos']);
         }
     }
-
-    public function regresar($cod_familia)
-    {
-        $informacionGeneral = InformacionGeneral::findOrFail($cod_familia);
-        return view('informacion-general.regresar_informacion_general', ["informacion_general" => $informacionGeneral]);
-    }
-
-    public function regresarM($cod_familia)
-    {
-        $informacionGeneral = InformacionGeneral::findOrFail($cod_familia);
-        return view('informacion-general.regresarM_informacion_general', ["informacion_general" => $informacionGeneral]);
-    }
-
-    public function regresarC($cod_familia)
-    {
-        $informacionGeneral = InformacionGeneral::findOrFail($cod_familia);
-        return view('informacion-general.regresarC_informacion_general', ["informacion_general" => $informacionGeneral]);
-    }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Creación plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -90,42 +90,40 @@
                     </button>
                 </div>
             </div>
-            <form action="#" class="form">
-                <div class="table-responsive">
-                    <table class="table table-bordered" style="width: 100%">
-                        <thead>
-                            <tr>
-                                <th colspan="4" class="text-center">
-                                    Actividad Antes (Reducción)
-                                </th>
-                            </tr>
-                            <tr>
-                                <th class="text-wrap" style="max-width: 200px; padding: 10px">
-                                    ¿Cómo nos preparamos? La preparación
-                                    implica realizar las acciones
-                                    encaminadas a estar listos para
-                                    responder ante emergencias y desastres.
-                                </th>
-                                <th>Responsable</th>
-                                <th>comentario</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="actividadTableBody">
-                            <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
-                        </tbody>
-                    </table>
+            <div class="table-responsive">
+                <table class="table table-bordered" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th colspan="4" class="text-center">
+                                Actividad Antes (Reducción)
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="text-wrap" style="max-width: 200px; padding: 10px">
+                                ¿Cómo nos preparamos? La preparación
+                                implica realizar las acciones
+                                encaminadas a estar listos para
+                                responder ante emergencias y desastres.
+                            </th>
+                            <th>Responsable</th>
+                            <th>comentario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="actividadTableBody">
+                        <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="row botonsform">
+                <div class="col">
+                    <!-- Botón para abrir el modal de "Regresar" -->
+                    <a href="/recursos_familiares_disponibles" class="btn btn-secondary">Regresar <i
+                            class="fa-solid fa-rotate-left"></i></a>
+                    <a href="/plan_accion_respuesta" class="btn btn-success">Siguiente
+                        <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
-                <div class="row botonsform">
-                    <div class="col">
-                        <!-- Botón para abrir el modal de "Regresar" -->
-                        <a href="/recursos_familiares_disponibles" class="btn btn-secondary">Regresar <i
-                                class="fa-solid fa-rotate-left"></i></a>
-                        <a href="/plan_accion_respuesta" class="btn btn-success">Siguiente
-                            <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </form>
+            </div>
         </section>
     </div>
 

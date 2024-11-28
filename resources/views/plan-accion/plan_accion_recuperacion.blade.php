@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Creación plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -90,41 +90,41 @@
                     </button>
                 </div>
             </div>
-            <form action="#" class="form">
-                <div class="table-responsive">
-                    <table class="table table-bordered" style="width: 100%">
-                        <thead>
-                            <tr>
-                                <th colspan="4" class="text-center">
-                                    Actividad Después (Recuperación)
-                                </th>
-                            </tr>
-                            <tr>
-                                <th class="text-wrap" style="max-width: 200px; padding: 10px">
-                                    ¿Qué hacemos luego de la emergencia? Una
-                                    vez que ha pasado la emergencia se
-                                    restablecerá a la normalidad
-                                </th>
-                                <th>Responsable</th>
-                                <th>Comentarios</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="actividadTableBody">
-                            <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
-                        </tbody>
-                    </table>
+            <div class="table-responsive">
+                <table class="table table-bordered" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th colspan="4" class="text-center">
+                                Actividad Después (Recuperación)
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="text-wrap" style="max-width: 200px; padding: 10px">
+                                ¿Qué hacemos luego de la emergencia? Una
+                                vez que ha pasado la emergencia se
+                                restablecerá a la normalidad
+                            </th>
+                            <th>Responsable</th>
+                            <th>Comentarios</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="actividadTableBody">
+                        <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="row botonsform">
+                <div class="col">
+                    <!-- Botón para abrir el modal de "Regresar" -->
+                    <a href="/plan_accion_respuesta" class="btn btn-secondary">Regresar <i
+                            class="fa-solid fa-rotate-left"></i></a>
+                    <button id="siguiente-btn" class="btn btn-success">
+                        Siguiente
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
                 </div>
-                <div class="row botonsform">
-                    <div class="col">
-                        <!-- Botón para abrir el modal de "Regresar" -->
-                        <a href="/plan_accion_respuesta" class="btn btn-secondary">Regresar <i
-                                class="fa-solid fa-rotate-left"></i></a>
-                        <a href="/numeros_emergencia" class="btn btn-success">Siguiente
-                            <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </form>
+            </div>
         </section>
     </div>
 
@@ -235,6 +235,27 @@
     <script src="/assets/js/jquery-3.7.1.min.js"></script>
     <!-- Enlazar Bootstrap JS -->
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const siguienteBtn = document.getElementById('siguiente-btn');
+
+            // Obtener el valor de cod_familia desde localStorage
+            const codFamilia = localStorage.getItem("codFamilia");
+
+            siguienteBtn.addEventListener('click', (e) => {
+                if (codFamilia) {
+                    const url = `/numeros_emergencia/${codFamilia}`;
+                    //alert(`Redirigiendo a: ${url}`);
+                    window.location.href = url;
+                } else {
+                    e.preventDefault(); // Evitar la acción por defecto
+                    alert('No se encontró la familia, asegúrese de que la información esté disponible.');
+                    console.error('El valor de cod_familia no está definido en localStorage.');
+                }
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function() {

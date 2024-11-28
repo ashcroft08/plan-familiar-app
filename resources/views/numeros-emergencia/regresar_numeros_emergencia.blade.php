@@ -175,7 +175,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <a href="{{ url('plan_accion_recuperacion/editar/' . $numeroEmergencia->cod_familia) }}" class="btn btn-primary">Aceptar <i
+                    <a href="/plan_accion_recuperacion" class="btn btn-primary">Aceptar <i
                             class="fa-solid fa-check"></i></a>
                 </div>
             </div>

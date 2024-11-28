@@ -257,7 +257,7 @@
             };
 
             // Depuración: Verificar los datos que se van a enviar
-            console.log("Enviando datos:", data);
+            //console.log("Enviando datos:", data);
 
             try {
                 // Realizar la solicitud PUT

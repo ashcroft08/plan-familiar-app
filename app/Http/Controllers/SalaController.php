@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 
 class SalaController extends Controller
 {
-    public function mostrar()
+    public function mostrar($cod_familia)
     {
-        return view('vivienda.sala');
+        // Verificar si ya existe un registro con el mismo código de familia
+        $existe = Sala::where('cod_familia', $cod_familia)->exists();
+
+        // Retornar la vista correspondiente
+        if ($existe) {
+            $sala = Sala::where('cod_familia', $cod_familia)
+                ->orderBy('cod_sala', 'asc') // Ordena por la clave primaria o un campo específico
+                ->get();
+            return view('vivienda.editar_sala', ['sala' => $sala]);
+        } else {
+            return view('vivienda.sala');
+        }
     }
 
     public function guardar(Request $request)
@@ -23,7 +34,7 @@ class SalaController extends Controller
                 'message' => 'El código de familia es inválido.',
             ], 400);
         }
-        
+
         // Guardar los datos en la tabla estructura_vivienda
         try {
             foreach ($request->matriz as $item) {
