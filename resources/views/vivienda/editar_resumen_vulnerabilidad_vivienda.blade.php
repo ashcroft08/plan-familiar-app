@@ -60,7 +60,7 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Visualización plan
+                                    Visualización de Plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Resumen de la vulnerabilidad de la
@@ -176,7 +176,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="regresarModalLabel">
+                    <h1 class="modal-title fw-bold fs-5" id="regresarModalLabel">
                         ¿Está seguro de que desea regresar?
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>

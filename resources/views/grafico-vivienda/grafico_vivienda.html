@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Crear proyecto</title>
+        <title>Creación plan</title>
         <!-- Enlazar CSS de Font Awesome localmente -->
         <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
         <!-- Enlazar Bootstrap CSS -->
@@ -112,7 +112,7 @@
 
             <!-- Hoverable rows start -->
             <section class="container">
-                <header>11. Gráfico de la vivienda</header>
+                <header>14. Gráfico de la vivienda</header>
                 <form id="miFormulario" enctype="multipart/form-data">
                     <!-- Campo oculto para cod_familia -->
                     <input
@@ -244,11 +244,9 @@
                         >
                             Cancelar <i class="fa-solid fa-ban"></i>
                         </button>
-                        <a
-                            href="/resumen_vulnerabilidad_vivienda"
-                            class="btn btn-primary"
-                            >Aceptar <i class="fa-solid fa-check"></i
-                        ></a>
+                        <button id="aceptar-btn" class="btn btn-primary">
+                            Aceptar <i class="fa-solid fa-check"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -259,55 +257,89 @@
         <!-- Enlazar Bootstrap JS -->
         <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- alert(JSON.stringify(data)); -->
-    </body>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const aceptarBtn = document.getElementById("aceptar-btn");
 
-    <script>
-        // Asignar el valor de cod_familia al campo oculto al cargar la página
-        document.addEventListener("DOMContentLoaded", function () {
-            const codFamilia = localStorage.getItem("codFamilia");
-            if (codFamilia) {
-                document.getElementById("codFamiliaInput").value = codFamilia;
-            } else {
-                alert("No se encontró el código de familia en localStorage.");
-            }
-        });
-    </script>
+                // Obtener el valor de cod_familia desde localStorage
+                const codFamilia = localStorage.getItem("codFamilia");
 
-    <script>
-        // Función para enviar el formulario
-        async function enviarFormulario() {
-            // Obtener los datos del formulario
-            const form = document.getElementById("miFormulario");
-            const formData = new FormData(form); // Crear un FormData con los datos del formulario
+                //console.log(codFamilia);
 
-            try {
-                // Hacer la solicitud POST con fetch
-                const response = await fetch("/grafico_vivienda", {
-                    method: "POST",
-                    body: formData, // El FormData contiene los archivos y demás datos
-                });
-
-                // Verificar si la respuesta fue exitosa
-                const result = await response.json();
-                if (result.success) {
-                    alert("Datos guardados correctamente");
-                    window.location.href = "/";
+                if (codFamilia) {
+                    // Agregar un listener de clic para redirigir al usuario
+                    aceptarBtn.addEventListener("click", (event) => {
+                        event.preventDefault(); // Previene comportamientos predeterminados del botón.
+                        const url = `/resumen_vulnerabilidad_vivienda/${codFamilia}`;
+                        //console.log("Redirigiendo a:", url);
+                        window.location.href = url;
+                    });
                 } else {
-                    alert("Error: " + result.message);
-                }
-            } catch (error) {
-                console.error("Error al enviar el formulario:", error);
-                alert("Hubo un error al enviar el formulario.");
-            }
-        }
+                    console.error(
+                        "El valor de cod_familia no está definido en localStorage."
+                    );
 
-        // Llamar a la función cuando el formulario sea enviado
-        document
-            .getElementById("miFormulario")
-            .addEventListener("submit", function (event) {
-                event.preventDefault(); // Prevenir el envío del formulario por defecto
-                enviarFormulario();
+                    // Si no hay cod_familia, podrías mostrar un mensaje o redirigir a una página predeterminada
+                    aceptarBtn.addEventListener("click", (e) => {
+                        e.preventDefault(); // Evitar la acción por defecto si cod_familia no está en localStorage
+                        alert(
+                            "No se encontró la familia, asegúrese de que la información esté disponible."
+                        );
+                    });
+                }
             });
-    </script>
+        </script>
+
+        <script>
+            // Asignar el valor de cod_familia al campo oculto al cargar la página
+            document.addEventListener("DOMContentLoaded", function () {
+                const codFamilia = localStorage.getItem("codFamilia");
+                if (codFamilia) {
+                    document.getElementById("codFamiliaInput").value =
+                        codFamilia;
+                } else {
+                    alert(
+                        "No se encontró el código de familia en localStorage."
+                    );
+                }
+            });
+        </script>
+
+        <script>
+            // Función para enviar el formulario
+            async function enviarFormulario() {
+                // Obtener los datos del formulario
+                const form = document.getElementById("miFormulario");
+                const formData = new FormData(form); // Crear un FormData con los datos del formulario
+
+                try {
+                    // Hacer la solicitud POST con fetch
+                    const response = await fetch("/grafico_vivienda", {
+                        method: "POST",
+                        body: formData, // El FormData contiene los archivos y demás datos
+                    });
+
+                    // Verificar si la respuesta fue exitosa
+                    const result = await response.json();
+                    if (result.success) {
+                        alert("Datos guardados correctamente");
+                        window.location.href = "/";
+                    } else {
+                        alert("Error: " + result.message);
+                    }
+                } catch (error) {
+                    console.error("Error al enviar el formulario:", error);
+                    alert("Hubo un error al enviar el formulario.");
+                }
+            }
+
+            // Llamar a la función cuando el formulario sea enviado
+            document
+                .getElementById("miFormulario")
+                .addEventListener("submit", function (event) {
+                    event.preventDefault(); // Prevenir el envío del formulario por defecto
+                    enviarFormulario();
+                });
+        </script>
+    </body>
 </html>

@@ -63,7 +63,7 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Visualización plan
+                                    Visualización de Plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Dormitorio
@@ -137,20 +137,20 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="regresarModalLabel">
-                        ¿Seguro que desea regresar?
+                    <h1 class="modal-title fw-bold fs-5" id="regresarModalLabel">
+                        ¿Está seguro de que desea regresar?
                     </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
-                    Si regresa, los datos que haya modificado en este formulario no se guardaran.
+                    Si regresa, los cambios realizados en este formulario no se guardarán.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
                     <a href="{{ url('sala/visualizar/' . $dormitorio->first()->cod_familia) }}"
-                        class="btn btn-primary">Aceptar <i class="fa-solid fa-check"></i></a>
+                        class="btn btn-primary">Confirmar <i class="fa-solid fa-check"></i></a>
                 </div>
             </div>
         </div>
@@ -205,7 +205,7 @@
 
                 if (responseData.success) {
                     //alert("Datos guardados correctamente");
-                    window.location.href = `/cocina/visualizar/${cod_familia}`;
+                    window.location.href = `/bano/visualizar/${cod_familia}`;
                 } else {
                     alert(
                         responseData.message ||

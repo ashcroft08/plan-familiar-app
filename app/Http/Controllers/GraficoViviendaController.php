@@ -72,4 +72,9 @@ class GraficoViviendaController extends Controller
             ], 500);
         }
     }
+
+    public function editar()
+    {
+        return view('grafico-vivienda.editar_grafico_vivienda');
+    }
 }

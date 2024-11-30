@@ -144,7 +144,7 @@ $router->get('resumen_vulnerabilidad_vivienda/visualizar/{cod_familia}', 'Vulner
 $router->put('resumen_vulnerabilidad_vivienda/actualizar', 'VulnerabilidadViviendaController@actualizar');
 
 //Rutas para Grafico de Vivienda
-$router->get('grafico_vivienda/{cod_familia}', 'GraficoViviendaController@mostrar');
+$router->get('grafico_vivienda', 'GraficoViviendaController@mostrar');
 $router->post('grafico_vivienda', 'GraficoViviendaController@guardar');
 $router->get('grafico_vivienda/visualizar/{cod_familia}', 'GraficoViviendaController@editar');
 $router->put('grafico_vivienda/actualizar', 'GraficoViviendaController@actualizar');

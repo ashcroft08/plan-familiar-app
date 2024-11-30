@@ -7,9 +7,20 @@ use App\Models\VulnerabilidadVivienda;
 
 class VulnerabilidadViviendaController extends Controller
 {
-    public function mostrar()
+    public function mostrar($cod_familia)
     {
-        return view('vivienda.resumen_vulnerabilidad_vivienda');
+        // Verificar si ya existe un registro con el mismo código de familia
+        $existe = VulnerabilidadVivienda::where('cod_familia', $cod_familia)->exists();
+
+        // Retornar la vista correspondiente
+        if ($existe) {
+            $vulnerabilidades = VulnerabilidadVivienda::where('cod_familia', $cod_familia)
+                ->orderBy('cod_vulnerabilidad_vivienda', 'asc') // Ordena por la clave primaria o un campo específico
+                ->get();
+            return view('vivienda.regresar_resumen_vulnerabilidad_vivienda', ['vulnerabilidades' => $vulnerabilidades]);
+        } else {
+            return view('vivienda.resumen_vulnerabilidad_vivienda');
+        }
     }
     public function guardar(Request $request)
     {
@@ -43,7 +54,7 @@ class VulnerabilidadViviendaController extends Controller
                     'comedor' => in_array('b', $fila['espacios_fisicos']),
                     'sala' => in_array('c', $fila['espacios_fisicos']),
                     'dormitorio' => in_array('d', $fila['espacios_fisicos']),
-                    'vulnerabilidades' => in_array('e', $fila['espacios_fisicos']),
+                    'banio' => in_array('e', $fila['espacios_fisicos']),
                     'cocina' => in_array('f', $fila['espacios_fisicos']),
                     'acciones' => $fila['acciones'],
                 ]);
@@ -90,7 +101,6 @@ class VulnerabilidadViviendaController extends Controller
                 if ($registro) {
                     // Actualizar si ya existe
                     $registro->update([
-                        'detalle' => $fila['detalle'],
                         'toda_vivienda' => in_array('a', $fila['espacios_fisicos']),
                         'comedor' => in_array('b', $fila['espacios_fisicos']),
                         'sala' => in_array('c', $fila['espacios_fisicos']),

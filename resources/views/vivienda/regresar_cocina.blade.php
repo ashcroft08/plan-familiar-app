@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear proyecto</title>
+    <title>Creación plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -99,14 +99,14 @@
                                     <td>{{ $fila->detalle }}</td>
                                     <td>
                                         <input type="radio" name="respuesta_{{ $fila->cod_cocina }}" value="Si"
-                                            {{ $fila->respuesta === 'Si' ? 'checked' : '' }} >
+                                            {{ $fila->respuesta === 'Si' ? 'checked' : '' }}>
                                     </td>
                                     <td>
                                         <input type="radio" name="respuesta_{{ $fila->cod_cocina }}" value="No"
-                                            {{ $fila->respuesta === 'No' ? 'checked' : '' }} >
+                                            {{ $fila->respuesta === 'No' ? 'checked' : '' }}>
                                     </td>
                                     <td>
-                                        <textarea class="form-control"name="acciones_{{ $fila->cod_cocina }}" >{{ $fila->acciones }}</textarea>
+                                        <textarea class="form-control"name="acciones_{{ $fila->cod_cocina }}">{{ $fila->acciones }}</textarea>
                                     </td>
                                 </tr>
                             @endforeach
@@ -146,7 +146,9 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <a href="/bano" class="btn btn-primary">Aceptar <i class="fa-solid fa-check"></i></a>
+                    <button id="aceptar-btn" class="btn btn-primary">
+                        Aceptar <i class="fa-solid fa-check"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -156,6 +158,40 @@
     <script src="/assets/js/jquery-3.7.1.min.js"></script>
     <!-- Enlazar Bootstrap JS -->
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const aceptarBtn = document.getElementById("aceptar-btn");
+
+            // Obtener el valor de cod_familia desde localStorage
+            const codFamilia = localStorage.getItem("codFamilia");
+
+            //console.log(codFamilia);
+
+            if (codFamilia) {
+                // Agregar un listener de clic para redirigir al usuario
+                aceptarBtn.addEventListener("click", (event) => {
+                    event.preventDefault(); // Previene comportamientos predeterminados del botón.
+                    const url = `/bano/${codFamilia}`;
+                    //console.log("Redirigiendo a:", url);
+                    window.location.href = url;
+                });
+            } else {
+                console.error(
+                    "El valor de cod_familia no está definido en localStorage."
+                );
+
+                // Si no hay cod_familia, podrías mostrar un mensaje o redirigir a una página predeterminada
+                aceptarBtn.addEventListener("click", (e) => {
+                    e
+                .preventDefault(); // Evitar la acción por defecto si cod_familia no está en localStorage
+                    alert(
+                        "No se encontró la familia, asegúrese de que la información esté disponible."
+                    );
+                });
+            }
+        });
+    </script>
 
     <script>
         document.getElementById('cocinaForm').addEventListener('submit', async (event) => {
@@ -201,7 +237,7 @@
 
                 if (responseData.success) {
                     //alert("Datos guardados correctamente");
-                    window.location.href = `/bano/visualizar/${cod_familia}`;
+                    window.location.href = `/resumen_vulnerabilidad_vivienda/${cod_familia}`;
                 } else {
                     alert(
                         responseData.message ||
