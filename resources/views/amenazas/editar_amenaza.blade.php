@@ -36,18 +36,15 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                        ¿Seguro que deseas
-                                                        ir al Inicio?
+                                                    <h1 class="modal-title fw-bold fs-5" id="staticBackdropLabel">
+                                                        ¿Estás seguro de que deseas ir al inicio?
                                                     </h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Si regresas al inicio,
-                                                    se perderán los datos
-                                                    que has ingresado hasta
-                                                    ahora.
+                                                    Si regresas al inicio, los datos que hayas modificado en este
+                                                    formulario no se guardarán.
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -55,7 +52,7 @@
                                                         Cancelar
                                                         <i class="fa-solid fa-ban"></i>
                                                     </button>
-                                                    <a href="/" class="btn btn-primary" role="button">Aceptar
+                                                    <a href="/" class="btn btn-primary" role="button">Confirmar
                                                         <i class="fa-solid fa-check"></i></a>
                                                 </div>
                                             </div>
@@ -63,7 +60,7 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Visualización plan
+                                    Visualización de Plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Amenazas

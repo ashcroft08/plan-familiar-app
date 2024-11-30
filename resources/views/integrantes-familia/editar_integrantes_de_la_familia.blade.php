@@ -42,17 +42,15 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                        ¿Seguro que desea
-                                                        ir al Inicio?
+                                                    <h1 class="modal-title fw-bold fs-5" id="staticBackdropLabel">
+                                                        ¿Estás seguro de que deseas ir al inicio?
                                                     </h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Si regresa al inicio,
-                                                    se perderán los datos
-                                                    que has editado en este formulario.
+                                                    Si regresas al inicio, los datos que hayas modificado en este
+                                                    formulario no se guardarán.
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -60,7 +58,7 @@
                                                         Cancelar
                                                         <i class="fa-solid fa-ban"></i>
                                                     </button>
-                                                    <a href="/" class="btn btn-primary" role="button">Aceptar
+                                                    <a href="/" class="btn btn-primary" role="button">Confirmar
                                                         <i class="fa-solid fa-check"></i></a>
                                                 </div>
                                             </div>
@@ -68,7 +66,7 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Visualización plan
+                                    Visualización de Plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Integrantes de la Familia
@@ -147,27 +145,20 @@
                                 <td class="d-flex gap-2">
                                     <button type="button" class="btn btn-warning btn-sm editarIntegrante"
                                         data-bs-toggle="modal" data-bs-target="#editarIntegranteModal"
-                                        data-cod_integrante="{{$item->cod_integrante}}" 
-                                        data-nombres="{{$item->nombres}}"
-                                        data-edad="{{$item->edad}}" 
-                                        data-sexo="{{$item->sexo}}"
-                                        data-parentesco="{{$item->parentesco}}" 
-                                        data-cuidador="{{$item->cuidador}}"
-                                        data-pcd="{{$item->pcd}}"
-                                        data-frecuencia_necesidades="{{$item->frecuencia_necesidades}}"
-                                        data-carnet="{{$item->carnet}}" 
-                                        data-proyecto="{{$item->proyecto}}"
-                                        data-acciones_responsabilidades="{{$item->acciones_responsabilidades}}"
-                                        data-medicamentos="{{$item->medicamentos}}" 
-                                        data-dosis="{{$item->dosis}}"
-                                        data-observaciones="{{$item->observaciones}}"
-                                        disabled>Editar
+                                        data-cod_integrante="{{ $item->cod_integrante }}"
+                                        data-nombres="{{ $item->nombres }}" data-edad="{{ $item->edad }}"
+                                        data-sexo="{{ $item->sexo }}" data-parentesco="{{ $item->parentesco }}"
+                                        data-cuidador="{{ $item->cuidador }}" data-pcd="{{ $item->pcd }}"
+                                        data-frecuencia_necesidades="{{ $item->frecuencia_necesidades }}"
+                                        data-carnet="{{ $item->carnet }}" data-proyecto="{{ $item->proyecto }}"
+                                        data-acciones_responsabilidades="{{ $item->acciones_responsabilidades }}"
+                                        data-medicamentos="{{ $item->medicamentos }}" data-dosis="{{ $item->dosis }}"
+                                        data-observaciones="{{ $item->observaciones }}" disabled>Editar
                                         <i class="fas fa-pen"></i>
                                     </button>
                                     <button type="button" class="btn btn-outline-danger btn-sm eliminarIntegrante"
                                         data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                        data-cod_integrante="${item.cod_integrante}"
-                                        disabled>Eliminar
+                                        data-cod_integrante="${item.cod_integrante}" disabled>Eliminar
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </td>

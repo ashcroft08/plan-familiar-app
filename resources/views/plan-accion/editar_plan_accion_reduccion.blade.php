@@ -36,18 +36,15 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                        ¿Seguro que deseas
-                                                        ir al Inicio?
+                                                    <h1 class="modal-title fw-bold fs-5" id="staticBackdropLabel">
+                                                        ¿Estás seguro de que deseas ir al inicio?
                                                     </h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Si regresas al inicio,
-                                                    se perderán los datos
-                                                    que has ingresado hasta
-                                                    ahora.
+                                                    Si regresas al inicio, los datos que hayas modificado en este
+                                                    formulario no se guardarán.
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -55,7 +52,7 @@
                                                         Cancelar
                                                         <i class="fa-solid fa-ban"></i>
                                                     </button>
-                                                    <a href="/" class="btn btn-primary" role="button">Aceptar
+                                                    <a href="/" class="btn btn-primary" role="button">Confirmar
                                                         <i class="fa-solid fa-check"></i></a>
                                                 </div>
                                             </div>
@@ -63,7 +60,7 @@
                                     </div>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Visualización plan
+                                    Visualización de Plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Plan de acción
@@ -85,7 +82,8 @@
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fa-solid fa-plus"></i>
                     </span>
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearActividadModal" id="crearReduccion" disabled>
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearActividadModal"
+                        id="crearReduccion" disabled>
                         Crear nueva actividad
                     </button>
                 </div>
@@ -118,8 +116,8 @@
                                     <td>{{ $item->responsable }}</td>
                                     <td>{{ $item->comentario }}</td>
                                     <td class="d-flex gap-2">
-                                        <button type="button" class="btn btn-warning btn-sm editarReduccion" data-bs-toggle="modal"
-                                            data-bs-target="#editarReduccionModal"
+                                        <button type="button" class="btn btn-warning btn-sm editarReduccion"
+                                            data-bs-toggle="modal" data-bs-target="#editarReduccionModal"
                                             data-cod_reduccion="{{ $item->cod_reduccion }}"
                                             data-preparacion="{{ $item->preparacion }}"
                                             data-responsable="{{ $item->responsable }}"
@@ -146,7 +144,8 @@
                         <!-- Botón para abrir el modal de "Regresar" -->
                         <a href="{{ url('/recursos_familiares_disponibles/visualizar/' . $item->cod_familia) }}"
                             class="btn btn-secondary">Regresar <i class="fa-solid fa-rotate-left"></i></a>
-                        <a href="{{ url('/plan_accion_respuesta/visualizar/' . $item->cod_familia) }}" class="btn btn-success">Siguiente
+                        <a href="{{ url('/plan_accion_respuesta/visualizar/' . $item->cod_familia) }}"
+                            class="btn btn-success">Siguiente
                             <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
