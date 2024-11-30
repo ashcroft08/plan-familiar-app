@@ -17,7 +17,7 @@ class DormitorioController extends Controller
             $dormitorio = Dormitorio::where('cod_familia', $cod_familia)
                 ->orderBy('cod_dormitorio', 'asc') // Ordena por la clave primaria o un campo específico
                 ->get();
-            return view('vivienda.editar_dormitorio', ['dormitorio' => $dormitorio]);
+            return view('vivienda.regresar_dormitorio', ['dormitorio' => $dormitorio]);
         } else {
             return view('vivienda.dormitorio');
         }

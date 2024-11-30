@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 
 class BanioController extends Controller
 {
-    public function mostrar()
+    public function mostrar($cod_familia)
     {
-        return view('vivienda.bano');
+        // Verificar si ya existe un registro con el mismo código de familia
+        $existe = Banio::where('cod_familia', $cod_familia)->exists();
+
+        // Retornar la vista correspondiente
+        if ($existe) {
+            $banio = Banio::where('cod_familia', $cod_familia)
+                ->orderBy('cod_banio', 'asc') // Ordena por la clave primaria o un campo específico
+                ->get();
+            return view('vivienda.regresar_bano', ['banio' => $banio]);
+        } else {
+            return view('vivienda.bano');
+        }
     }
 
     public function guardar(Request $request)
