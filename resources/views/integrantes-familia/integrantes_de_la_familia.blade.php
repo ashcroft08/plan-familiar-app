@@ -33,46 +33,13 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb float-md-end">
                                 <li class="breadcrumb-item">
-                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop">Inicio</a>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                        ¿Seguro que deseas
-                                                        ir al Inicio?
-                                                    </h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Si regresas al inicio,
-                                                    se perderán los datos
-                                                    que has ingresado hasta
-                                                    ahora.
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">
-                                                        Cancelar
-                                                        <i class="fa-solid fa-ban"></i>
-                                                    </button>
-                                                    <a href="/" class="btn btn-primary" role="button">Aceptar
-                                                        <i class="fa-solid fa-check"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    Inicio
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Creación de Plan
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Integrantes de la Familia
+                                    Integrantes de la familia
                                 </li>
                             </ol>
                         </nav>
@@ -156,8 +123,7 @@
                         <h5 class="modal-title fw-bold fs-5" id="crearProyectoLabel">
                             Crear Nuevo Integrante
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <!-- Campo oculto para cod_familia -->

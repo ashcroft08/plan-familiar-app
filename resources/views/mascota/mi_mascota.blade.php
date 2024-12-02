@@ -27,40 +27,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb float-md-end">
                                 <li class="breadcrumb-item">
-                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop">Inicio</a>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                        ¿Seguro que deseas
-                                                        ir al Inicio?
-                                                    </h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Si regresas al inicio,
-                                                    se perderán los datos
-                                                    que has ingresado hasta
-                                                    ahora.
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">
-                                                        Cancelar
-                                                        <i class="fa-solid fa-ban"></i>
-                                                    </button>
-                                                    <a href="/" class="btn btn-primary" role="button">Aceptar
-                                                        <i class="fa-solid fa-check"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    Inicio
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Creación de Plan
@@ -80,7 +47,7 @@
         <!-- Hoverable rows start -->
         <section class="container">
             <header>11. Mi mascota</header>
-            <div class="d-flex justify-content-end mb-6">
+            <div class="d-flex justify-content-end mb-4">
                 <div class="input-group">
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fa-solid fa-plus"></i>
@@ -154,8 +121,7 @@
                         <div class="mb-3">
                             <label for="esterilizado" class="form-label fw-bold">Esterilizado</label>
                             <div>
-                                <input type="radio" id="esterilizadoSi" name="esterilizado" value="Si"
-                                    required />
+                                <input type="radio" id="esterilizadoSi" name="esterilizado" value="Si" required />
                                 <label for="esterilizadoSi" class="form-check-label">Sí</label>
                             </div>
                             <div>

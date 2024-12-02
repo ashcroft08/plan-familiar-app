@@ -118,7 +118,7 @@
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="form-group">
-                            <label for="barrio" style="font-weight: bold">Seleccione una opción:</label>
+                            <label for="barrio" style="font-weight: bold">Comunidad/Barrio/Recinto:</label>
                             <select class="form-control mb-2" id="selectOption" name="opcionBcr"
                                 style="font-weight: bold">
                                 <option value="comunidad"

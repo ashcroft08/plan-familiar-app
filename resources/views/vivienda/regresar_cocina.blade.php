@@ -27,40 +27,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb float-md-end">
                                 <li class="breadcrumb-item">
-                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop">Inicio</a>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                        ¿Seguro que deseas
-                                                        ir al Inicio?
-                                                    </h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Si regresas al inicio,
-                                                    se perderán los datos
-                                                    que has ingresado hasta
-                                                    ahora.
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">
-                                                        Cancelar
-                                                        <i class="fa-solid fa-ban"></i>
-                                                    </button>
-                                                    <a href="/" class="btn btn-primary" role="button">Aceptar
-                                                        <i class="fa-solid fa-check"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    Inicio
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Creación de Plan
@@ -133,21 +100,20 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="regresarModalLabel">
-                        ¿Seguro que deseas regresar?
+                    <h1 class="modal-title fw-bold fs-5" id="regresarModalLabel">
+                        ¿Está seguro de que desea regresar?
                     </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
-                    Si regresas, se perderán los datos que has ingresado
-                    hasta ahora.
+                    Si regresa, los cambios realizados en este formulario no se guardarán.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
                     <button id="aceptar-btn" class="btn btn-primary">
-                        Aceptar <i class="fa-solid fa-check"></i>
+                        Confirmar <i class="fa-solid fa-check"></i>
                     </button>
                 </div>
             </div>
@@ -184,7 +150,7 @@
                 // Si no hay cod_familia, podrías mostrar un mensaje o redirigir a una página predeterminada
                 aceptarBtn.addEventListener("click", (e) => {
                     e
-                .preventDefault(); // Evitar la acción por defecto si cod_familia no está en localStorage
+                        .preventDefault(); // Evitar la acción por defecto si cod_familia no está en localStorage
                     alert(
                         "No se encontró la familia, asegúrese de que la información esté disponible."
                     );

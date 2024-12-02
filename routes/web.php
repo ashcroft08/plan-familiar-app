@@ -39,7 +39,7 @@ $router->get('informacion_general/{cod_familia}', 'InformacionGeneralController@
 $router->get('amenazas', 'AmenazaController@mostrar');
 $router->post('amenazas', 'AmenazaController@guardar');
 $router->get('amenazas/visualizar/{cod_familia}', 'AmenazaController@editar');
-$router->delete('amenazas/{cod_amenaza}', 'AmenazaController@eliminar');
+$router->delete('amenaza/{cod_amenaza}', 'AmenazaController@eliminar');
 
 //Rutas de Lugaress de evacuacion y de encuentro
 $router->get('lugares_de_evacuacion_y_de_encuentro/{cod_familia}', 'LugarEvacuacionEncuentroController@mostrar');
@@ -147,4 +147,4 @@ $router->put('resumen_vulnerabilidad_vivienda/actualizar', 'VulnerabilidadVivien
 $router->get('grafico_vivienda', 'GraficoViviendaController@mostrar');
 $router->post('grafico_vivienda', 'GraficoViviendaController@guardar');
 $router->get('grafico_vivienda/visualizar/{cod_familia}', 'GraficoViviendaController@editar');
-$router->put('grafico_vivienda/actualizar', 'GraficoViviendaController@actualizar');
+$router->put('grafico_vivienda/actualizar/{cod_grafico_vivienda}', 'GraficoViviendaController@actualizar');

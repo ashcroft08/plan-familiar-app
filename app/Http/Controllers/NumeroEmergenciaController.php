@@ -15,7 +15,7 @@ class NumeroEmergenciaController extends Controller
 
         // Retornar la vista correspondiente
         if ($existe) {
-            $numeroEmergencia = NumeroEmergencia::findOrFail($cod_familia);
+            $numeroEmergencia = NumeroEmergencia::where('cod_familia', $cod_familia)->firstOrFail();;
             return view('numeros-emergencia.regresar_numeros_emergencia', ["numeroEmergencia" => $numeroEmergencia]);
         } else {
             return view('numeros-emergencia.numeros_emergencia');
@@ -59,7 +59,7 @@ class NumeroEmergenciaController extends Controller
 
     public function editar($cod_familia)
     {
-        $numeroEmergencia = NumeroEmergencia::findOrFail($cod_familia);
+        $numeroEmergencia = NumeroEmergencia::where('cod_familia', $cod_familia)->firstOrFail();
         return view('numeros-emergencia.editar_numeros_emergencia', ["numeroEmergencia" => $numeroEmergencia]);
     }
 

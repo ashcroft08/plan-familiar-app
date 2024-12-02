@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="/assets/DataTables/datatables.min.css" />
     <!-- Enlazar CSS -->
     <link rel="stylesheet" href="/assets/css/forms.css" />
+
+    <!-- Incluir el CSS de Toastify -->
+    <link rel="stylesheet" href="/assets/toastify/toastify.css" />
+    <!-- Incluir el JS de Toastify -->
+    <script src="/assets/toastify/toastify.js"></script>
 </head>
 
 <body>
@@ -27,40 +32,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb float-md-end">
                                 <li class="breadcrumb-item">
-                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop">Inicio</a>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                        ¿Seguro que deseas
-                                                        ir al Inicio?
-                                                    </h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Si regresas al inicio,
-                                                    se perderán los datos
-                                                    que has ingresado hasta
-                                                    ahora.
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">
-                                                        Cancelar
-                                                        <i class="fa-solid fa-ban"></i>
-                                                    </button>
-                                                    <a href="/" class="btn btn-primary" role="button">Aceptar
-                                                        <i class="fa-solid fa-check"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    Inicio
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Creación de Plan
@@ -189,13 +161,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Esta seguro que desea eliminar esta amenaza?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar <i class="fa-solid fa-ban"></i>
                     </button>
-                    <button type="button" class="btn btn-success" id="eliminarAmenaza"> Aceptar <i
+                    <button type="button" class="btn btn-primary" id="eliminarAmenaza">Confirmar <i
                             class="fa-solid fa-check"></i>
                     </button>
                 </div>
@@ -275,7 +246,8 @@
                         <td>
                             <button type="button" class="btn btn-outline-danger btn-sm"
                                     data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                    data-cod_amenaza="${item.cod_amenaza}">Eliminar 
+                                    data-cod_amenaza="${item.cod_amenaza}" 
+                                    data-nombre_amenaza="${item.amenaza}">Eliminar 
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </td>
@@ -288,8 +260,11 @@
     <script>
         $('#modalDelete').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
+            var nombreAmenaza = button.data('nombre_amenaza');
+            var modalBody = $(this).find('.modal-body');
+            modalBody.text('¿Esta seguro que desea eliminar ' + nombreAmenaza + '?');
             codAmenaza = button.data('cod_amenaza');
-            console.log('Código de amenaza:', codAmenaza); // Verifica si se captura correctamente
+            //console.log('Código de amenaza:', codAmenaza); // Verifica si se captura correctamente
         });
 
         $('#eliminarAmenaza').click(function() {
@@ -304,16 +279,45 @@
                 success: function(response) {
                     console.log('Respuesta del servidor:', response);
                     if (response.success) {
-                        alert(response.message); // Mensaje de éxito
+                        // Mostrar mensaje toast de éxito
+                        Toastify({
+                            text: response.message,
+                            duration: 1500, // Duración del toast (3 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "green", // Color de fondo para éxito
+                        }).showToast();
                         $('#modalDelete').modal('hide');
-                        location.reload(); // Refrescar la página o eliminar la fila de la tabla
+
+                        setTimeout(() => {
+                            location
+                                .reload(); // Recargar la página para ver la nueva amenaza (ajustar si es necesario)
+                        }, 1000);
+
                     } else {
-                        alert(response.message); // Mensaje de error
+                        // Mostrar mensaje toast de error
+                        Toastify({
+                            text: response.message,
+                            duration: 1000, // Duración del toast (3 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "red", // Color de fondo para error
+                        }).showToast();
                     }
                 },
                 error: function(response) {
                     console.error('Error al eliminar:', response);
-                    alert('Error al eliminar la amenaza');
+                    // Mostrar mensaje toast de error
+                    Toastify({
+                        text: 'Error al eliminar la amenaza',
+                        duration: 1000, // Duración del toast (3 segundos)
+                        close: true,
+                        gravity: "top", // Ubicación del toast en la pantalla
+                        position: "right",
+                        backgroundColor: "red", // Color de fondo para error
+                    }).showToast();
                 }
             });
         });
@@ -378,19 +382,46 @@
                     const responseData = await response.json();
 
                     if (responseData.success) {
-                        // Mostrar mensaje de éxito
-                        alert("La amenaza ha sido guardada correctamente.");
+                        // Mostrar el toast con el mensaje de éxito
+                        Toastify({
+                            text: "La amenaza ha sido guardada correctamente",
+                            duration: 1500, // Duración del toast (3 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "green",
+                        }).showToast();
+                        //alert("La amenaza ha sido guardada correctamente.");
                         $("#crearAmenazaModal").modal("hide"); // Cerrar el modal
 
+                        // Esperar a que el toast termine antes de redirigir (1 segundos)
+                        setTimeout(() => {
+                            location
+                                .reload(); // Recargar la página para ver la nueva amenaza (ajustar si es necesario)
+                        }, 1000); // Espera 1 segundos antes de redirigir
                         // Opcionalmente redirigir o actualizar la tabla con la nueva amenaza
-                        location.reload(); // Recargar la página para ver la nueva amenaza (ajustar si es necesario)
                     } else {
-                        // Mostrar el mensaje de error
-                        alert(responseData.message);
+                        // Mostrar el toast con el mensaje de error
+                        Toastify({
+                            text: responseData.message,
+                            duration: 1000, // Duración del toast (1 segundos)
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "red",
+                        }).showToast();
                     }
                 } catch (error) {
                     console.error("Error:", error);
-                    alert("Error al guardar la amenaza.");
+                    // Mostrar un toast de error en caso de fallo en la comunicación
+                    Toastify({
+                        text: "Hubo un problema con la solicitud",
+                        duration: 1000, // Duración del toast (3 segundos)
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red",
+                    }).showToast();
                 }
             });
     </script>

@@ -25,17 +25,24 @@ class GraficoViviendaController extends Controller
         }
 
         try {
+            // Definir la ruta pública
+            $publicPath = base_path('public');
+
             // Guardar los archivos
             if ($request->hasFile('inputGroupFile01') && $request->file('inputGroupFile01')->isValid()) {
                 $file1 = $request->file('inputGroupFile01');
-                $path1 = 'grafico_vivienda_interior/interior_vivienda_' . time() . '.' . $file1->getClientOriginalExtension();
-                $file1->move(storage_path('images/grafico_vivienda_interior'), $path1); // Usar move() para mover el archivo a la carpeta deseada
+                // Generar el nombre y la ruta del archivo en el directorio público
+                $path1 = 'interior_vivienda_' . time() . '.' . $file1->getClientOriginalExtension();
+                // Mover el archivo al directorio público
+                $file1->move($publicPath . '/images/grafico_vivienda_interior', $path1);
             }
 
             if ($request->hasFile('inputGroupFile02') && $request->file('inputGroupFile02')->isValid()) {
                 $file2 = $request->file('inputGroupFile02');
-                $path2 = 'grafico_vivienda_exterior/exterior_vivienda_' . time() . '.' . $file2->getClientOriginalExtension();
-                $file2->move(storage_path('images/grafico_vivienda_exterior'), $path2); // Mover el archivo a la carpeta
+                // Generar el nombre y la ruta del archivo en el directorio público
+                $path2 = 'exterior_vivienda_' . time() . '.' . $file2->getClientOriginalExtension();
+                // Mover el archivo al directorio público
+                $file2->move($publicPath . '/images/grafico_vivienda_exterior', $path2);
             }
 
             // Verificar si los archivos se subieron correctamente
@@ -73,8 +80,92 @@ class GraficoViviendaController extends Controller
         }
     }
 
-    public function editar()
+
+    // Método para mostrar el formulario de edición
+    public function editar($cod_familia)
     {
-        return view('grafico-vivienda.editar_grafico_vivienda');
+        // Buscar el gráfico de vivienda por el código de familia
+        $graficoVivienda = GraficoVivienda::where('cod_familia', $cod_familia)->first();
+
+        if (!$graficoVivienda) {
+            return redirect()->route('grafico_vivienda.index')->with('error', 'Gráfico de vivienda no encontrado.');
+        }
+
+        return view('grafico-vivienda.editar_grafico_vivienda', compact('graficoVivienda'));
+    }
+
+    // Método para actualizar los datos
+    public function actualizar(Request $request, $cod_grafico_vivienda)
+    {
+        //dd($request);
+        try {
+            // Buscar el registro existente por ID
+            $graficoVivienda = GraficoVivienda::find($cod_grafico_vivienda);
+
+            if (!$graficoVivienda) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'El registro no existe.',
+                ], 404);
+            }
+
+            // Definir la ruta pública
+            $publicPath = base_path('public');
+
+            // Procesar archivos si se suben nuevos
+            if ($request->hasFile('inputGroupFile01') && $request->file('inputGroupFile01')->isValid()) {
+                $file1 = $request->file('inputGroupFile01');
+                $path1 = 'interior_vivienda_' . time() . '.' . $file1->getClientOriginalExtension();
+                $file1->move($publicPath . '/images/grafico_vivienda_interior', $path1);
+
+                // Eliminar el archivo anterior si existe
+                if (!empty($graficoVivienda->interior_vivienda) && file_exists($publicPath . '/images/grafico_vivienda_interior/' . $graficoVivienda->interior_vivienda)) {
+                    try {
+                        unlink($publicPath . '/images/grafico_vivienda_interior/' . $graficoVivienda->interior_vivienda);
+                    } catch (\Exception $e) {
+                        // Registrar el error si es necesario
+                    }
+                }
+
+                $graficoVivienda->interior_vivienda = $path1;
+            }
+
+            if ($request->hasFile('inputGroupFile02') && $request->file('inputGroupFile02')->isValid()) {
+                $file2 = $request->file('inputGroupFile02');
+                $path2 = 'exterior_vivienda_' . time() . '.' . $file2->getClientOriginalExtension();
+                $file2->move($publicPath . '/images/grafico_vivienda_exterior', $path2);
+
+                // Eliminar el archivo anterior si existe
+                if (!empty($graficoVivienda->brc) && file_exists($publicPath . '/images/grafico_vivienda_exterior/' . $graficoVivienda->brc)) {
+                    try {
+                        unlink($publicPath . '/images/grafico_vivienda_exterior/' . $graficoVivienda->brc);
+                    } catch (\Exception $e) {
+                        // Registrar el error si es necesario
+                    }
+                }
+
+                $graficoVivienda->brc = $path2;
+            }
+
+            // Actualizar las coordenadas y otros datos
+            $graficoVivienda->fill([
+                'coordenada_x' => $request->input('coordenada_x', $graficoVivienda->coordenada_x),
+                'coordenada_y' => $request->input('coordenada_y', $graficoVivienda->coordenada_y),
+            ]);
+
+            $graficoVivienda->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Datos actualizados correctamente.',
+                'grafico_vivienda' => $graficoVivienda,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Hubo un error al actualizar los datos.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

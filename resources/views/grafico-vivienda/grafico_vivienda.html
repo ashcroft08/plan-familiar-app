@@ -24,71 +24,7 @@
                         <div class="col-md-6">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb float-md-end">
-                                    <li class="breadcrumb-item">
-                                        <a
-                                            href="javascript:void(0)"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#staticBackdrop"
-                                            >Inicio</a
-                                        >
-                                        <!-- Modal -->
-                                        <div
-                                            class="modal fade"
-                                            id="staticBackdrop"
-                                            data-bs-backdrop="static"
-                                            data-bs-keyboard="false"
-                                            tabindex="-1"
-                                            aria-labelledby="staticBackdropLabel"
-                                            aria-hidden="true"
-                                        >
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1
-                                                            class="modal-title fs-5"
-                                                            id="staticBackdropLabel"
-                                                        >
-                                                            ¿Seguro que deseas
-                                                            ir al Inicio?
-                                                        </h1>
-                                                        <button
-                                                            type="button"
-                                                            class="btn-close"
-                                                            data-bs-dismiss="modal"
-                                                            aria-label="Close"
-                                                        ></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Si regresas al inicio,
-                                                        se perderán los datos
-                                                        que has ingresado hasta
-                                                        ahora.
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button
-                                                            type="button"
-                                                            class="btn btn-secondary"
-                                                            data-bs-dismiss="modal"
-                                                        >
-                                                            Cancelar
-                                                            <i
-                                                                class="fa-solid fa-ban"
-                                                            ></i>
-                                                        </button>
-                                                        <a
-                                                            href="/"
-                                                            class="btn btn-primary"
-                                                            role="button"
-                                                            >Aceptar
-                                                            <i
-                                                                class="fa-solid fa-check"
-                                                            ></i
-                                                        ></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                    <li class="breadcrumb-item">Inicio</li>
                                     <li
                                         class="breadcrumb-item active"
                                         aria-current="page"
@@ -120,12 +56,15 @@
                         name="cod_familia"
                         id="codFamiliaInput"
                     />
+
                     <label
                         for="inputGroupFile01"
                         class="form-label"
                         style="font-weight: bold"
                         >Interior de la Vivienda</label
                     >
+                    <div id="preview01"></div>
+                    <br />
                     <div class="input-group mb-3">
                         <input
                             type="file"
@@ -144,6 +83,8 @@
                         style="font-weight: bold"
                         >Barrio/Recinto/Comunidad</label
                     >
+                    <div id="preview02"></div>
+                    <br />
                     <div class="input-group mb-3">
                         <input
                             type="file"
@@ -222,19 +163,22 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="regresarModalLabel">
-                            ¿Seguro que deseas regresar?
+                        <h1
+                            class="modal-title fw-bold fs-5"
+                            id="regresarModalLabel"
+                        >
+                            ¿Está seguro de que desea regresar?
                         </h1>
                         <button
                             type="button"
                             class="btn-close"
                             data-bs-dismiss="modal"
-                            aria-label="Close"
+                            aria-label="Cerrar"
                         ></button>
                     </div>
                     <div class="modal-body">
-                        Si regresas, se perderán los datos que has ingresado
-                        hasta ahora.
+                        Si regresa, los datos ingresados en este formulario no
+                        se guardarán.
                     </div>
                     <div class="modal-footer">
                         <button
@@ -245,7 +189,7 @@
                             Cancelar <i class="fa-solid fa-ban"></i>
                         </button>
                         <button id="aceptar-btn" class="btn btn-primary">
-                            Aceptar <i class="fa-solid fa-check"></i>
+                            Confirmar <i class="fa-solid fa-check"></i>
                         </button>
                     </div>
                 </div>
@@ -256,6 +200,42 @@
         <script src="/assets/js/jquery-3.7.1.min.js"></script>
         <!-- Enlazar Bootstrap JS -->
         <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            // Función para previsualizar los archivos seleccionados
+            function previewFiles(inputId, previewId) {
+                const inputFile = document.getElementById(inputId);
+                const preview = document.getElementById(previewId);
+                preview.innerHTML = ""; // Limpiar cualquier previa anterior
+
+                if (inputFile.files) {
+                    const files = inputFile.files;
+                    Array.from(files).forEach((file) => {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const img = document.createElement("img");
+                            img.src = e.target.result;
+                            img.style.maxWidth = "200px";
+                            img.style.marginRight = "10px";
+                            preview.appendChild(img);
+                        };
+                        reader.readAsDataURL(file); // Leer el archivo como una URL de datos
+                    });
+                }
+            }
+
+            // Asignar el evento de previsualización a los inputs de archivo
+            document
+                .getElementById("inputGroupFile01")
+                .addEventListener("change", function () {
+                    previewFiles("inputGroupFile01", "preview01");
+                });
+            document
+                .getElementById("inputGroupFile02")
+                .addEventListener("change", function () {
+                    previewFiles("inputGroupFile02", "preview02");
+                });
+        </script>
 
         <script>
             document.addEventListener("DOMContentLoaded", () => {
@@ -311,7 +291,7 @@
                 // Obtener los datos del formulario
                 const form = document.getElementById("miFormulario");
                 const formData = new FormData(form); // Crear un FormData con los datos del formulario
-
+                console.log(formData);
                 try {
                     // Hacer la solicitud POST con fetch
                     const response = await fetch("/grafico_vivienda", {

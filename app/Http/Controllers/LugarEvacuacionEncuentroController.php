@@ -18,7 +18,7 @@ class LugarEvacuacionEncuentroController extends Controller
         if ($existe) {
             // Buscar todas las amenazas asociadas a 'cod_familia'
             $amenazasNom = Amenaza::where('cod_familia', $cod_familia)->get();
-            $lugarEvacuacionEncuentro = LugarEvacuacionEncuentro::findOrFail($cod_familia);
+            $lugarEvacuacionEncuentro = LugarEvacuacionEncuentro::where('cod_familia', $cod_familia)->firstOrFail();
             return view('evacuacion-encuentro.regresar_lugares_de_evacuacion_y_de_encuentro', ['amenazasNom' => $amenazasNom, 'lugarEvacuacionEncuentro' => $lugarEvacuacionEncuentro]);
         } else {
             // Obtener todas las amenazas asociadas (una sola vez)
@@ -66,7 +66,7 @@ class LugarEvacuacionEncuentroController extends Controller
         // Buscar todas las amenazas asociadas a 'cod_familia'
         $amenazasNom = Amenaza::where('cod_familia', $cod_familia)->get();
 
-        $lugarEvacuacionEncuentro = LugarEvacuacionEncuentro::findOrFail($cod_familia);
+        $lugarEvacuacionEncuentro = LugarEvacuacionEncuentro::where('cod_familia', $cod_familia)->firstOrFail();
 
         // Pasar los resultados a la vista
         return view('evacuacion-encuentro.editar_lugares_de_evacuacion_y_de_encuentro', ['amenazasNom' => $amenazasNom, 'lugarEvacuacionEncuentro' => $lugarEvacuacionEncuentro]);
@@ -74,7 +74,7 @@ class LugarEvacuacionEncuentroController extends Controller
 
     public function actualizar(Request $request, $cod_familia)
     {
-        $lugarEvacuacionEncuentro = LugarEvacuacionEncuentro::find($cod_familia);
+        $lugarEvacuacionEncuentro = LugarEvacuacionEncuentro::where('cod_familia', $cod_familia)->firstOrFail();
 
         // Verificar si el registro existe
         if (!$lugarEvacuacionEncuentro) {

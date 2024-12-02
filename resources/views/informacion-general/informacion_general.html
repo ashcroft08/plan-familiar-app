@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Creación Plan</title>
+        <title>Creación plan</title>
         <!-- Enlazar CSS de Font Awesome localmente -->
         <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
         <!-- Enlazar Bootstrap CSS -->
@@ -12,6 +12,11 @@
         <link rel="stylesheet" href="/assets/DataTables/datatables.min.css" />
         <!-- Enlazar CSS -->
         <link rel="stylesheet" href="/assets/css/forms.css" />
+
+        <!-- Incluir el CSS de Toastify -->
+        <link rel="stylesheet" href="/assets/toastify/toastify.css" />
+        <!-- Incluir el JS de Toastify -->
+        <script src="/assets/toastify/toastify.js"></script>
     </head>
     <body>
         <div class="container-fluid">
@@ -45,11 +50,11 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h1
-                                                            class="modal-title fs-5"
+                                                            class="modal-title fw-bold fs-5"
                                                             id="staticBackdropLabel"
                                                         >
-                                                            ¿Seguro que desea
-                                                            ir al Inicio?
+                                                            ¿Estás seguro de que
+                                                            deseas ir al inicio?
                                                         </h1>
                                                         <button
                                                             type="button"
@@ -59,10 +64,11 @@
                                                         ></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Si regresa al inicio,
-                                                        se perderán los datos
-                                                        que has ingresado hasta
-                                                        ahora.
+                                                        Si regresas al inicio,
+                                                        los datos que hayas
+                                                        ingresado en este
+                                                        formulario no se
+                                                        guardarán.
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button
@@ -79,7 +85,7 @@
                                                             href="/"
                                                             class="btn btn-primary"
                                                             role="button"
-                                                            >Aceptar
+                                                            >Confirmar
                                                             <i
                                                                 class="fa-solid fa-check"
                                                             ></i
@@ -113,7 +119,12 @@
             <!-- Hoverable rows start -->
             <section class="container">
                 <header>1. Información General</header>
-                <form id="familiaForm" class="form" method="POST" autocomplete="off">
+                <form
+                    id="familiaForm"
+                    class="form"
+                    method="POST"
+                    autocomplete="off"
+                >
                     <div class="row">
                         <div class="col-md-6 col-12 mb-3">
                             <div class="form-group">
@@ -190,7 +201,7 @@
                         <div class="col-md-6 col-12">
                             <div class="form-group">
                                 <label for="barrio" style="font-weight: bold"
-                                    >Seleccione una opción:</label
+                                    >Comunidad/Barrio/Recinto:</label
                                 >
                                 <select
                                     class="form-control mb-2"
@@ -199,6 +210,9 @@
                                     style="font-weight: bold"
                                     onchange="updatePlaceholder()"
                                 >
+                                    <option selected>
+                                        Seleccione una opción
+                                    </option>
                                     <option value="comunidad">Comunidad</option>
                                     <option value="barrio">Barrio</option>
                                     <option value="recinto">Recinto</option>
@@ -307,12 +321,28 @@
                         !nombreBcr ||
                         !numCasa
                     ) {
-                        alert("Por favor, complete todos los campos");
+                        // Mostrar el toast de advertencia
+                        Toastify({
+                            text: "Por favor, complete todos los campos",
+                            duration: 1000, // Duración del toast (1 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "orange", // Color de fondo para advertencia
+                        }).showToast();
                         return;
                     }
 
                     if (isNaN(telFam)) {
-                        alert("El número de teléfono debe ser numérico");
+                        // Mostrar el toast de advertencia si el teléfono no es numérico
+                        Toastify({
+                            text: "El número de teléfono debe ser numérico",
+                            duration: 1200, // Duración del toast (1 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "orange", // Color de fondo para advertencia
+                        }).showToast();
                         return;
                     }
 
@@ -355,19 +385,42 @@
                                 responseData.cod_familia
                             );
 
-                            alert("Datos guardados correctamente");
-                            // Redirigir al siguiente formulario
-                            window.location.href = "amenazas";
+                            // Mostrar el toast con el mensaje de éxito
+                            Toastify({
+                                text: responseData.message,
+                                duration: 1000, // Duración del toast (1 segundos)
+                                close: true,
+                                gravity: "top", // Ubicación del toast en la pantalla
+                                position: "right",
+                                backgroundColor: "green",
+                            }).showToast();
+
+                            // Esperar a que el toast termine antes de redirigir (1 segundos)
+                            setTimeout(() => {
+                                window.location.href = "amenazas";
+                            }, 1000); // Espera 1 segundos antes de redirigir
                         } else {
-                            // Mostrar el mensaje de error si el guardado no fue exitoso
-                            alert(
-                                responseData.message ||
-                                    "Hubo un error al guardar los datos"
-                            );
+                            // Mostrar el toast con el mensaje de error
+                            Toastify({
+                                text: responseData.message,
+                                duration: 1000, // Duración del toast (1 segundos)
+                                close: true,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "red",
+                            }).showToast();
                         }
                     } catch (error) {
                         console.error("Error:", error);
-                        alert("Error en la solicitud");
+                        // Mostrar un toast de error en caso de fallo en la comunicación
+                        Toastify({
+                            text: "Hubo un problema con la solicitud",
+                            duration: 1000, // Duración del toast (3 segundos)
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "red",
+                        }).showToast();
                     }
                 });
         </script>

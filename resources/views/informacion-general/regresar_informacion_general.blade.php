@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Creación Plan</title>
+    <title>Creación plan</title>
     <!-- Enlazar CSS de Font Awesome localmente -->
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
     <!-- Enlazar Bootstrap CSS -->
@@ -27,40 +27,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb float-md-end">
                                 <li class="breadcrumb-item">
-                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop">Inicio</a>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                        ¿Seguro que desea
-                                                        ir al Inicio?
-                                                    </h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Si regresa al inicio,
-                                                    se perderán los datos
-                                                    que has ingresado hasta
-                                                    ahora.
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">
-                                                        Cancelar
-                                                        <i class="fa-solid fa-ban"></i>
-                                                    </button>
-                                                    <a href="/" class="btn btn-primary" role="button">Aceptar
-                                                        <i class="fa-solid fa-check"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    Inicio
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     Creación de Plan
@@ -122,7 +89,7 @@
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="form-group">
-                            <label for="barrio" style="font-weight: bold">Seleccione una opción:</label>
+                            <label for="barrio" style="font-weight: bold">Comunidad/Barrio/Recinto:</label>
                             <select class="form-control mb-2" id="selectOption" name="opcionBcr"
                                 style="font-weight: bold">
                                 <option value="comunidad"
@@ -148,10 +115,6 @@
                 </div>
                 <div class="row botonsform">
                     <div class="col">
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                            data-bs-target="#modalDelete"
-                            data-cod_familia="{{ $informacion_general->cod_familia }}">Regresar <i
-                                class="fa-solid fa-rotate-left"></i></button>
                         <button type="submit" id="guardarYContinuar" class="btn btn-success">
                             Siguiente
                             <i class="fa-solid fa-arrow-right"></i>

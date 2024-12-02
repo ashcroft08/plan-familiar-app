@@ -209,8 +209,6 @@
                     rutaEvac: rutaEvac,
                 };
                 try {
-                    //console.log("Datos a enviar:", data);
-
                     // Enviar datos al servidor
                     const response = await fetch(
                         `/lugares_de_evacuacion_y_de_encuentro/${cod_familia}`, {
@@ -225,8 +223,7 @@
                                     ).content : "",
                             },
                             body: JSON.stringify(data),
-                        }
-                    );
+                        });
 
                     const responseData = await response.json();
 
