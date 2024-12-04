@@ -597,16 +597,16 @@
                     const responseData = await response.json();
 
                     if (responseData.success) {
-                        // Mostrar mensaje de éxito
                         Toastify({
-                            text: "El integrante ha sido guardado correctamente",
+                            text: responseData.message,
                             duration: 1500, // Duración del toast (3 segundos)
                             close: true,
                             gravity: "top", // Ubicación del toast en la pantalla
                             position: "right",
                             backgroundColor: "green",
                         }).showToast();
-                        $("#crearIntegranteModal").modal("hide"); // Cerrar el modal
+
+                        $("#crearIntegranteModal").modal("hide"); // Cerrar el 
 
                         setTimeout(() => {
                             location
@@ -615,9 +615,9 @@
                     } else {
                         Toastify({
                             text: responseData.message,
-                            duration: 1000, // Duración del toast (1 segundos)
+                            duration: 1500, // Duración del toast (3 segundos)
                             close: true,
-                            gravity: "top",
+                            gravity: "top", // Ubicación del toast en la pantalla
                             position: "right",
                             backgroundColor: "red",
                         }).showToast();
@@ -662,7 +662,7 @@
                             close: true,
                             gravity: "top", // Ubicación del toast en la pantalla
                             position: "right",
-                            backgroundColor: "green", // Color de fondo para éxito
+                            backgroundColor: "green",
                         }).showToast();
                         $('#modalDelete').modal('hide');
                         setTimeout(() => {
@@ -672,23 +672,23 @@
                     } else {
                         Toastify({
                             text: response.message,
-                            duration: 1000, // Duración del toast (3 segundos)
+                            duration: 1500, // Duración del toast (3 segundos)
                             close: true,
                             gravity: "top", // Ubicación del toast en la pantalla
                             position: "right",
-                            backgroundColor: "red", // Color de fondo para error
+                            backgroundColor: "red",
                         }).showToast();
                     }
                 },
                 error: function(response) {
-                    console.error('Error al eliminar:', response);
+                    //console.error('Error al eliminar:', response);
                     Toastify({
-                        text: 'Error al eliminar al integrante',
+                        text: "Hubo un problema con la solicitud",
                         duration: 1000, // Duración del toast (3 segundos)
                         close: true,
-                        gravity: "top", // Ubicación del toast en la pantalla
+                        gravity: "top",
                         position: "right",
-                        backgroundColor: "red", // Color de fondo para error
+                        backgroundColor: "red",
                     }).showToast();
                 }
             });
@@ -797,40 +797,26 @@
 
                 const result = await response.json();
 
+                // Manejar la respuesta del servidor
                 if (response.ok) {
                     Toastify({
-                        text: "El integrante ha sido editado correctamente",
+                        text: result.message,
                         duration: 1500, // Duración del toast (3 segundos)
                         close: true,
                         gravity: "top", // Ubicación del toast en la pantalla
                         position: "right",
                         backgroundColor: "green",
                     }).showToast();
-
                     setTimeout(() => {
                         location
                             .reload(); // Recargar la página para ver la nueva amenaza (ajustar si es necesario)
                     }, 1000);
                 } else {
-                    Toastify({
-                        text: "Error al guardar los cambios"
-                        duration: 1000, // Duración del toast (1 segundos)
-                        close: true,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor: "red",
-                    }).showToast();
+                    alert(result.message || 'Error al guardar los cambios.');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                Toastify({
-                    text: "Hubo un problema con la solicitud",
-                    duration: 1000, // Duración del toast (3 segundos)
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "red",
-                }).showToast();
+                alert('Hubo un error al realizar la solicitud.');
             }
         });
     </script>

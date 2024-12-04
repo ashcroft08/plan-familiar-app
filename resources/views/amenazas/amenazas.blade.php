@@ -359,7 +359,7 @@
                         close: true,
                         gravity: "top", // Ubicación del toast en la pantalla
                         position: "right",
-                        backgroundColor: "yellow",
+                        backgroundColor: "orange",
                     }).showToast();
                     return;
                 }
@@ -391,7 +391,7 @@
                     if (responseData.success) {
                         // Mostrar el toast con el mensaje de éxito
                         Toastify({
-                            text: "La amenaza ha sido guardada correctamente",
+                            text: responseData.message,
                             duration: 1500, // Duración del toast (3 segundos)
                             close: true,
                             gravity: "top", // Ubicación del toast en la pantalla

@@ -50,13 +50,13 @@ class AmenazaController extends Controller
         if ($nuevaAmenaza->save()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Amenaza guardada correctamente.',
+                'message' => 'Amenaza agregada correctamente.',
                 'data' => $nuevaAmenaza
             ]);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Hubo un error al guardar la amenaza.'
+                'message' => 'Hubo un error al agregar la amenaza.'
             ], 500);
         }
     }

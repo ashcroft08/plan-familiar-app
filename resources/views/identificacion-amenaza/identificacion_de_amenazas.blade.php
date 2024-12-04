@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="/assets/DataTables/datatables.min.css" />
     <!-- Enlazar CSS -->
     <link rel="stylesheet" href="/assets/css/forms.css" />
+
+    <!-- Incluir el CSS de Toastify -->
+    <link rel="stylesheet" href="/assets/toastify/toastify.css" />
+    <!-- Incluir el JS de Toastify -->
+    <script src="/assets/toastify/toastify.js"></script>
 </head>
 
 <body>
@@ -153,6 +158,8 @@
 
                 // Variables para almacenar los datos de amenazas
                 const amenazas = [];
+                let toastShown = false; // Bandera para verificar si se muestra el toast
+                let valid = true; // Bandera para validar el formulario
 
                 // Recorre las filas de la tabla para obtener los datos de cada amenaza
                 const rows = document.querySelectorAll("#amenazasTableBody tr");
@@ -165,11 +172,23 @@
 
                     // Validación de campos de cada fila
                     if (!codAmenaza || !efecto || !razon || !accion) {
-                        alert("Por favor, complete todos los campos de las amenazas.");
-                        return;
+                        // Mostrar el toast de advertencia solo una vez
+                        if (!toastShown) {
+                            Toastify({
+                                text: "Por favor, complete todos los campos",
+                                duration: 1500, // Duración del toast (1 segundos)
+                                close: true,
+                                gravity: "top", // Ubicación del toast en la pantalla
+                                position: "right",
+                                backgroundColor: "orange", // Color de fondo para advertencia
+                            }).showToast();
+                            toastShown = true; // Marcar que ya se mostró el toast
+                        }
+                        valid = false; // Marcar que la validación falló
+                        return; // Detener la ejecución de esta iteración
                     }
 
-                    // Agrega la amenaza a la lista de datos a enviar
+                    // Agrega la amenaza a la lista de datos a enviar si la fila es válida
                     amenazas.push({
                         cod_familia: codFamilia,
                         cod_amenaza: codAmenaza,
@@ -181,48 +200,80 @@
 
                 // Verifica si hay al menos una amenaza ingresada
                 if (amenazas.length === 0) {
-                    alert("Debe ingresar al menos una amenaza.");
-                    return;
+                    // Mostrar el toast de advertencia
+                    if (!toastShown) {
+                        Toastify({
+                            text: "Debe ingresar al menos una amenaza",
+                            duration: 1500, // Duración del toast (1 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "orange", // Color de fondo para advertencia
+                        }).showToast();
+                        toastShown = true; // Marcar que ya se mostró el toast
+                    }
+                    valid = false; // Marcar que la validación falló
+                    return; // Detener la ejecución del código
                 }
 
-                // Datos a enviar al backend
-                const data = {
-                    cod_familia: codFamilia,
-                    amenazas: amenazas
-                };
+                // Si la validación pasó, continúa con el envío de datos
+                if (valid) {
+                    // Datos a enviar al backend
+                    const data = {
+                        cod_familia: codFamilia,
+                        amenazas: amenazas
+                    };
 
-                try {
-                    // Enviar datos al servidor
-                    const response = await fetch(
-                        "/identificacion_de_amenazas", {
+                    try {
+                        // Enviar datos al servidor
+                        const response = await fetch("/identificacion_de_amenazas", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ) ?
-                                    document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ).content : "",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]') ?
+                                    document.querySelector('meta[name="csrf-token"]').content : "",
                             },
                             body: JSON.stringify(data),
+                        });
+
+                        const responseData = await response.json();
+
+                        if (responseData.success) {
+                            // Mostrar el toast con el mensaje de éxito
+                            Toastify({
+                                text: responseData.message,
+                                duration: 1500, // Duración del toast (1 segundos)
+                                close: true,
+                                gravity: "top", // Ubicación del toast en la pantalla
+                                position: "right",
+                                backgroundColor: "green",
+                            }).showToast();
+
+                            setTimeout(() => {
+                                window.location.href = "/recursos_familiares_disponibles";
+                            }, 1000);
+
+                        } else {
+                            Toastify({
+                                text: responseData.message,
+                                duration: 1500, // Duración del toast (1 segundos)
+                                close: true,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "red",
+                            }).showToast();
                         }
-                    );
-
-                    const responseData = await response.json();
-
-                    if (responseData.success) {
-                        alert("Datos guardados correctamente");
-                        window.location.href = "/recursos_familiares_disponibles";
-                    } else {
-                        alert(
-                            responseData.message ||
-                            "Hubo un error al guardar los datos"
-                        );
+                    } catch (error) {
+                        console.error("Error:", error);
+                        Toastify({
+                            text: "Hubo un problema con la solicitud",
+                            duration: 1500, // Duración del toast (3 segundos)
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "red",
+                        }).showToast();
                     }
-                } catch (error) {
-                    console.error("Error:", error);
-                    alert("Error en la solicitud");
                 }
             });
     </script>

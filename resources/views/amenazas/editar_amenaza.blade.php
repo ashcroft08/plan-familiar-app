@@ -302,7 +302,7 @@
 
                     if (responseData.success) {
                         Toastify({
-                            text: "La amenaza ha sido guardada correctamente",
+                            text: responseData.message,
                             duration: 1500, // Duración del toast (3 segundos)
                             close: true,
                             gravity: "top", // Ubicación del toast en la pantalla

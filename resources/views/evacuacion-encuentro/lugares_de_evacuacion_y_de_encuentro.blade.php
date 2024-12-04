@@ -180,7 +180,14 @@
                     return;
                 }
                 if (!puntoReunion || !rutaEvac) {
-                    alert("Por favor, complete todos los campos.");
+                    Toastify({
+                        text: 'Por favor, complete todos los campos',
+                        duration: 1000, // Duración del toast (1 segundos)
+                        close: true,
+                        gravity: "top", // Ubicación del toast en la pantalla
+                        position: "right",
+                        backgroundColor: "orange",
+                    }).showToast();
                     return;
                 }
 
