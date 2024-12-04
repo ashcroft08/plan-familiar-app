@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="/assets/DataTables/datatables.min.css" />
     <!-- Enlazar CSS -->
     <link rel="stylesheet" href="/assets/css/forms.css" />
+
+    <!-- Incluir el CSS de Toastify -->
+    <link rel="stylesheet" href="/assets/toastify/toastify.css" />
+    <!-- Incluir el JS de Toastify -->
+    <script src="/assets/toastify/toastify.js"></script>
 </head>
 
 <body>
@@ -207,17 +212,40 @@
                     const responseData = await response.json();
 
                     if (responseData.success) {
-                        alert("Datos guardados correctamente");
-                        window.location.href = "/integrantes_de_la_familia";
+                        // Mostrar el toast con el mensaje de éxito
+                        Toastify({
+                            text: responseData.message,
+                            duration: 1000, // Duración del toast (1 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "green",
+                        }).showToast();
+                        //alert("Datos guardados correctamente");
+                        setTimeout(() => {
+                            window.location.href = "/integrantes_de_la_familia";
+                        }, 1000);
                     } else {
-                        alert(
-                            responseData.message ||
-                            "Hubo un error al guardar los datos"
-                        );
+                        Toastify({
+                            text: responseData.message,
+                            duration: 1000, // Duración del toast (1 segundos)
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "red",
+                        }).showToast();
                     }
                 } catch (error) {
                     console.error("Error:", error);
-                    alert("Error en la solicitud");
+                    // Mostrar un toast de error en caso de fallo en la comunicación
+                    Toastify({
+                        text: "Hubo un problema con la solicitud",
+                        duration: 1000, // Duración del toast (3 segundos)
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red",
+                    }).showToast();
                 }
             });
     </script>

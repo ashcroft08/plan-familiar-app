@@ -301,19 +301,41 @@
                     const responseData = await response.json();
 
                     if (responseData.success) {
-                        // Mostrar mensaje de éxito
-                        alert("La amenaza ha sido guardada correctamente.");
+                        Toastify({
+                            text: "La amenaza ha sido guardada correctamente",
+                            duration: 1500, // Duración del toast (3 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "green",
+                        }).showToast();
                         $("#crearAmenazaModal").modal("hide"); // Cerrar el modal
 
                         // Opcionalmente redirigir o actualizar la tabla con la nueva amenaza
-                        location.reload(); // Recargar la página para ver la nueva amenaza (ajustar si es necesario)
+                        setTimeout(() => {
+                            location
+                                .reload(); // Recargar la página para ver la nueva amenaza (ajustar si es necesario)
+                        }, 1000); // Recargar la página para ver la nueva amenaza (ajustar si es necesario)
                     } else {
-                        // Mostrar el mensaje de error
-                        alert(responseData.message);
+                        Toastify({
+                            text: responseData.message,
+                            duration: 1000, // Duración del toast (1 segundos)
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "red",
+                        }).showToast();
                     }
                 } catch (error) {
                     console.error("Error:", error);
-                    alert("Error al guardar la amenaza.");
+                    Toastify({
+                        text: "Hubo un problema con la solicitud",
+                        duration: 1000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red",
+                    }).showToast();
                 }
             });
     </script>

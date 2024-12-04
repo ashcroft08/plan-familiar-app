@@ -48,7 +48,7 @@
         <section class="container">
             <header>1. Información General</header>
             <form id="familiaForm" class="form" method="PUT"
-                action="/informacion_general/{{ $informacion_general->cod_familia }}">
+                action="/informacion_general/{{ $informacion_general->cod_familia }}" autocomplete="off">
                 <!-- Método PUT para actualizaciones -->
                 <input type="hidden" name="_method" value="PUT">
                 <div class="row">

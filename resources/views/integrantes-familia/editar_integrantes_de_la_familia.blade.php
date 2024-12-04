@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="/assets/DataTables/datatables.min.css" />
     <!-- Enlazar CSS -->
     <link rel="stylesheet" href="/assets/css/forms.css" />
+
+    <!-- Incluir el CSS de Toastify -->
+    <link rel="stylesheet" href="/assets/toastify/toastify.css" />
+    <!-- Incluir el JS de Toastify -->
+    <script src="/assets/toastify/toastify.js"></script>
     <style>
         .container {
             max-width: 1600px;
@@ -568,19 +573,40 @@
 
                     if (responseData.success) {
                         // Mostrar mensaje de éxito
-                        alert("El integrante ha sido guardado correctamente.");
+                        Toastify({
+                            text: "El integrante ha sido guardado correctamente",
+                            duration: 1500, // Duración del toast (3 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "green",
+                        }).showToast();
                         $("#crearIntegranteModal").modal("hide"); // Cerrar el modal
 
-                        // Opcionalmente redirigir o actualizar la vista
-                        location
-                            .reload(); // Recargar la página para ver el nuevo integrante (ajustar si es necesario)
+                        setTimeout(() => {
+                            location
+                                .reload(); // Recargar la página para ver la nueva amenaza (ajustar si es necesario)
+                        }, 1000);
                     } else {
-                        // Mostrar el mensaje de error
-                        alert(responseData.message);
+                        Toastify({
+                            text: responseData.message,
+                            duration: 1000, // Duración del toast (1 segundos)
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "red",
+                        }).showToast();
                     }
                 } catch (error) {
                     console.error("Error:", error);
-                    alert("Error al guardar el integrante.");
+                    Toastify({
+                        text: "Hubo un problema con la solicitud",
+                        duration: 1000, // Duración del toast (3 segundos)
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red",
+                    }).showToast();
                 }
             });
     </script>
@@ -589,7 +615,7 @@
         $('#modalDelete').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             codIntegrante = button.data('cod_integrante');
-            console.log('Código de integrante:', codIntegrante); // Verifica si se captura correctamente
+            //console.log('Código de integrante:', codIntegrante); // Verifica si se captura correctamente
         });
 
         $('#eliminarIntegrante').click(function() {
@@ -604,16 +630,40 @@
                 success: function(response) {
                     console.log('Respuesta del servidor:', response);
                     if (response.success) {
-                        alert(response.message); // Mensaje de éxito
+                        Toastify({
+                            text: response.message,
+                            duration: 1500, // Duración del toast (3 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "green", // Color de fondo para éxito
+                        }).showToast();
                         $('#modalDelete').modal('hide');
-                        location.reload(); // Refrescar la página o eliminar la fila de la tabla
+                        setTimeout(() => {
+                            location
+                                .reload(); // Recargar la página para ver la nueva amenaza (ajustar si es necesario)
+                        }, 1000);
                     } else {
-                        alert(response.message); // Mensaje de error
+                        Toastify({
+                            text: response.message,
+                            duration: 1000, // Duración del toast (3 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "red", // Color de fondo para error
+                        }).showToast();
                     }
                 },
                 error: function(response) {
                     console.error('Error al eliminar:', response);
-                    alert('Error al eliminar al integrante');
+                    Toastify({
+                        text: 'Error al eliminar al integrante',
+                        duration: 1000, // Duración del toast (3 segundos)
+                        close: true,
+                        gravity: "top", // Ubicación del toast en la pantalla
+                        position: "right",
+                        backgroundColor: "red", // Color de fondo para error
+                    }).showToast();
                 }
             });
         });
@@ -723,15 +773,39 @@
 
                 // Manejar la respuesta del servidor
                 if (response.ok) {
-                    alert(result.message); // Mostrar el mensaje de éxito
-                    // Opcional: Actualizar la tabla o cerrar el modal
-                    location.reload(); // Recargar la página para reflejar cambios
+                    Toastify({
+                        text: "El integrante ha sido editado correctamente",
+                        duration: 1500, // Duración del toast (3 segundos)
+                        close: true,
+                        gravity: "top", // Ubicación del toast en la pantalla
+                        position: "right",
+                        backgroundColor: "green",
+                    }).showToast();
+
+                    setTimeout(() => {
+                        location
+                            .reload(); // Recargar la página para ver la nueva amenaza (ajustar si es necesario)
+                    }, 1000);
                 } else {
-                    alert(result.message || 'Error al guardar los cambios.');
+                    Toastify({
+                        text: "Error al guardar los cambios"
+                        duration: 1000, // Duración del toast (1 segundos)
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red",
+                    }).showToast();
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Hubo un error al realizar la solicitud.');
+                Toastify({
+                    text: "Hubo un problema con la solicitud",
+                    duration: 1000, // Duración del toast (3 segundos)
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "red",
+                }).showToast();
             }
         });
     </script>

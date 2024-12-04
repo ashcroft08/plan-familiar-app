@@ -353,7 +353,14 @@
                 if (!amenazaEspecifica ||
                     !codFamilia
                 ) {
-                    alert("Por favor, complete todos los campos.");
+                    Toastify({
+                        text: "Por favor, complete todos los campos.",
+                        duration: 1500, // Duración del toast (3 segundos)
+                        close: true,
+                        gravity: "top", // Ubicación del toast en la pantalla
+                        position: "right",
+                        backgroundColor: "yellow",
+                    }).showToast();
                     return;
                 }
 

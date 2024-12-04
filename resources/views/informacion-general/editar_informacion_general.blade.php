@@ -77,9 +77,7 @@
         <!-- Hoverable rows start -->
         <section class="container">
             <header>1. Información General</header>
-            <form id="familiaForm" class="form" method="PUT">
-                <!-- Método PUT para actualizaciones -->
-                <input type="hidden" name="_method" value="PUT">
+            <form id="familiaForm" class="form" autocomplete="off">
                 <div class="row">
                     <div class="col-md-6 col-12 mb-3">
                         <div class="form-group">
