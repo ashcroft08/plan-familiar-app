@@ -148,3 +148,6 @@ $router->get('grafico_vivienda', 'GraficoViviendaController@mostrar');
 $router->post('grafico_vivienda', 'GraficoViviendaController@guardar');
 $router->get('grafico_vivienda/visualizar/{cod_familia}', 'GraficoViviendaController@editar');
 $router->put('grafico_vivienda/actualizar/{cod_grafico_vivienda}', 'GraficoViviendaController@actualizar');
+
+//Ruta para el Reporte
+$router->get('/generar-word/{cod_familia}', 'ReporteController@generarDocumento');

@@ -77,9 +77,12 @@
                                             data-cod_familia="{{ $item->cod_familia }}"><i
                                                 class="fas fa-trash-alt"></i></button>
 
-                                        <!-- Button trigger for see theme modal -->
-                                        <button type="button" class="btn btn btn-primary btn-sm" data-bs-toggle="modal"
-                                            data-bs-target=""><i class="fa-solid fa-file-word"></i></button>
+                                        <!-- Botón para descargar el documento -->
+                                        <a href="/generar-word/{{$item->cod_familia}}"
+                                            class="btn btn-primary btn-sm">
+                                            <i class="fa-solid fa-file-word"></i>
+                                        </a>
+
                                     </td>
                                 </tr>
                             @endforeach

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Amenaza;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\LugarEvacuacionEncuentro;
+use App\Models\Amenaza;
 
 class LugarEvacuacionEncuentroController extends Controller
 {
