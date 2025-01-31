@@ -6,6 +6,7 @@ use App\Models\InformacionGeneral;
 use PhpOffice\PhpWord\TemplateProcessor;
 use App\Models\LugarEvacuacionEncuentro;
 use App\Models\Amenaza;
+use App\Models\IntegranteFamilia;
 use Illuminate\Http\Request;
 
 class ReporteController extends Controller
@@ -25,6 +26,8 @@ class ReporteController extends Controller
         }
 
         $lugarEvacuacionEncuentro = LugarEvacuacionEncuentro::where('cod_familia', $cod_familia)->firstOrFail();
+        
+        $integrantes = IntegranteFamilia::where('cod_familia', $cod_familia)->get();
 
         // 📄 Cargar la plantilla de Word desde `storage/app/plantillas/`
         $templatePath = storage_path('app/plantillas/plan-familiar.docx');
@@ -50,6 +53,11 @@ class ReporteController extends Controller
         $templateProcessor->setValue('punto_reunion', $lugarEvacuacionEncuentro->punto_reunion);
         $templateProcessor->setValue('ruta_evacuacion', $lugarEvacuacionEncuentro->ruta_evacuacion);
         $templateProcessor->setValue('amenazas', $amenazasList);
+
+        // Integrantes de la familia
+        $templateProcessor->setValue('nombres', $lugarEvacuacionEncuentro->punto_reunion);
+        $templateProcessor->setValue('ruta_evacuacion', $lugarEvacuacionEncuentro->ruta_evacuacion);
+        
 
         // 📂 Guardar documento generado
         $outputPath = storage_path("app/documentos_generados/plan-familiar-{$cod_familia}.docx");
