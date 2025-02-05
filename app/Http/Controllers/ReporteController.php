@@ -304,7 +304,7 @@ class ReporteController extends Controller
 
         if ($graficoVivienda) {
             // Interior de la vivienda
-            $interiorPath = storage_path('app/public/images/grafico_vivienda_interior/' . $graficoVivienda->interior_vivienda);
+            $interiorPath = base_path('public/images/grafico_vivienda_interior/' . $graficoVivienda->interior_vivienda);
 
             if (file_exists($interiorPath)) {
                 try {
@@ -319,7 +319,7 @@ class ReporteController extends Controller
             }
 
             // Barrio/Recinto/Comunidad (BRC) - Repetir el mismo patrón
-            $brcPath = storage_path('app/public/images/grafico_vivienda_exterior/' . $graficoVivienda->brc);
+            $brcPath = base_path('public/images/grafico_vivienda_exterior/' . $graficoVivienda->brc);
 
             if (file_exists($brcPath)) {
                 try {
