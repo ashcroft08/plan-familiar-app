@@ -807,6 +807,9 @@
                         position: "right",
                         backgroundColor: "green",
                     }).showToast();
+
+                    $("#editarIntegranteModal").modal("hide"); // Cerrar el modal
+
                     setTimeout(() => {
                         location
                             .reload(); // Recargar la página para ver la nueva amenaza (ajustar si es necesario)
