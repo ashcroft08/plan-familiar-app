@@ -11,6 +11,14 @@ use App\Models\RecursoPcd;
 use App\Models\Reduccion;
 use App\Models\Respuesta;
 use App\Models\Recuperacion;
+use App\Models\NumeroEmergencia;
+use App\Models\Mascota;
+use App\Models\EstructuraVivienda;
+use App\Models\Comedor;
+use App\Models\Sala;
+use App\Models\Dormitorio;
+use App\Models\Banio;
+use App\Models\Cocina;
 use Illuminate\Http\Request;
 
 class ReporteController extends Controller
@@ -153,6 +161,115 @@ class ReporteController extends Controller
             $templateProcessor->setValue('Emergencia#' . $row_index, $recuperacion->emergencia);
             $templateProcessor->setValue('Responsable_Recuperacion#' . $row_index, $recuperacion->responsable); // Etiqueta única
             $templateProcessor->setValue('Comentarios_Recuperacion#' . $row_index, $recuperacion->comentario); // Etiqueta única
+
+            $row_index++;
+        }
+
+        // Números de Emergencia
+        $numeroEmergencia = NumeroEmergencia::where('cod_familia', $cod_familia)->firstOrFail();
+        $templateProcessor->setValue('hospital', $numeroEmergencia->hospital);
+        $templateProcessor->setValue('medico_barrio', $numeroEmergencia->medico_barrio);
+        $templateProcessor->setValue('familiar1', $numeroEmergencia->familiar1);
+        $templateProcessor->setValue('familiar2', $numeroEmergencia->familiar2);
+        $templateProcessor->setValue('familiar3', $numeroEmergencia->familiar3);
+        $templateProcessor->setValue('upc', $numeroEmergencia->upc);
+        $templateProcessor->setValue('bomberos', $numeroEmergencia->bomberos);
+
+        // Mi mascota
+        $mascotas = Mascota::where('cod_familia', $cod_familia)->get();
+
+        $templateProcessor->cloneRow('Nombre_Animal', count($mascotas)); // Clona filas para la tabla
+
+        $row_index = 1;
+        foreach ($mascotas as $mascota) {
+            $templateProcessor->setValue('Nombre_Animal#' . $row_index, $mascota->nombre);
+            $templateProcessor->setValue('Especie#' . $row_index, $mascota->especie);
+            $templateProcessor->setValue('Raza#' . $row_index, $mascota->raza);
+            $templateProcessor->setValue('Esterilizado#' . $row_index, $mascota->esterilizado ? 'Sí' : 'No'); // Condición para mostrar "Sí" o "No"
+
+            $row_index++;
+        }
+
+        // Matriz de estructura general de la vivienda
+        $estructuras_vivienda = EstructuraVivienda::where('cod_familia', $cod_familia)->get();
+
+        $templateProcessor->cloneRow('Detalle', count($estructuras_vivienda)); // Clona filas para la tabla
+
+        $row_index = 1;
+        foreach ($estructuras_vivienda as $estructura_vivienda) {
+            $templateProcessor->setValue('Detalle#' . $row_index, $estructura_vivienda->detalle);
+            $templateProcessor->setValue('Respuesta#' . $row_index, $estructura_vivienda->respuesta);
+            $templateProcessor->setValue('Acciones_Vulnerabilidad#' . $row_index, $estructura_vivienda->acciones); // Etiqueta única para Acciones
+
+            $row_index++;
+        }
+
+        // Comedor
+        $comedores = Comedor::where('cod_familia', $cod_familia)->get();
+
+        $templateProcessor->cloneRow('Detalle_Comedor', count($comedores)); // Clona filas para la tabla del comedor
+
+        $row_index = 1;
+        foreach ($comedores as $comedor) {
+            $templateProcessor->setValue('Detalle_Comedor#' . $row_index, $comedor->detalle);
+            $templateProcessor->setValue('Respuesta_Comedor#' . $row_index, $comedor->respuesta);
+            $templateProcessor->setValue('Acciones_Comedor#' . $row_index, $comedor->acciones); // Etiqueta única para Acciones del comedor
+
+            $row_index++;
+        }
+
+        // Sala
+        $salas = Sala::where('cod_familia', $cod_familia)->get();
+
+        $templateProcessor->cloneRow('Detalle_Sala', count($salas)); // Clona filas para la tabla de la sala
+
+        $row_index = 1;
+        foreach ($salas as $sala) {
+            $templateProcessor->setValue('Detalle_Sala#' . $row_index, $sala->detalle);
+            $templateProcessor->setValue('Respuesta_Sala#' . $row_index, $sala->respuesta);
+            $templateProcessor->setValue('Acciones_Sala#' . $row_index, $sala->acciones); // Etiqueta única para Acciones de la sala
+
+            $row_index++;
+        }
+
+        // Dormitorio
+        $dormitorios = Dormitorio::where('cod_familia', $cod_familia)->get();
+
+        $templateProcessor->cloneRow('Detalle_Dormitorio', count($dormitorios)); // Clona filas para la tabla del dormitorio
+
+        $row_index = 1;
+        foreach ($dormitorios as $dormitorio) {
+            $templateProcessor->setValue('Detalle_Dormitorio#' . $row_index, $dormitorio->detalle);
+            $templateProcessor->setValue('Respuesta_Dormitorio#' . $row_index, $dormitorio->respuesta);
+            $templateProcessor->setValue('Acciones_Dormitorio#' . $row_index, $dormitorio->acciones); // Etiqueta única para Acciones del dormitorio
+
+            $row_index++;
+        }
+
+        // Baño
+        $banios = Banio::where('cod_familia', $cod_familia)->get();
+
+        $templateProcessor->cloneRow('Detalle_Banio', count($banios)); // Clona filas para la tabla del baño
+
+        $row_index = 1;
+        foreach ($banios as $banio) {
+            $templateProcessor->setValue('Detalle_Banio#' . $row_index, $banio->detalle);
+            $templateProcessor->setValue('Respuesta_Banio#' . $row_index, $banio->respuesta);
+            $templateProcessor->setValue('Acciones_Banio#' . $row_index, $banio->acciones); // Etiqueta única para Acciones del baño
+
+            $row_index++;
+        }
+
+        // Cocina
+        $cocinas = Cocina::where('cod_familia', $cod_familia)->get();
+
+        $templateProcessor->cloneRow('Detalle_Cocina', count($cocinas)); // Clona filas para la tabla de la cocina
+
+        $row_index = 1;
+        foreach ($cocinas as $cocina) {
+            $templateProcessor->setValue('Detalle_Cocina#' . $row_index, $cocina->detalle);
+            $templateProcessor->setValue('Respuesta_Cocina#' . $row_index, $cocina->respuesta);
+            $templateProcessor->setValue('Acciones_Cocina#' . $row_index, $cocina->acciones); // Etiqueta única para Acciones de la cocina
 
             $row_index++;
         }
