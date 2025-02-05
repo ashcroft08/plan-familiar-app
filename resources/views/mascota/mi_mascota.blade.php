@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="/assets/DataTables/datatables.min.css" />
     <!-- Enlazar CSS -->
     <link rel="stylesheet" href="/assets/css/forms.css" />
+
+    <!-- Incluir el CSS de Toastify -->
+    <link rel="stylesheet" href="/assets/toastify/toastify.css" />
+    <!-- Incluir el JS de Toastify -->
+    <script src="/assets/toastify/toastify.js"></script>
 </head>
 
 <body>
@@ -378,19 +383,41 @@
                     const responseData = await response.json();
 
                     if (responseData.success) {
-                        // Mostrar mensaje de éxito
-                        alert("La mascota ha sido guardada correctamente.");
+                        Toastify({
+                            text: responseData.message,
+                            duration: 1500, // Duración del toast (3 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "green",
+                        }).showToast();
+
                         $("#crearMascotaModal").modal("hide"); // Cerrar el modal
 
-                        // Opcionalmente redirigir o actualizar la vista
-                        location.reload(); // Recargar la página para ver el nuevo recurso (ajustar si es necesario)
+                        setTimeout(() => {
+                            location
+                                .reload(); // Recargar la página para ver la nueva amenaza (ajustar si es necesario)
+                        }, 1000);
                     } else {
-                        // Mostrar el mensaje de error
-                        alert(responseData.message);
+                        Toastify({
+                            text: responseData.message,
+                            duration: 1500, // Duración del toast (3 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "red",
+                        }).showToast();
                     }
                 } catch (error) {
                     console.error("Error:", error);
-                    alert("Error al guardar a la mascota.");
+                    Toastify({
+                        text: "Hubo un problema con la solicitud",
+                        duration: 1000, // Duración del toast (3 segundos)
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red",
+                    }).showToast();
                 }
             });
     </script>
@@ -464,9 +491,16 @@
                     const responseData = await response.json();
 
                     if (responseData.success) {
-                        // Mostrar mensaje de éxito
-                        alert("La mascota ha sido actualizada correctamente.");
-                        $("#crearMascotaModal").modal("hide"); // Cerrar el modal
+                        Toastify({
+                            text: responseData.message,
+                            duration: 1500, // Duración del toast (3 segundos)
+                            close: true,
+                            gravity: "top", // Ubicación del toast en la pantalla
+                            position: "right",
+                            backgroundColor: "green",
+                        }).showToast();
+
+                        $("#editarMascotaModal").modal("hide"); // Cerrar el modal
 
                         // Opcionalmente redirigir o actualizar la vista
                         location.reload(); // Recargar la página para ver el nuevo recurso (ajustar si es necesario)
