@@ -19,6 +19,9 @@ use App\Models\Sala;
 use App\Models\Dormitorio;
 use App\Models\Banio;
 use App\Models\Cocina;
+use App\Models\VulnerabilidadVivienda;
+use App\Models\GraficoVivienda;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class ReporteController extends Controller
@@ -272,6 +275,67 @@ class ReporteController extends Controller
             $templateProcessor->setValue('Acciones_Cocina#' . $row_index, $cocina->acciones); // Etiqueta única para Acciones de la cocina
 
             $row_index++;
+        }
+
+        // Resumen de la vulnerabilidad de la vivienda
+        $vulnerabilidades = VulnerabilidadVivienda::where('cod_familia', $cod_familia)->get();
+
+        $templateProcessor->cloneRow('Detalle', count($vulnerabilidades)); // Clona filas para la tabla
+
+        $row_index = 1;
+        foreach ($vulnerabilidades as $vulnerabilidad) {
+            $templateProcessor->setValue('Detalle#' . $row_index, $vulnerabilidad->detalle);
+
+            // Asigna valores a las celdas de "Espacio Físico"
+            $templateProcessor->setValue('Toda_Vivienda#' . $row_index, $vulnerabilidad->toda_vivienda ? 'x' : ''); // Marca con 'x' si es vulnerable
+            $templateProcessor->setValue('Comedor#' . $row_index, $vulnerabilidad->comedor ? 'x' : '');
+            $templateProcessor->setValue('Sala#' . $row_index, $vulnerabilidad->sala ? 'x' : '');
+            $templateProcessor->setValue('Dormitorio#' . $row_index, $vulnerabilidad->dormitorio ? 'x' : '');
+            $templateProcessor->setValue('Banio#' . $row_index, $vulnerabilidad->banio ? 'x' : '');
+            $templateProcessor->setValue('Cocina#' . $row_index, $vulnerabilidad->cocina ? 'x' : '');
+
+            $templateProcessor->setValue('Acciones_Vulnerabilidad#' . $row_index, $vulnerabilidad->acciones); // Etiqueta única
+
+            $row_index++;
+        }
+
+        // Gráfico de la Vivienda
+        $graficoVivienda = GraficoVivienda::where('cod_familia', $cod_familia)->first();
+
+        if ($graficoVivienda) {
+            // Interior de la vivienda
+            $interiorPath = storage_path('app/public/images/grafico_vivienda_interior/' . $graficoVivienda->interior_vivienda);
+
+            if (file_exists($interiorPath)) {
+                try {
+                    $templateProcessor->setImageValue('Interior_Vivienda', $interiorPath);
+                } catch (\Exception $e) {
+                    Log::error('Error al insertar imagen Interior_Vivienda: ' . $e->getMessage());
+                    $templateProcessor->setValue('Interior_Vivienda', 'Error al cargar imagen');
+                }
+            } else {
+                Log::warning('Imagen Interior_Vivienda no encontrada: ' . $interiorPath);
+                $templateProcessor->setValue('Interior_Vivienda', 'Imagen no encontrada');
+            }
+
+            // Barrio/Recinto/Comunidad (BRC) - Repetir el mismo patrón
+            $brcPath = storage_path('app/public/images/grafico_vivienda_exterior/' . $graficoVivienda->brc);
+
+            if (file_exists($brcPath)) {
+                try {
+                    $templateProcessor->setImageValue('Barrio_Recinto_Comunidad', $brcPath);
+                } catch (\Exception $e) {
+                    Log::error('Error al insertar imagen Barrio_Recinto_Comunidad: ' . $e->getMessage());
+                    $templateProcessor->setValue('Barrio_Recinto_Comunidad', 'Error al cargar imagen');
+                }
+            } else {
+                Log::warning('Imagen Barrio_Recinto_Comunidad no encontrada: ' . $brcPath);
+                $templateProcessor->setValue('Barrio_Recinto_Comunidad', 'Imagen no encontrada');
+            }
+
+            // Coordenadas
+            $templateProcessor->setValue('Coordenada_X', $graficoVivienda->coordenada_x);
+            $templateProcessor->setValue('Coordenada_Y', $graficoVivienda->coordenada_y);
         }
 
         // 📂 Generar el documento en memoria
