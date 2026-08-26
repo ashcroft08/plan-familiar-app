@@ -1,26 +1,121 @@
-# Lumen PHP Framework
+# Plan Familiar App
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/lumen)](https://packagist.org/packages/laravel/lumen-framework)
+![PHP](https://img.shields.io/badge/PHP-%5E8.1-8892BF?logo=php&logoColor=white)
+![Lumen](https://img.shields.io/badge/Lumen-10.x-FF2D20?logo=laravel&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)
+![Licencia](https://img.shields.io/badge/Licencia-MIT-green.svg)
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+Sistema web para elaborar el **Plan Familiar de Emergencia** en el marco de la gestión de riesgos de desastres. Guía a la familia paso a paso —desde la información general y la identificación de amenazas hasta los planes de acción y la evaluación de la vivienda— y genera el plan final como documento **Word (.docx)** listo para imprimir.
 
-> **Note:** In the years since releasing Lumen, PHP has made a variety of wonderful performance improvements. For this reason, along with the availability of [Laravel Octane](https://laravel.com/docs/octane), we no longer recommend that you begin new projects with Lumen. Instead, we recommend always beginning new projects with [Laravel](https://laravel.com).
+## Funcionalidades
 
-## Official Documentation
+| Módulo | Descripción |
+|--------|-------------|
+| Dashboard | Lista los planes familiares registrados y permite eliminarlos |
+| Información general | Datos de la familia acogiente: dirección, teléfono, provincia y cantón |
+| Integrantes de la familia | Registro y edición de cada integrante del hogar |
+| Amenazas | Catálogo de amenazas de la zona |
+| Identificación de amenazas | Amenazas que afectan a la familia |
+| Lugares de evacuación y encuentro | Puntos de encuentro y rutas de evacuación |
+| Recursos familiares disponibles | Recursos con los que cuenta la familia |
+| Plan de acción | Medidas de reducción, respuesta y recuperación |
+| Números de emergencia | Contactos de emergencia del plan |
+| Mi mascota | Datos de las mascotas del hogar |
+| Vivienda | Estructura general y evaluación por ambientes: comedor, sala, dormitorio, baño y cocina |
+| Resumen de vulnerabilidad | Consolidado de la vulnerabilidad de la vivienda |
+| Gráfico de vivienda | Visualización gráfica de la evaluación |
+| Reporte Word | Genera el documento completo del plan familiar en formato .docx |
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+## Stack tecnológico
 
-## Contributing
+| Tecnología | Uso |
+|------------|-----|
+| PHP ^8.1 | Lenguaje |
+| Lumen 10 (Laravel) | Microframework |
+| Eloquent ORM + MySQL | Persistencia |
+| Blade | Motor de vistas |
+| PHPWord ^1.3 | Generación del reporte .docx |
+| PHPUnit ^10 | Pruebas |
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Instalación
 
-## Security Vulnerabilities
+### Requisitos previos
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+- PHP >= 8.1 (extensiones: `pdo`, `pdo_mysql`, `mbstring`, `openssl`)
+- Composer
+- MySQL
 
-## License
+### Pasos
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Clonar el repositorio e instalar dependencias:
+
+    ```bash
+    git clone https://github.com/ashcroft08/plan-familiar-app.git
+    cd plan-familiar-app
+    composer install
+    ```
+
+2. Crear el archivo de entorno (Windows: `copy .env.example .env`):
+
+    ```bash
+    cp .env.example .env
+    ```
+
+3. Crear la base de datos:
+
+    ```sql
+    CREATE DATABASE plan_familiar CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+    ```
+
+4. Configurar la conexión en `.env`:
+
+    ```env
+    DB_CONNECTION=mysql
+    DB_DATABASE=plan_familiar
+    DB_USERNAME=tu_usuario
+    DB_PASSWORD=tu_contraseña
+    ```
+
+5. Ejecutar las migraciones:
+
+    ```bash
+    php artisan migrate
+    ```
+
+6. Levantar el servidor de desarrollo:
+
+    ```bash
+    php -S localhost:8000 -t public
+    ```
+
+Abrir [http://localhost:8000](http://localhost:8000) en el navegador.
+
+## Uso
+
+1. Desde el **dashboard**, crear un plan completando la información general de la familia.
+2. Completar los módulos del plan: integrantes, amenazas, lugares de evacuación, planes de acción, vivienda, etc.
+3. Descargar el reporte final en Word desde el dashboard (`/generar-word/{cod_familia}`).
+
+## Estructura del proyecto
+
+```
+plan-familiar-app/
+├── app/
+│   ├── Http/Controllers/    # Controladores (uno por módulo)
+│   └── Models/              # Modelos Eloquent
+├── database/
+│   └── migrations/          # Esquema de la base de datos
+├── resources/views/         # Vistas Blade organizadas por módulo
+├── routes/web.php           # Todas las rutas de la aplicación
+└── public/                  # Punto de entrada (index.php)
+```
+
+## Pruebas
+
+```bash
+vendor/bin/phpunit
+```
+
+## Licencia
+
+Este proyecto está licenciado bajo la [Licencia MIT](LICENSE).
