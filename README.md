@@ -3,6 +3,7 @@
 ![PHP](https://img.shields.io/badge/PHP-%5E8.1-8892BF?logo=php&logoColor=white)
 ![Lumen](https://img.shields.io/badge/Lumen-10.x-FF2D20?logo=laravel&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)
+[![CI](https://github.com/ashcroft08/plan-familiar-app/actions/workflows/ci.yml/badge.svg)](https://github.com/ashcroft08/plan-familiar-app/actions/workflows/ci.yml)
 ![Licencia](https://img.shields.io/badge/Licencia-MIT-green.svg)
 
 Sistema web para elaborar el **Plan Familiar de Emergencia** en el marco de la gestión de riesgos de desastres. Guía a la familia paso a paso —desde la información general y la identificación de amenazas hasta los planes de acción y la evaluación de la vivienda— y genera el plan final como documento **Word (.docx)** listo para imprimir.
