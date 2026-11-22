@@ -19,6 +19,21 @@ jobs:
       fail-fast: false
       matrix:
         php: ['8.2', '8.3']
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: plan_familiar_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -ppassword"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
     steps:
       - uses: actions/checkout@v4
 
@@ -40,7 +55,25 @@ jobs:
         run: composer install --no-interaction --no-progress --prefer-dist
 
       - name: Preparar entorno
-        run: cp .env.example .env
+        run: |
+          cp .env.example .env
+          {
+            echo "APP_ENV=testing"
+            echo "DB_CONNECTION=mysql"
+            echo "DB_HOST=127.0.0.1"
+            echo "DB_PORT=3306"
+            echo "DB_DATABASE=plan_familiar_test"
+            echo "DB_USERNAME=root"
+            echo "DB_PASSWORD=password"
+          } >> .env
+
+      - name: Esperar a MySQL y migrar
+        run: |
+          for i in $(seq 1 30); do
+            php -r '$c = @new PDO("mysql:host=127.0.0.1;port=3306", "root", "password"); exit($c ? 0 : 1);' && break
+            sleep 2
+          done
+          php artisan migrate --force
 
       - name: Ejecutar pruebas
         run: vendor/bin/phpunit --colors=never
